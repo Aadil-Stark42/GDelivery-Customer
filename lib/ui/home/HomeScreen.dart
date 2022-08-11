@@ -1,0 +1,129 @@
+import 'package:flutter/material.dart';
+
+import 'package:gdeliverycustomer/res/ResColor.dart';
+
+import '../../res/ResString.dart';
+import 'AppMaintainanceScreen.dart';
+import 'homesubscreen/CartSubScreen.dart';
+import 'homesubscreen/CategorySearchScreen.dart';
+import 'homesubscreen/HomeSubScreen.dart';
+import 'homesubscreen/ProfileScreen.dart';
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomeScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class MyHomeScreen extends StatefulWidget {
+  @override
+  MyHomeScreenState createState() => MyHomeScreenState();
+}
+
+class MyHomeScreenState extends State<MyHomeScreen> {
+  int currentIndex = 0;
+
+  /*final List<Widget> viewContainer = [
+    HomeSubScreen(),
+    CategorySearchScreen(),
+    CartSubScreen(false, true, () {}),
+    ProfileScreen(),
+  ];
+
+  void onTabTapped(int index) {
+    setState(() {
+      if (CHECKAPPSTATUS == STATUSNUMBER) {
+        if (index == 1 || index == 2) {
+          viewContainer[index] = AppMaintainanceScreen(false);
+        }
+      } else {
+        if (index == 1) {
+          viewContainer[index] = CategorySearchScreen();
+        } else if (index == 2) {
+          viewContainer[index] = CartSubScreen(false, true, () {});
+        }
+      }
+      currentIndex = index;
+    });
+  }
+*/
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      backgroundColor: WhiteColor,
+      body: bottomView(),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+        child: BottomNavigationBar(
+            backgroundColor: MainColor,
+            selectedItemColor: WhiteColor,
+            type: BottomNavigationBarType.fixed,
+            unselectedItemColor: lightWhiteColor,
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            // new
+
+            currentIndex: currentIndex,
+            items: [
+              BottomNavigationBarItem(
+                icon: const Icon(
+                  Icons.home_outlined,
+                ),
+                label: Home,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.search),
+                label: Categoryy,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.shopping_cart_outlined),
+                label: Cart,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.person_outlined),
+                label: Profile,
+              )
+            ]),
+      ),
+    );
+  }
+
+  Widget bottomView() {
+    if (CHECKAPPSTATUS == STATUSNUMBER) {
+      if (currentIndex == 1 || currentIndex == 2) {
+        return AppMaintainanceScreen(false);
+      } else {
+        if (currentIndex == 0) {
+          return HomeSubScreen();
+        } else {
+          return ProfileScreen();
+        }
+      }
+    } else {
+      if (currentIndex == 0) {
+        return HomeSubScreen();
+      } else if (currentIndex == 1) {
+        return CategorySearchScreen();
+      } else if (currentIndex == 2) {
+        return CartSubScreen(false, true, () {});
+      } else {
+        return ProfileScreen();
+      }
+    }
+  }
+}
