@@ -39,7 +39,7 @@ class RoundedInputField extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: TextField(
           onChanged: onChanged,
-          cursorColor: MainColor,
+          cursorColor: mainColor,
           keyboardType: inputType,
           inputFormatters: [
             formatter,
@@ -48,11 +48,11 @@ class RoundedInputField extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontFamily: Segoe_ui_semibold,
               fontSize: 13,
-              color: GreyColor),
+              color: greyColor),
           decoration: InputDecoration(
             icon: Icon(
               icon,
-              color: GreyColor,
+              color: greyColor,
               size: 20,
             ),
             hintText: hintText,

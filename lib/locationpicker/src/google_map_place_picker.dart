@@ -443,7 +443,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
                   image: AssetImage("${imagePath}location.png"),
                   width: 22,
                   height: 22,
-                  color: MainColor,
+                  color: mainColor,
                 ),
                 const SizedBox(
                   width: 5.0,
@@ -456,7 +456,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
                         fontSize: 14,
                         height: 1.1,
                         fontFamily: Segoeui,
-                        color: BlackColor),
+                        color: blackColor),
                   ),
                 )
               ],
@@ -471,7 +471,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
                 /*controller: TextEditingController()..text = House.toString(),*/
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: MainColor)),
+                      borderSide: BorderSide(color: mainColor)),
                   hintText: HOUSEFLATBLOCK,
                   labelText: HOUSEFLATBLOCK,
                 ),
@@ -491,7 +491,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
                           },
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: MainColor)),
+                                borderSide: BorderSide(color: mainColor)),
                             hintText: LANDMARKOPTIONAL,
                             labelText: LANDMARKOPTIONAL,
                           ),
@@ -507,7 +507,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 15,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2,
+                            color: blackColor2,
                           ),
                         ),
                       ),
@@ -522,9 +522,9 @@ class GoogleMapPlacePicker extends StatelessWidget {
                               CornerReduis: 18.0,
                               BorderWidth: 0.8,
                               BackgroundColor:
-                                  isHomeClick == true ? MainColor : WhiteColor,
+                                  isHomeClick == true ? mainColor : whiteColor,
                               ForgroundColor:
-                                  isHomeClick == true ? WhiteColor : GreyColor,
+                                  isHomeClick == true ? whiteColor : greyColor,
                               PaddingLeft: 10,
                               PaddingRight: 10,
                               PaddingTop: 0,
@@ -550,9 +550,9 @@ class GoogleMapPlacePicker extends StatelessWidget {
                               CornerReduis: 18.0,
                               BorderWidth: 0.8,
                               BackgroundColor:
-                                  isWorkClick == true ? MainColor : WhiteColor,
+                                  isWorkClick == true ? mainColor : whiteColor,
                               ForgroundColor:
-                                  isWorkClick == true ? WhiteColor : GreyColor,
+                                  isWorkClick == true ? whiteColor : greyColor,
                               PaddingLeft: 10,
                               PaddingRight: 10,
                               PaddingTop: 0,
@@ -578,9 +578,9 @@ class GoogleMapPlacePicker extends StatelessWidget {
                               CornerReduis: 18.0,
                               BorderWidth: 0.8,
                               BackgroundColor:
-                                  isOtherClick == true ? MainColor : WhiteColor,
+                                  isOtherClick == true ? mainColor : whiteColor,
                               ForgroundColor:
-                                  isOtherClick == true ? WhiteColor : GreyColor,
+                                  isOtherClick == true ? whiteColor : greyColor,
                               PaddingLeft: 10,
                               PaddingRight: 10,
                               PaddingTop: 0,
@@ -605,7 +605,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
               child: Text(
                 IsComeFromHome == true ? SelectAddress : SaveAddress,
                 style: TextStyle(
-                  color: WhiteColor,
+                  color: whiteColor,
                   fontFamily: Segoe_ui_semibold,
                   height: 1.1,
                 ),
@@ -643,8 +643,8 @@ class GoogleMapPlacePicker extends StatelessWidget {
                 }
               },
               buttonState: buttonState,
-              backgroundColor: MainColor,
-              progressColor: WhiteColor,
+              backgroundColor: mainColor,
+              progressColor: whiteColor,
               border_radius: Full_Rounded_Button_Corner,
             )
             /*      (canBePicked && (selectText?.isEmpty ?? true)) ||

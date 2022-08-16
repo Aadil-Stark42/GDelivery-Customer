@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:gdeliverycustomer/main.dart';
 
 import 'package:gdeliverycustomer/res/ResColor.dart';
@@ -40,285 +38,334 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      appBar: AppBar(
-        elevation: 0.5,
-        backgroundColor: WhiteColor,
-        title: Text(
-          Profile,
-          overflow: TextOverflow.ellipsis,
-          softWrap: true,
-          style: TextStyle(
-              fontSize: 16, fontFamily: Segoe_ui_bold, color: BlackColor),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          User_Name,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: Segoe_ui_bold,
-                              color: BlackColor),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          User_Mobile,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: Segoe_ui_bold,
-                              color: GreyColor),
-                        )
-                      ],
-                    )),
-                    InkWell(
-                      onTap: () {
-                        ChangeProfileDialog();
-                      },
-                      child: Text(
-                        "Change",
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: Segoe_ui_semibold,
-                            color: MainColor),
+            Container(
+              width: double.maxFinite,
+              color: mainColor,
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        imagePath + "ic_back.png",
+                        width: 30,
+                        height: 30,
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 0.5,
-                  color: GreyColor2,
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                InkWell(
-                  onTap: () {
-                    if (CHECKAPPSTATUS == STATUSNUMBER) {
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) => AppMaintainanceScreen(true)),
-                      );
-                    } else {
-                      Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(
-                        builder: (context) =>
-                            SelectAddressScreen(true, "", false),
-                      ));
-                    }
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Text(
-                        Address,
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        Profile,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
                         style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: Segoeui,
-                            color: BlackColor),
-                      )),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 18,
-                        color: MainColor,
-                      )
+                            fontSize: 17,
+                            height: 1.0,
+                            fontFamily: Segoe_ui_bold,
+                            color: whiteColor),
+                      ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                InkWell(
-                  onTap: () {
-                    if (CHECKAPPSTATUS == STATUSNUMBER) {
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) => AppMaintainanceScreen(true)),
-                      );
-                    } else {
-                      Navigator.of(context, rootNavigator: true).push(
-                        MaterialPageRoute(
-                            builder: (context) => MyOrdersScreen()),
-                      );
-                    }
-                  },
-                  child: Row(
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
                     children: [
                       Expanded(
-                          child: Text(
-                        Orders,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: Segoeui,
-                            color: BlackColor),
+                          child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(7),
+                            child: Image.asset(
+                              imagePath + "temp_profile.png",
+                              width: 47,
+                              height: 47,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                User_Name,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    height: 1.0,
+                                    fontFamily: Raleway_Medium,
+                                    fontWeight: FontWeight.bold,
+                                    color: whiteColor),
+                              ),
+                              SizedBox(height: 12),
+                              Text(
+                                User_Mobile,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    height: 1.0,
+                                    fontFamily: Raleway_Regular,
+                                    color: lightWhiteColor),
+                              )
+                            ],
+                          ),
+                        ],
                       )),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 18,
-                        color: MainColor,
+                      InkWell(
+                        onTap: () {
+                          ChangeProfileDialog();
+                        },
+                        child: Text(
+                          "Change",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: Segoe_ui_semibold,
+                              color: whiteColor),
+                        ),
                       )
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                InkWell(
-                  onTap: () {
-                    /* _launchUrl();*/
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) =>
-                          TermsAndConditionScreen(TERMS_CONDITION),
-                    ));
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Text(
-                        TermsandConditions,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: Segoeui,
-                            color: BlackColor),
-                      )),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 18,
-                        color: MainColor,
-                      )
-                    ],
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                InkWell(
-                  onTap: () {
-                    /*_launchUrlPrivacy();*/
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) =>
-                          TermsAndConditionScreen(PRIVACY_POLICY),
-                    ));
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Text(
-                        PrivacyPolicy,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: Segoeui,
-                            color: BlackColor),
-                      )),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 18,
-                        color: MainColor,
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                InkWell(
-                  onTap: () {
-                    StoreRedirect.redirect();
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Text(
-                        Rateus,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: Segoeui,
-                            color: BlackColor),
-                      )),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 18,
-                        color: MainColor,
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) => CantactUsScreen(),
-                    ));
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Text(
-                        ContactUs,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: Segoeui,
-                            color: BlackColor),
-                      )),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 18,
-                        color: MainColor,
-                      )
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 25, right: 25, top: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (CHECKAPPSTATUS == STATUSNUMBER) {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AppMaintainanceScreen(true)),
+                            );
+                          } else {
+                            Navigator.of(context, rootNavigator: true)
+                                .push(MaterialPageRoute(
+                              builder: (context) =>
+                                  SelectAddressScreen(true, "", false),
+                            ));
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              Address,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: Segoeui,
+                                  color: blackColor),
+                            )),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 18,
+                              color: mainColor,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (CHECKAPPSTATUS == STATUSNUMBER) {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AppMaintainanceScreen(true)),
+                            );
+                          } else {
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (context) => MyOrdersScreen()),
+                            );
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              Orders,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: Segoeui,
+                                  color: blackColor),
+                            )),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 18,
+                              color: mainColor,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          /* _launchUrl();*/
+                          Navigator.of(context, rootNavigator: true)
+                              .push(MaterialPageRoute(
+                            builder: (context) =>
+                                TermsAndConditionScreen(TERMS_CONDITION),
+                          ));
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              TermsandConditions,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: Segoeui,
+                                  color: blackColor),
+                            )),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 18,
+                              color: mainColor,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          /*_launchUrlPrivacy();*/
+                          Navigator.of(context, rootNavigator: true)
+                              .push(MaterialPageRoute(
+                            builder: (context) =>
+                                TermsAndConditionScreen(PRIVACY_POLICY),
+                          ));
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              PrivacyPolicy,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: Segoeui,
+                                  color: blackColor),
+                            )),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 18,
+                              color: mainColor,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          StoreRedirect.redirect();
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              Rateus,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: Segoeui,
+                                  color: blackColor),
+                            )),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 18,
+                              color: mainColor,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .push(MaterialPageRoute(
+                            builder: (context) => CantactUsScreen(),
+                          ));
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              ContactUs,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: Segoeui,
+                                  color: blackColor),
+                            )),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 18,
+                              color: mainColor,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
               child: Column(
                 children: [
                   ProgressButton(
                     child: Text(
                       Logout,
                       style: TextStyle(
-                        color: WhiteColor,
+                        color: whiteColor,
                         fontFamily: Segoe_ui_semibold,
                         height: 1.1,
                       ),
@@ -327,8 +374,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                       LogoutDialogShow(context);
                     },
                     buttonState: buttonState,
-                    backgroundColor: MainColor,
-                    progressColor: WhiteColor,
+                    backgroundColor: mainColor,
+                    progressColor: whiteColor,
                     border_radius: Rounded_Button_Corner,
                   ),
                   SizedBox(
@@ -341,7 +388,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                         fontSize: 12,
                         fontFamily: Segoeui,
-                        color: TransBlackColor),
+                        color: transBlackColor),
                   ),
                   SizedBox(
                     height: 3,
@@ -402,7 +449,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: Inter_bold,
-                            color: BlackColor),
+                            color: blackColor),
                       ),
                       SizedBox(
                         height: 40,
@@ -416,15 +463,15 @@ class ProfileScreenState extends State<ProfileScreen> {
                           controller: textEditingController,
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: MainColor)),
+                                  borderSide: BorderSide(color: mainColor)),
                               hintText: HintName,
                               labelText: HintName,
                               prefixIcon: Icon(Icons.person_outlined,
-                                  color: GreyColor)),
+                                  color: greyColor)),
                           style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                       ),
@@ -443,15 +490,15 @@ class ProfileScreenState extends State<ProfileScreen> {
                             ..text = User_Mobile,
                           decoration: InputDecoration(
                               border: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: MainColor)),
+                                  borderSide: BorderSide(color: mainColor)),
                               hintText: MobileNumber,
                               labelText: MobileNumber,
                               prefixIcon:
-                                  Icon(Icons.phone_android, color: GreyColor)),
+                                  Icon(Icons.phone_android, color: greyColor)),
                           style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                       ),
@@ -463,7 +510,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       child: Text(
                         SaveDetails,
                         style: TextStyle(
-                          color: WhiteColor,
+                          color: whiteColor,
                           fontFamily: Segoe_ui_semibold,
                           height: 1.1,
                         ),
@@ -475,8 +522,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                         SaveUserProfile(Name);
                       },
                       buttonState: buttonState,
-                      backgroundColor: MainColor,
-                      progressColor: WhiteColor,
+                      backgroundColor: mainColor,
+                      progressColor: whiteColor,
                       border_radius: Full_Rounded_Button_Corner,
                     ),
                   )
@@ -514,7 +561,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   LogoutDialogShow(BuildContext context) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("No", style: TextStyle(color: MainColor)),
+      child: Text("No", style: TextStyle(color: mainColor)),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop('dialog');
       },
@@ -522,7 +569,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     Widget continueButton = TextButton(
       child: Text(
         "Yes",
-        style: TextStyle(color: MainColor),
+        style: TextStyle(color: mainColor),
       ),
       onPressed: () {
         ClearLocalData();

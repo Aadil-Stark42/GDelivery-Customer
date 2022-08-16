@@ -78,12 +78,10 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
-        child: SafeArea(
-            child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -98,7 +96,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: Inter_bold,
-                          color: BlackColor),
+                          color: blackColor),
                     ),
                     Row(
                       children: [
@@ -128,7 +126,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             style: TextStyle(
                                 fontSize: 13,
                                 fontFamily: Segoe_ui_semibold,
-                                color: MainColor),
+                                color: mainColor),
                           ),
                         ),
                         SizedBox(
@@ -144,7 +142,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             style: TextStyle(
                                 fontSize: 13,
                                 fontFamily: Segoe_ui_semibold,
-                                color: MainColor),
+                                color: mainColor),
                           ),
                         ),
                       ],
@@ -155,7 +153,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
               Container(
                 width: double.maxFinite,
                 height: 0.5,
-                color: GreyColor2,
+                color: greyColor2,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,8 +195,8 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                                           fontFamily: Segoe_ui_semibold,
                                           color:
                                               FilterTitleCurrentIndex == index
-                                                  ? BlackColor
-                                                  : GreyColor),
+                                                  ? blackColor
+                                                  : greyColor),
                                     ),
                                   ),
                                 )),
@@ -216,7 +214,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
               )
             ],
           ),
-        )),
+        ),
       ),
     );
   }
@@ -254,7 +252,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             : "${imagePath}unselect_button.png",
                         height: 25,
                         width: 25,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                       SizedBox(
                         width: 10,
@@ -265,8 +263,8 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             fontSize: 16,
                             fontFamily: Segoe_ui_semibold,
                             color: FilterSelectedIndex == index
-                                ? BlackColor
-                                : GreyColor),
+                                ? blackColor
+                                : greyColor),
                       ),
                     ],
                   ),
@@ -316,7 +314,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             : "${imagePath}unselect_button.png",
                         height: 25,
                         width: 25,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                       SizedBox(
                         width: 10,
@@ -331,8 +329,8 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             color: widget.cuisinesListDataModel.cuisines![index]
                                         .isCheck ==
                                     true
-                                ? BlackColor
-                                : GreyColor),
+                                ? blackColor
+                                : greyColor),
                       ),
                     ],
                   ),
@@ -374,7 +372,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             : "${imagePath}unselect_button.png",
                         height: 25,
                         width: 25,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                       SizedBox(
                         width: 10,
@@ -385,8 +383,8 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             fontSize: 16,
                             fontFamily: Segoe_ui_semibold,
                             color: FilterSelectedIndex == index
-                                ? BlackColor
-                                : GreyColor),
+                                ? blackColor
+                                : greyColor),
                       ),
                     ],
                   ),
@@ -428,7 +426,7 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             : "${imagePath}unselect_button.png",
                         height: 25,
                         width: 25,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                       SizedBox(
                         width: 10,
@@ -439,8 +437,8 @@ class CustomFilterSheetMenuState extends State<CustomFilterSheetMenu>
                             fontSize: 16,
                             fontFamily: Segoe_ui_semibold,
                             color: FilterSelectedIndex == index
-                                ? BlackColor
-                                : GreyColor),
+                                ? blackColor
+                                : greyColor),
                       ),
                     ],
                   ),

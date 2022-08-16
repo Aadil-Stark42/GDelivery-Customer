@@ -12,9 +12,9 @@ class Rounded_search_input_field extends StatelessWidget {
   final double Corner_radius;
   final double horizontal_margin;
   final double elevations;
-  final ValueSetter<String> SubmittListner  ;
+  final ValueSetter<String> SubmittListner;
 
-    Rounded_search_input_field({
+  Rounded_search_input_field({
     Key? key,
     required this.hintText,
     required this.icon,
@@ -35,20 +35,20 @@ class Rounded_search_input_field extends StatelessWidget {
       elevations: elevations,
       child: TextField(
         onChanged: onChanged,
-        onSubmitted: (value){
+        onSubmitted: (value) {
           SubmittListner(value);
         },
-        cursorColor: MainColor,
+        cursorColor: mainColor,
         keyboardType: inputType,
         style: TextStyle(
             fontWeight: FontWeight.bold,
             fontFamily: Segoe_ui_semibold,
             fontSize: 13,
-            color: GreyColor),
+            color: greyColor),
         decoration: InputDecoration(
           icon: Icon(
             icon,
-            color: GreyColor,
+            color: greyColor,
             size: 20,
           ),
           hintText: hintText,

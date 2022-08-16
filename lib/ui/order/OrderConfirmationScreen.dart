@@ -1,27 +1,15 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
-import 'package:gdeliverycustomer/models/OrderDetailsDataModel.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
 import 'package:gdeliverycustomer/ui/home/HomeScreen.dart';
-import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../apiservice/ApiService.dart';
-import '../../../apiservice/EndPoints.dart';
 import '../../../res/ResString.dart';
 import '../../../uicomponents/MyProgressBar.dart';
 import '../../models/OrderConfirmDataModel.dart';
-import '../../models/OrderSummaryDataModel.dart';
-import '../../uicomponents/RoundedBorderButton.dart';
-import '../../uicomponents/progress_button.dart';
 import '../../uicomponents/rounded_button.dart';
-import '../../utils/Utils.dart';
 
 class OrderConfirmationScreen extends StatefulWidget {
   final OrderConfirmDataModel orderConfirmDataModel;
@@ -53,13 +41,13 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
         return Future.value(false);
       },
       child: Scaffold(
-        backgroundColor: WhiteColor,
+        backgroundColor: whiteColor,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
               automaticallyImplyLeading: false,
               pinned: false,
-              backgroundColor: WhiteColor,
+              backgroundColor: whiteColor,
               floating: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(),
@@ -88,7 +76,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: Inter_bold,
-                        color: BlackColor),
+                        color: blackColor),
                   ),
                 ],
               ),
@@ -98,7 +86,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: RoundedButton(
-          color: MainColor,
+          color: mainColor,
           text: CONTINUESHOPPING,
           corner_radius: Rounded_Button_Corner,
           press: () {
@@ -144,7 +132,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: Inter_bold,
-                          color: BlackColor),
+                          color: blackColor),
                     ),
                     SizedBox(
                       width: 7,
@@ -162,7 +150,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                 Text(
                   widget.orderConfirmDataModel.orderDetails!.orderId.toString(),
                   style: TextStyle(
-                      color: BlackColor,
+                      color: blackColor,
                       fontFamily: Poppinsmedium,
                       height: 1.1,
                       fontSize: 14),
@@ -175,7 +163,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
             Text(
               YourOrders,
               style: TextStyle(
-                  fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                  fontSize: 17, fontFamily: Inter_bold, color: blackColor),
             ),
             SizedBox(
               height: 5,
@@ -219,7 +207,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                                     fontFamily: Segoe_ui_semibold,
                                     fontSize: 14,
                                     height: 1.0,
-                                    color: GreyColor,
+                                    color: greyColor,
                                   ),
                                 )
                               ],
@@ -234,7 +222,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                             style: TextStyle(
                                 fontSize: 13,
                                 fontFamily: Segoe_ui_semibold,
-                                color: GreyColor),
+                                color: greyColor),
                           ),
                           SizedBox(
                             width: 10,
@@ -263,7 +251,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 12,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     ),
                     Text(
@@ -272,7 +260,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 13,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     )
                   ],
@@ -290,7 +278,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 12,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     ),
                     Text(
@@ -299,7 +287,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 13,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     )
                   ],
@@ -317,7 +305,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 12,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     ),
                     Text(
@@ -326,7 +314,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 13,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     )
                   ],
@@ -344,7 +332,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 12,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     ),
                     Text(
@@ -353,7 +341,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 13,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     )
                   ],
@@ -371,7 +359,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 12,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     ),
                     Text(
@@ -383,7 +371,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 13,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     )
                   ],
@@ -401,7 +389,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Segoe_ui_bold,
                         fontSize: 18,
                         height: 1.0,
-                        color: BlackColor,
+                        color: blackColor,
                       ),
                     ),
                     Text(
@@ -410,7 +398,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         fontFamily: Segoe_ui_bold,
                         fontSize: 18,
                         height: 1.0,
-                        color: BlackColor,
+                        color: blackColor,
                       ),
                     )
                   ],
@@ -424,7 +412,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                     fontFamily: Poppinsmedium,
                     fontSize: 10,
                     height: 1.0,
-                    color: GreyColor,
+                    color: greyColor,
                   ),
                 ),
               ],
@@ -435,7 +423,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
             Container(
               width: double.maxFinite,
               height: 0.5,
-              color: GreyColor2,
+              color: greyColor2,
             ),
             SizedBox(
               height: 18,
@@ -446,7 +434,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                 Text(
                   OrderDetailss,
                   style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -461,7 +449,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -472,7 +460,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -490,7 +478,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -501,7 +489,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -519,7 +507,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -533,7 +521,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -551,7 +539,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -568,7 +556,7 @@ class OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),

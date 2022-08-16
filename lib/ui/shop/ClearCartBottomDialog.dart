@@ -1,29 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
-import 'package:gdeliverycustomer/models/ShopProductDataModel.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
-import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../apiservice/ApiService.dart';
-import '../../../apiservice/EndPoints.dart';
 import '../../../res/ResString.dart';
 import '../../../uicomponents/progress_button.dart';
-import '../../../utils/Utils.dart';
-import '../../animationlist/src/animation_configuration.dart';
-import '../../animationlist/src/animation_limiter.dart';
-import '../../animationlist/src/fade_in_animation.dart';
-import '../../animationlist/src/slide_animation.dart';
-import '../../models/ProductToppingDataModel.dart';
-import '../../models/ShopDetailsDataModel.dart';
-import '../../uicomponents/CustomTabView.dart';
-import '../../uicomponents/MyProgressBar.dart';
-import 'MainTappingView.dart';
-import 'ShopDetailsHeader.dart';
 
 class ClearCartBottomDialog extends StatefulWidget {
   final VoidCallback Positivepress, Nagetivepress;
@@ -62,7 +43,7 @@ class ClearCartBottomDialogState extends State<ClearCartBottomDialog>
                 },
                 child: Icon(
                   Icons.close_rounded,
-                  color: BlackColor,
+                  color: blackColor,
                 ),
               )),
           Positioned(
@@ -91,7 +72,7 @@ class ClearCartBottomDialogState extends State<ClearCartBottomDialog>
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: Segoe_ui_bold,
-                        color: BlackColor),
+                        color: blackColor),
                   ),
                   SizedBox(
                     height: 15,
@@ -103,7 +84,7 @@ class ClearCartBottomDialogState extends State<ClearCartBottomDialog>
                     style: TextStyle(
                         fontSize: 13,
                         fontFamily: Poppinsmedium,
-                        color: GreyColor),
+                        color: greyColor),
                   ),
                   SizedBox(
                     height: 50,
@@ -120,14 +101,14 @@ class ClearCartBottomDialogState extends State<ClearCartBottomDialog>
                                           EdgeInsets.all(15)),
                                   foregroundColor:
                                       MaterialStateProperty.all<Color>(
-                                          MainColor),
+                                          mainColor),
                                   shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(5.0),
                                           side: const BorderSide(
-                                              color: MainColor)))),
+                                              color: mainColor)))),
                               onPressed: () {
                                 Navigator.pop(context);
                                 widget.Nagetivepress();
@@ -144,16 +125,16 @@ class ClearCartBottomDialogState extends State<ClearCartBottomDialog>
                                       EdgeInsets.all(15)),
                                   foregroundColor:
                                       MaterialStateProperty.all<Color>(
-                                          WhiteColor),
+                                          whiteColor),
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
-                                          MainColor),
+                                          mainColor),
                                   shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(5.0),
-                                          side: const BorderSide(color: MainColor)))),
+                                          side: const BorderSide(color: mainColor)))),
                               onPressed: () => widget.Positivepress())),
                     ],
                   )

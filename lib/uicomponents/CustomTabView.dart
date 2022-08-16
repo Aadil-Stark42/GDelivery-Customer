@@ -103,12 +103,12 @@ class _CustomTabsState extends State<CustomTabView>
           child: TabBar(
             isScrollable: true,
             controller: controller,
-            labelColor: MainColor,
+            labelColor: mainColor,
             unselectedLabelColor: Theme.of(context).hintColor,
             indicator: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: MainColor,
+                  color: mainColor,
                   width: 2,
                 ),
               ),

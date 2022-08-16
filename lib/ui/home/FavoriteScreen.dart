@@ -36,47 +36,50 @@ class FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    statusBarColor();
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: false,
-            backgroundColor: WhiteColor,
-            floating: true,
-            snap: false,
-            flexibleSpace: FlexibleSpaceBar(),
-            elevation: 2,
-            forceElevated: true,
-            centerTitle: false,
-            leading: null,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Image.asset(imagePath + "back_arrow.png",
-                      height: 25, width: 25),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  Favorite,
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: Inter_bold, color: BlackColor),
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: false,
+              backgroundColor: whiteColor,
+              floating: true,
+              snap: false,
+              flexibleSpace: FlexibleSpaceBar(),
+              elevation: 2,
+              forceElevated: true,
+              centerTitle: false,
+              leading: null,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(imagePath + "back_arrow.png",
+                        height: 25, width: 25),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    Favorite,
+                    style: TextStyle(
+                        fontSize: 16, fontFamily: Inter_bold, color: blackColor),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SliverList(
-              delegate: SliverChildListDelegate([FevoriteListDataView()]))
-        ],
+            SliverList(
+                delegate: SliverChildListDelegate([FevoriteListDataView()]))
+          ],
+        ),
       ),
     );
   }
@@ -178,7 +181,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                             style: TextStyle(
                                                 fontSize: 17,
                                                 fontFamily: Inter_bold,
-                                                color: BlackColor),
+                                                color: blackColor),
                                           ),
                                         ),
                                       ),
@@ -199,7 +202,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                                     true
                                                 ? Icons.favorite
                                                 : Icons.favorite_border,
-                                            color: MainColor,
+                                            color: mainColor,
                                             size: 22,
                                           ),
                                         ),
@@ -223,7 +226,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                         style: TextStyle(
                                             fontSize: 11,
                                             fontFamily: Poppinsmedium,
-                                            color: GreyColor),
+                                            color: greyColor),
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -231,7 +234,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                       Icon(
                                         Icons.watch_later_outlined,
                                         size: 15,
-                                        color: GreyColor,
+                                        color: greyColor,
                                       ),
                                       SizedBox(
                                         width: 2,
@@ -244,7 +247,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                         style: TextStyle(
                                             fontSize: 11,
                                             fontFamily: Poppinsmedium,
-                                            color: GreyColor),
+                                            color: greyColor),
                                       )
                                     ],
                                   ),
@@ -258,7 +261,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                     style: TextStyle(
                                         fontSize: 11,
                                         fontFamily: Poppinsmedium,
-                                        color: GreyColor),
+                                        color: greyColor),
                                   ),
                                   SizedBox(
                                     height: 3,
@@ -276,7 +279,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                             style: TextStyle(
                                                 fontSize: 13,
                                                 fontFamily: Segoe_ui_semibold,
-                                                color: MainColor),
+                                                color: mainColor),
                                           ),
                                           const SizedBox(
                                             width: 2,
@@ -284,7 +287,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                           Icon(
                                             Icons.star_rounded,
                                             size: 15,
-                                            color: MainColor,
+                                            color: mainColor,
                                           ),
                                         ],
                                       ),
@@ -294,7 +297,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                       Container(
                                         width: 1,
                                         height: 12,
-                                        color: GreyColor2,
+                                        color: greyColor2,
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -308,7 +311,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                         style: TextStyle(
                                             fontSize: 13,
                                             fontFamily: Segoe_ui_semibold,
-                                            color: GreyColor2),
+                                            color: greyColor2),
                                       ),
                                       SizedBox(
                                         width: 4,
@@ -320,7 +323,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                                         style: TextStyle(
                                             fontSize: 13,
                                             fontFamily: Segoe_ui_semibold,
-                                            color: GreyColor2),
+                                            color: greyColor2),
                                       )
                                     ],
                                   )

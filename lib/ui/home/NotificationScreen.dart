@@ -1,34 +1,21 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
 import 'package:gdeliverycustomer/uicomponents/MyProgressBar.dart';
 import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
-import 'package:permission_handler/permission_handler.dart' as permis;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../animationlist/src/animation_configuration.dart';
 import '../../animationlist/src/animation_limiter.dart';
 import '../../animationlist/src/fade_in_animation.dart';
-import '../../animationlist/src/scale_animation.dart';
 import '../../animationlist/src/slide_animation.dart';
 import '../../apiservice/ApiService.dart';
 import '../../apiservice/EndPoints.dart';
-import '../../imageslider/carousel_slider.dart';
-import '../../models/DashBoardDataModell.dart';
 import '../../models/NotificationDataListModel.dart';
-import '../../models/WishListDataModel.dart';
 import '../../res/ResString.dart';
-import '../../uicomponents/progress_button.dart';
 import '../../utils/Utils.dart';
-import '../shop/ShopDetailsScreen.dart';
-import 'homesubscreen/CartSubScreen.dart';
-import 'homesubscreen/CategorySearchScreen.dart';
-import 'homesubscreen/HomeSubScreen.dart';
-import 'homesubscreen/ProfileScreen.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -50,45 +37,49 @@ class NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: false,
-            backgroundColor: WhiteColor,
-            floating: true,
-            snap: false,
-            flexibleSpace: FlexibleSpaceBar(),
-            elevation: 2,
-            forceElevated: true,
-            centerTitle: false,
-            leading: null,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Image.asset(imagePath + "back_arrow.png",
-                      height: 25, width: 25),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  Notifications,
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: Inter_bold, color: BlackColor),
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: false,
+              backgroundColor: whiteColor,
+              floating: true,
+              snap: false,
+              flexibleSpace: FlexibleSpaceBar(),
+              elevation: 2,
+              forceElevated: true,
+              centerTitle: false,
+              leading: null,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(imagePath + "back_arrow.png",
+                        height: 25, width: 25),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    Notifications,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: Inter_bold,
+                        color: blackColor),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SliverList(
-              delegate: SliverChildListDelegate([FevoriteListDataView()]))
-        ],
+            SliverList(
+                delegate: SliverChildListDelegate([FevoriteListDataView()]))
+          ],
+        ),
       ),
     );
   }
@@ -137,8 +128,8 @@ class NotificationScreenState extends State<NotificationScreen> {
                                             .notificationList![index].image
                                             .toString(),
                                       ),
-                                      placeholder: AssetImage(
-                                          "${imagePath}ic_logo.png"),
+                                      placeholder:
+                                          AssetImage("${imagePath}ic_logo.png"),
                                     ),
                                   ),
                                 ],
@@ -163,7 +154,7 @@ class NotificationScreenState extends State<NotificationScreen> {
                                     style: TextStyle(
                                         fontSize: 17,
                                         fontFamily: Inter_bold,
-                                        color: BlackColor),
+                                        color: blackColor),
                                   ),
                                   SizedBox(
                                     height: 2,
@@ -176,7 +167,7 @@ class NotificationScreenState extends State<NotificationScreen> {
                                     style: TextStyle(
                                         fontSize: 11,
                                         fontFamily: Poppinsmedium,
-                                        color: GreyColor),
+                                        color: greyColor),
                                   ),
                                 ],
                               ),
@@ -231,7 +222,7 @@ class NotificationScreenState extends State<NotificationScreen> {
         ),
         Image.asset(
           imagePath + "ic_notificationempty.png",
-          color: MainColor,
+          color: mainColor,
           height: 300,
           width: 300,
         ),
@@ -243,7 +234,7 @@ class NotificationScreenState extends State<NotificationScreen> {
           overflow: TextOverflow.ellipsis,
           softWrap: true,
           style: TextStyle(
-              fontSize: 16, fontFamily: Segoe_ui_semibold, color: GreyColor),
+              fontSize: 16, fontFamily: Segoe_ui_semibold, color: greyColor),
         )
       ],
     );

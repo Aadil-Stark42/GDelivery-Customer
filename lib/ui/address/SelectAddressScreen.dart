@@ -54,15 +54,13 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.dark,
-          child: SafeArea(
-              child: CustomScrollView(
+    return SafeArea(
+      child: Scaffold(
+          body: CustomScrollView(
             slivers: [
               SliverAppBar(
                   pinned: false,
-                  backgroundColor: WhiteColor,
+                  backgroundColor: whiteColor,
                   floating: true,
                   snap: false,
                   automaticallyImplyLeading: false,
@@ -86,7 +84,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                         style: TextStyle(
                             fontSize: 16,
                             fontFamily: Inter_bold,
-                            color: BlackColor),
+                            color: blackColor),
                       ),
                     ],
                   ),
@@ -110,7 +108,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                         children: [
                           const Icon(
                             Icons.add,
-                            color: MainColor,
+                            color: mainColor,
                           ),
                           const SizedBox(
                             height: 10,
@@ -120,7 +118,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: Segoe_ui_semibold,
-                              color: BlackColor,
+                              color: blackColor,
                             ),
                           )
                         ],
@@ -135,54 +133,55 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                 HandleAddressListView(),
               ]))
             ],
-          )),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Container(
-          color: MainColor,
-          height: 45,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: ProgressButton(
-              child: Text(
-                CONTINUE,
-                style: TextStyle(
-                  color: WhiteColor,
-                  fontFamily: Segoe_ui_semibold,
-                  height: 1.1,
-                ),
-              ),
-              onPressed: () {
-                if (widget.IsJustChangeAddress == false) {
-                  if (SelectedAddressId.isNotEmpty) {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                        (Route<dynamic> route) => false);
-                  } else {
-                    ShowToast("Please Pick Address", context);
-                  }
-                } else {
-                  if (widget.IsForCart) {
-                    Navigator.of(context, rootNavigator: true)
-                        .push(MaterialPageRoute(
-                      builder: (context) => OrderSummaryScreen(
-                          widget.GstPer,
-                          list![selectedIndex][address_id].toString(),
-                          list![selectedIndex][address].toString()),
-                    ));
-                  } else {
-                    Navigator.pop(context);
-                  }
-                }
-              },
-              buttonState: buttonState,
-              backgroundColor: MainColor,
-              progressColor: WhiteColor,
-              border_radius: Full_Rounded_Button_Corner,
-            ),
           ),
-        ));
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: Container(
+            color: mainColor,
+            height: 45,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: ProgressButton(
+                child: Text(
+                  CONTINUE,
+                  style: TextStyle(
+                    color: whiteColor,
+                    fontFamily: Segoe_ui_semibold,
+                    height: 1.1,
+                  ),
+                ),
+                onPressed: () {
+                  if (widget.IsJustChangeAddress == false) {
+                    if (SelectedAddressId.isNotEmpty) {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                          (Route<dynamic> route) => false);
+                    } else {
+                      ShowToast("Please Pick Address", context);
+                    }
+                  } else {
+                    if (widget.IsForCart) {
+                      Navigator.of(context, rootNavigator: true)
+                          .push(MaterialPageRoute(
+                        builder: (context) => OrderSummaryScreen(
+                            widget.GstPer,
+                            list![selectedIndex][address_id].toString(),
+                            list![selectedIndex][address].toString()),
+                      ));
+                    } else {
+                      Navigator.pop(context);
+                    }
+                  }
+                },
+                buttonState: buttonState,
+                backgroundColor: mainColor,
+                progressColor: whiteColor,
+                border_radius: Full_Rounded_Button_Corner,
+              ),
+            ),
+          )),
+    );
   }
 
   Future<void> GetAddressList() async {
@@ -272,7 +271,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
               style: TextStyle(
                 fontSize: 12,
                 fontFamily: Segoe_ui_semibold,
-                color: BlackColor,
+                color: blackColor,
               ),
             ),
           ),
@@ -315,7 +314,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                                               : "${imagePath}unselect_button.png",
                                           height: 30,
                                           width: 30,
-                                          color: GreyColor,
+                                          color: greyColor,
                                         ),
                                       ),
                                       SizedBox(
@@ -335,7 +334,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                                                 fontSize: 15,
                                                 fontFamily: Inter_medium,
                                                 fontWeight: FontWeight.bold,
-                                                color: BlackColor,
+                                                color: blackColor,
                                               ),
                                             ),
                                             SizedBox(
@@ -346,7 +345,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: Inter_medium,
-                                                color: BlackColor,
+                                                color: blackColor,
                                               ),
                                             )
                                           ],
@@ -361,7 +360,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                                 Container(
                                   width: double.infinity,
                                   height: 0.1,
-                                  color: GreyColor,
+                                  color: greyColor,
                                 ),
                                 SizedBox(
                                   height: 15,
@@ -378,7 +377,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontFamily: Segoe_bold,
-                                          color: MainColor,
+                                          color: mainColor,
                                         ),
                                       ),
                                       Text(
@@ -386,7 +385,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontFamily: Segoe_bold,
-                                          color: MainColor,
+                                          color: mainColor,
                                         ),
                                       )
                                     ],
@@ -398,7 +397,7 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                                 Container(
                                   width: double.infinity,
                                   height: 0.1,
-                                  color: GreyColor,
+                                  color: greyColor,
                                 ),
                               ],
                             )) //your content here

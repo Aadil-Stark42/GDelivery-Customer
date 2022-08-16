@@ -38,9 +38,11 @@ var SLOTS = "slots";
 var BOOK_SLOT = "book-slot";
 var CUSTOMER_DELIVERY_RATING = "customer-delivery-rating";
 var ORDER_AGAIN = "order-again";
+var GET_Cities = "get-cities";
 /*PARAMS*/
 var mobile = "mobile";
 var name = "name";
+var city = "city";
 var Email_param = "email";
 var otp = "otp";
 var device_id = "device_id";

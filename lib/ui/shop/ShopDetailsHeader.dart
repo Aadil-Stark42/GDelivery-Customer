@@ -48,7 +48,7 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
                 right: 0.0,
                 top: 0.0,
                 child: Container(
-                  color: TransBlackColor,
+                  color: transBlackColor,
                   padding: const EdgeInsets.only(
                     left: 20,
                     right: 20,
@@ -72,13 +72,13 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
                                 },
                                 child: const CircleAvatar(
                                   radius: 15,
-                                  backgroundColor: WhiteColor,
+                                  backgroundColor: whiteColor,
                                   child: Padding(
                                     padding: EdgeInsets.all(0),
                                     child: Icon(
                                       Icons.arrow_back_ios_rounded,
                                       size: 18,
-                                      color: MainColor,
+                                      color: mainColor,
                                     ),
                                   ),
                                 ),
@@ -98,11 +98,11 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
                                     },
                                     child: CircleAvatar(
                                       radius: 15,
-                                      backgroundColor: WhiteColor,
+                                      backgroundColor: whiteColor,
                                       child: Padding(
                                         padding: EdgeInsets.all(5),
                                         child: Icon(Icons.search,
-                                            size: 18, color: MainColor),
+                                            size: 18, color: mainColor),
                                       ),
                                     ),
                                   ),
@@ -115,7 +115,7 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
                                     },
                                     child: CircleAvatar(
                                       radius: 15,
-                                      backgroundColor: WhiteColor,
+                                      backgroundColor: whiteColor,
                                       child: Padding(
                                         padding: EdgeInsets.all(5),
                                         child: Icon(
@@ -123,7 +123,7 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
                                                 ? Icons.favorite
                                                 : Icons.favorite_border,
                                             size: 18,
-                                            color: MainColor),
+                                            color: mainColor),
                                       ),
                                     ),
                                   ),
@@ -144,8 +144,8 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
                               color: widget.shopDetailsDataModel.shopDetails!
                                           .shop_isopened ==
                                       true
-                                  ? MainColor
-                                  : RedColor,
+                                  ? mainColor
+                                  : redColor,
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 15),
@@ -160,7 +160,7 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
                             widget.shopDetailsDataModel.shopDetails!.shopName
                                 .toString(),
                             style: TextStyle(
-                              color: WhiteColor,
+                              color: whiteColor,
                               fontSize: 17.0,
                               fontFamily: Segoe_ui_semibold,
                             ),
@@ -205,7 +205,7 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
       overflow: TextOverflow.ellipsis,
       softWrap: true,
       style: TextStyle(
-          fontSize: 12, height: 1, fontFamily: Segoeui, color: WhiteColor),
+          fontSize: 12, height: 1, fontFamily: Segoeui, color: whiteColor),
     );
   }
 

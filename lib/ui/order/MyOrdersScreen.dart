@@ -38,44 +38,57 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: false,
-            backgroundColor: WhiteColor,
-            floating: true,
-            snap: false,
-            flexibleSpace: FlexibleSpaceBar(),
-            elevation: 2,
-            forceElevated: true,
-            centerTitle: false,
-            leading: null,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Image.asset(imagePath + "back_arrow.png",
-                      height: 25, width: 25),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: false,
+              backgroundColor: whiteColor,
+              floating: true,
+              snap: false,
+              flexibleSpace: FlexibleSpaceBar(),
+              elevation: 0,
+              forceElevated: true,
+              centerTitle: false,
+              leading: null,
+              title: Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Image.asset(
+                        imagePath + "ic_back2.png",
+                        width: 30,
+                        height: 30,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      MyOrders,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontSize: 17,
+                          height: 1.0,
+                          fontFamily: Segoe_ui_bold,
+                          color: mainColor),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  MyOrders,
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: Inter_bold, color: BlackColor),
-                ),
-              ],
+              ),
             ),
-          ),
-          SliverList(delegate: SliverChildListDelegate([OrderListDataView()]))
-        ],
+            SliverList(delegate: SliverChildListDelegate([OrderListDataView()]))
+          ],
+        ),
       ),
     );
   }
@@ -113,119 +126,178 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
               child: SlideAnimation(
                 horizontalOffset: 50.0,
                 child: FadeInAnimation(
-                    child: Padding(
-                  padding: EdgeInsets.only(
+                    child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: greyColor10, width: 1),
+                      borderRadius: BorderRadius.circular(25)),
+                  margin: EdgeInsets.only(
                       top: index == 0 ? 20 : 30, left: 15, right: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(80.0)),
-                            child: SizedBox(
-                              height: 70,
-                              width: 70,
-                              child: FadeInImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  ordersListDataModel
-                                      .orders![index].shopDetails!.shopImage
-                                      .toString()
-                                      .toString(),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: 12, right: 12, bottom: 12, top: 15),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10.0)),
+                              child: SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: FadeInImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    ordersListDataModel
+                                        .orders![index].shopDetails!.shopImage
+                                        .toString()
+                                        .toString(),
+                                  ),
+                                  placeholder:
+                                      AssetImage("${imagePath}ic_logo.png"),
                                 ),
-                                placeholder:
-                                    AssetImage("${imagePath}ic_logo.png"),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  ordersListDataModel
-                                      .orders![index].shopDetails!.shopName
-                                      .toString(),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontFamily: Inter_bold,
-                                      color: BlackColor),
-                                ),
-                                const SizedBox(
-                                  height: 2,
-                                ),
-                                Text(
-                                  ordersListDataModel
-                                      .orders![index].shopDetails!.shopStreet
-                                      .toString(),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 11,
-                                      fontFamily: Poppinsmedium,
-                                      color: GreyColor),
-                                )
-                              ],
+                            SizedBox(
+                              width: 10,
                             ),
-                          )
-                        ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    ordersListDataModel
+                                        .orders![index].shopDetails!.shopName
+                                        .toString(),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: Segoe_ui_semibold,
+                                        color: blackColor),
+                                  ),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  Text(
+                                    ordersListDataModel
+                                        .orders![index].shopDetails!.shopStreet
+                                        .toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 11,
+                                        fontFamily: Segoeui,
+                                        color: greyColor),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        width: double.maxFinite,
+                        height: 1,
+                        color: greyColor10,
                       ),
                       SizedBox(
                         height: 15,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        padding: const EdgeInsets.only(left: 12, right: 12),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.only(right: 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    Items,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: Segoeui,
+                                        color: greyColor11),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    physics: ClampingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: ordersListDataModel
+                                        .orders![index].productDetails!.length,
+                                    itemBuilder: (context, inerindex) {
+                                      final item = ordersListDataModel
+                                          .orders![index]
+                                          .productDetails![inerindex]
+                                          .productName;
+                                      return Text(
+                                        "sdlkvnodvnsidjovnsdijvnsdijvnsdivnsidvnsdivjn",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: Segoeui,
+                                            color: mainColor),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            )),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  TotalAmount,
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: Segoeui,
+                                      color: greyColor11),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  RUPPEE +
+                                      ordersListDataModel
+                                          .orders![index].totalAmount
+                                          .toString(),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: Segoeui,
+                                      color: mainColor),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, right: 12),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              Items,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
-                            ),
-                            SizedBox(
-                              height: 6,
-                            ),
-                            ListView.builder(
-                              padding: EdgeInsets.zero,
-                              physics: ClampingScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: ordersListDataModel
-                                  .orders![index].productDetails!.length,
-                              itemBuilder: (context, inerindex) {
-                                final item = ordersListDataModel.orders![index]
-                                    .productDetails![inerindex].productName;
-                                return Text(
-                                  item.toString(),
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: Segoe_ui_semibold,
-                                      color: GreyColor),
-                                );
-                              },
-                            ),
                             SizedBox(
                               height: 15,
                             ),
                             Text(
                               Orderedon,
                               style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
+                                  fontSize: 13,
+                                  fontFamily: Segoeui,
+                                  color: greyColor11),
                             ),
                             SizedBox(
                               height: 2,
@@ -234,32 +306,13 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               ordersListDataModel.orders![index].orderedAt
                                   .toString(),
                               style: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: Segoe_ui_semibold,
-                                  color: GreyColor),
+                                  fontSize: 15,
+                                  fontFamily: Segoeui,
+                                  color: mainColor),
                             ),
                             SizedBox(
                               height: 15,
                             ),
-                            Text(
-                              TotalAmount,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
-                            ),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            Text(
-                              RUPPEE +
-                                  ordersListDataModel.orders![index].totalAmount
-                                      .toString(),
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: Segoe_ui_semibold,
-                                  color: GreyColor),
-                            )
                           ],
                         ),
                       ),
@@ -294,15 +347,15 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(width: double.maxFinite, height: 0.5, color: GreyColor2),
+          Container(width: double.maxFinite, height: 0.5, color: greyColor12),
           SizedBox(
-            height: 9,
+            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(child: CheckOrderTime(index)),
-              Container(width: 0.5, height: 25, color: GreyColor2),
+              Container(width: 0.5, height: 25, color: greyColor12),
               Expanded(
                   child: InkWell(
                 onTap: () {
@@ -331,16 +384,15 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                     style: TextStyle(
                         fontSize: 12,
                         fontFamily: Poppinsmedium,
-                        color: RedColor),
+                        color: mainColor),
                   ),
                 ),
               ))
             ],
           ),
           SizedBox(
-            height: 9,
+            height: 15,
           ),
-          Container(width: double.maxFinite, height: 0.5, color: GreyColor2)
         ],
       );
     } else if (ordersListDataModel.orders![index].orderStatus == 6 ||
@@ -354,9 +406,9 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(width: double.maxFinite, height: 0.5, color: GreyColor2),
+          Container(width: double.maxFinite, height: 0.5, color: greyColor12),
           SizedBox(
-            height: 9,
+            height: 15,
           ),
           InkWell(
             onTap: () {
@@ -385,25 +437,24 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                       fontSize: 12,
                       fontFamily: Poppinsmedium,
                       color: ordersListDataModel.orders![index].orderStatus == 4
-                          ? RedColor
-                          : GreyColor),
+                          ? mainColor
+                          : greyColor),
                 ),
               ),
             ),
           ),
           SizedBox(
-            height: 9,
+            height: 15,
           ),
-          Container(width: double.maxFinite, height: 0.5, color: GreyColor2)
         ],
       );
     } else if (ordersListDataModel.orders![index].orderStatus == 3) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(width: double.maxFinite, height: 0.5, color: GreyColor2),
+          Container(width: double.maxFinite, height: 0.5, color: greyColor12),
           SizedBox(
-            height: 9,
+            height: 15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -421,11 +472,11 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                     style: TextStyle(
                         fontSize: 12,
                         fontFamily: Poppinsmedium,
-                        color: RedColor),
+                        color: mainColor),
                   ),
                 ),
               )),
-              Container(width: 0.5, height: 25, color: GreyColor2),
+              Container(width: 0.5, height: 25, color: greyColor12),
               Expanded(
                   child: InkWell(
                 onTap: () {
@@ -439,16 +490,15 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                     style: TextStyle(
                         fontSize: 12,
                         fontFamily: Poppinsmedium,
-                        color: RedColor),
+                        color: mainColor),
                   ),
                 ),
               ))
             ],
           ),
           SizedBox(
-            height: 9,
+            height: 15,
           ),
-          Container(width: double.maxFinite, height: 0.5, color: GreyColor2)
         ],
       );
     } else {
@@ -472,7 +522,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
               CancelOrder,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                  fontSize: 12, fontFamily: Poppinsmedium, color: RedColor),
+                  fontSize: 12, fontFamily: Poppinsmedium, color: mainColor),
             ),
             TweenAnimationBuilder<Duration>(
                 duration: Duration(seconds: totalSeconds),
@@ -495,7 +545,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                     style: TextStyle(
                         fontSize: 12,
                         fontFamily: Poppinsmedium,
-                        color: RedColor),
+                        color: mainColor),
                   );
                 })
           ],
@@ -531,7 +581,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: Inter_bold,
-                            color: RedColor),
+                            color: redColor),
                       ),
                       SizedBox(
                         height: 30,
@@ -578,7 +628,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                                   style: TextStyle(
                                       fontSize: 17,
                                       fontFamily: Inter_bold,
-                                      color: BlackColor),
+                                      color: blackColor),
                                 ),
                                 const SizedBox(
                                   height: 2,
@@ -591,7 +641,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                                   style: TextStyle(
                                       fontSize: 11,
                                       fontFamily: Poppinsmedium,
-                                      color: GreyColor),
+                                      color: greyColor),
                                 )
                               ],
                             ),
@@ -611,7 +661,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
+                                  color: blackColor2),
                             ),
                             SizedBox(
                               height: 6,
@@ -630,7 +680,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: Segoe_ui_semibold,
-                                      color: GreyColor),
+                                      color: greyColor),
                                 );
                               },
                             ),
@@ -642,7 +692,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
+                                  color: blackColor2),
                             ),
                             SizedBox(
                               height: 2,
@@ -653,7 +703,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: Segoe_ui_semibold,
-                                  color: GreyColor),
+                                  color: greyColor),
                             ),
                             SizedBox(
                               height: 15,
@@ -663,7 +713,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
+                                  color: blackColor2),
                             ),
                             SizedBox(
                               height: 2,
@@ -675,7 +725,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: Segoe_ui_semibold,
-                                  color: GreyColor),
+                                  color: greyColor),
                             )
                           ],
                         ),
@@ -691,7 +741,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                         child: Text(
                           CancelOrder,
                           style: TextStyle(
-                            color: WhiteColor,
+                            color: whiteColor,
                             fontFamily: Segoe_ui_semibold,
                             height: 1.1,
                           ),
@@ -708,8 +758,8 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               buttonState);
                         },
                         buttonState: buttonState,
-                        backgroundColor: MainColor,
-                        progressColor: WhiteColor,
+                        backgroundColor: mainColor,
+                        progressColor: whiteColor,
                         border_radius: Full_Rounded_Button_Corner,
                       ),
                       SizedBox(
@@ -754,7 +804,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
         isScrollControlled: true,
         isDismissible: false,
         enableDrag: false,
-        backgroundColor: WhiteColor,
+        backgroundColor: whiteColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
@@ -806,7 +856,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: Inter_bold,
-                                    color: BlackColor),
+                                    color: blackColor),
                               ),
                               SizedBox(
                                 width: 7,
@@ -825,7 +875,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                             ordersListDataModel.orders![index].orderId
                                 .toString(),
                             style: TextStyle(
-                                color: BlackColor,
+                                color: blackColor,
                                 fontFamily: Poppinsmedium,
                                 height: 1.1,
                                 fontSize: 14),
@@ -842,9 +892,9 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                             decoration: InputDecoration(
                                 enabledBorder: const OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: GreyColor, width: 0.5),
+                                      BorderSide(color: greyColor, width: 0.5),
                                 ),
-                                hintStyle: TextStyle(color: GreyColor2),
+                                hintStyle: TextStyle(color: greyColor2),
                                 hintText:
                                     'Tell us reason of cancellation (optional)'),
                           ),
@@ -855,7 +905,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                             child: Text(
                               Submit,
                               style: TextStyle(
-                                color: WhiteColor,
+                                color: whiteColor,
                                 fontFamily: Segoe_ui_semibold,
                                 height: 1.1,
                               ),
@@ -879,8 +929,8 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               }
                             },
                             buttonState: buttonState,
-                            backgroundColor: MainColor,
-                            progressColor: WhiteColor,
+                            backgroundColor: mainColor,
+                            progressColor: whiteColor,
                             border_radius: Full_Rounded_Button_Corner,
                           ),
                           SizedBox(
@@ -933,7 +983,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
         isScrollControlled: true,
         isDismissible: false,
         enableDrag: false,
-        backgroundColor: WhiteColor,
+        backgroundColor: whiteColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
@@ -960,7 +1010,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: Inter_bold,
-                                color: BlackColor),
+                                color: blackColor),
                           ),
                           SizedBox(
                             height: 8,
@@ -968,7 +1018,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                           Text(
                             Yourfeedbackwill,
                             style: TextStyle(
-                                color: GreyColor,
+                                color: greyColor,
                                 fontFamily: Inter_regular,
                                 height: 1.1,
                                 fontSize: 12),
@@ -984,11 +1034,11 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                         direction: Axis.horizontal,
                         allowHalfRating: false,
                         itemCount: 5,
-                        unratedColor: MainLightColor2,
+                        unratedColor: mainLightColor2,
                         itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                         itemBuilder: (context, _) => Icon(
                           Icons.star,
-                          color: MainColor,
+                          color: mainColor,
                         ),
                         onRatingUpdate: (rating) {
                           Rating_value = rating;
@@ -1006,9 +1056,9 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                         decoration: InputDecoration(
                             enabledBorder: const OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: GreyColor, width: 0.5),
+                                  BorderSide(color: greyColor, width: 0.5),
                             ),
-                            hintStyle: TextStyle(color: GreyColor2),
+                            hintStyle: TextStyle(color: greyColor2),
                             hintText: 'Leave a comment'),
                       ),
                       SizedBox(
@@ -1022,8 +1072,8 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               txtSize: 12,
                               CornerReduis: Rounded_Button_Corner,
                               BorderWidth: 0.8,
-                              BackgroundColor: WhiteColor,
-                              ForgroundColor: MainColor,
+                              BackgroundColor: whiteColor,
+                              ForgroundColor: mainColor,
                               PaddingLeft: 10,
                               PaddingRight: 10,
                               PaddingTop: 14,
@@ -1041,7 +1091,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                               child: Text(
                                 Confirmss,
                                 style: TextStyle(
-                                  color: WhiteColor,
+                                  color: whiteColor,
                                   fontFamily: Segoe_ui_semibold,
                                   height: 1.1,
                                 ),
@@ -1051,8 +1101,8 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                                     Rating_value, Comments, orderId);
                               },
                               buttonState: ButtonState.normal,
-                              backgroundColor: MainColor,
-                              progressColor: WhiteColor,
+                              backgroundColor: mainColor,
+                              progressColor: whiteColor,
                               border_radius: Rounded_Button_Corner,
                             ),
                           )

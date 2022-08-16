@@ -30,13 +30,13 @@ class _AddtoCartViewState extends State<AddtoCartView> {
   Widget BottomView() {
     if (widget.IsBottomCartShow) {
       return Container(
-        color: Transperent,
+        color: transperent,
         child: Padding(
           padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(7),
             child: Container(
-              color: MainColor,
+              color: mainColor,
               padding:
                   EdgeInsets.only(left: 20, right: 20, top: 13, bottom: 13),
               child: Row(
@@ -49,7 +49,7 @@ class _AddtoCartViewState extends State<AddtoCartView> {
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: Segoe_ui_bold,
-                        color: WhiteColor),
+                        color: whiteColor),
                   ),
                   InkWell(
                     onTap: () {
@@ -72,7 +72,7 @@ class _AddtoCartViewState extends State<AddtoCartView> {
                           style: TextStyle(
                               fontSize: 15,
                               fontFamily: Segoe_ui_semibold,
-                              color: WhiteColor),
+                              color: whiteColor),
                         ),
                         const SizedBox(
                           width: 8,
@@ -80,7 +80,7 @@ class _AddtoCartViewState extends State<AddtoCartView> {
                         const Icon(
                           Icons.arrow_forward_ios_rounded,
                           size: 18,
-                          color: WhiteColor,
+                          color: whiteColor,
                         )
                       ],
                     ),

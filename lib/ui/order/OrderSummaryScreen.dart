@@ -1,16 +1,12 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:gdeliverycustomer/models/PaytmResponse.dart';
-import 'package:gdeliverycustomer/models/ShopDetailsDataModel.dart';
 import 'package:lottie/lottie.dart';
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
@@ -74,66 +70,68 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
 
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: false,
-            backgroundColor: WhiteColor,
-            floating: true,
-            snap: false,
-            flexibleSpace: FlexibleSpaceBar(),
-            elevation: 2,
-            forceElevated: true,
-            centerTitle: false,
-            leading: null,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Image.asset(imagePath + "back_arrow.png",
-                      height: 25, width: 25),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  OrderSummary,
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: Inter_bold, color: BlackColor),
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: false,
+              backgroundColor: whiteColor,
+              floating: true,
+              snap: false,
+              flexibleSpace: FlexibleSpaceBar(),
+              elevation: 2,
+              forceElevated: true,
+              centerTitle: false,
+              leading: null,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(imagePath + "back_arrow.png",
+                        height: 25, width: 25),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    OrderSummary,
+                    style: TextStyle(
+                        fontSize: 16, fontFamily: Inter_bold, color: blackColor),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SliverList(delegate: SliverChildListDelegate([OrderDetailsView()]))
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: RoundedButton(
-        color: MainColor,
-        text: IsLoadingPayment == true ? Loadinggg : ConfirmedOrder,
-        corner_radius: Rounded_Button_Corner,
-        press: () {
-          if (Payment_Method.isNotEmpty) {
-            if (!IsLoadingPayment) {
-              setState(() {
-                IsLoadingPayment = true;
-              });
-              if (Payment_Method == CashOnDelivery) {
-                OrderConfirmation();
-              } else {
-                GetTokenForPayment();
+            SliverList(delegate: SliverChildListDelegate([OrderDetailsView()]))
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: RoundedButton(
+          color: mainColor,
+          text: IsLoadingPayment == true ? Loadinggg : ConfirmedOrder,
+          corner_radius: Rounded_Button_Corner,
+          press: () {
+            if (Payment_Method.isNotEmpty) {
+              if (!IsLoadingPayment) {
+                setState(() {
+                  IsLoadingPayment = true;
+                });
+                if (Payment_Method == CashOnDelivery) {
+                  OrderConfirmation();
+                } else {
+                  GetTokenForPayment();
+                }
               }
+            } else {
+              ShowToast(Selectpaymentmethod, context);
             }
-          } else {
-            ShowToast(Selectpaymentmethod, context);
-          }
-        },
+          },
+        ),
       ),
     );
   }
@@ -256,7 +254,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 Text(
                   YourOrders,
                   style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
                 ),
                 SizedBox(
                   height: 15,
@@ -300,7 +298,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                         fontFamily: Segoe_ui_semibold,
                                         fontSize: 14,
                                         height: 1.0,
-                                        color: GreyColor,
+                                        color: greyColor,
                                       ),
                                     )
                                   ],
@@ -315,7 +313,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                 style: TextStyle(
                                     fontSize: 13,
                                     fontFamily: Segoe_ui_semibold,
-                                    color: GreyColor),
+                                    color: greyColor),
                               ),
                               SizedBox(
                                 width: 10,
@@ -334,7 +332,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 Text(
                   OrderDetailss,
                   style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -349,7 +347,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -360,7 +358,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -378,7 +376,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -388,7 +386,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -406,7 +404,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -420,7 +418,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -431,7 +429,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 Text(
                   "Use delivery coupons here",
                   style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
                 ),
                 SizedBox(
                   height: 10,
@@ -439,7 +437,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 Container(
                   padding: const EdgeInsets.all(3.0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: GreyColor2),
+                    border: Border.all(color: greyColor2),
                     borderRadius: BorderRadius.all(Radius.circular(7)),
                   ),
                   child: Row(
@@ -465,7 +463,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                           child: Text(
                             APPLY,
                             style: TextStyle(
-                              color: WhiteColor,
+                              color: whiteColor,
                               fontFamily: Segoe_ui_semibold,
                               height: 1.1,
                             ),
@@ -479,8 +477,8 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             }
                           },
                           buttonState: buttonState,
-                          backgroundColor: MainColor,
-                          progressColor: WhiteColor,
+                          backgroundColor: mainColor,
+                          progressColor: whiteColor,
                           border_radius: Rounded_Button_Corner,
                         ),
                       ),
@@ -497,7 +495,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 Text(
                   Payment,
                   style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
                 ),
                 SizedBox(
                   height: 10,
@@ -511,11 +509,11 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                       CornerReduis: 7,
                       BorderWidth: 0.8,
                       BackgroundColor: IsCashOnDeliveryCLick == true
-                          ? MainColor
-                          : WhiteColor,
+                          ? mainColor
+                          : whiteColor,
                       ForgroundColor: IsCashOnDeliveryCLick == true
-                          ? WhiteColor
-                          : MainColor,
+                          ? whiteColor
+                          : mainColor,
                       PaddingLeft: 15,
                       PaddingRight: 15,
                       PaddingTop: 15,
@@ -538,9 +536,9 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                       CornerReduis: 7,
                       BorderWidth: 0.8,
                       BackgroundColor:
-                          IsOnlineCLick == true ? MainColor : WhiteColor,
+                          IsOnlineCLick == true ? mainColor : whiteColor,
                       ForgroundColor:
-                          IsOnlineCLick == true ? WhiteColor : MainColor,
+                          IsOnlineCLick == true ? whiteColor : mainColor,
                       PaddingLeft: 15,
                       PaddingRight: 15,
                       PaddingTop: 15,
@@ -571,7 +569,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 12,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                         Text(
@@ -580,7 +578,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 13,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         )
                       ],
@@ -602,8 +600,8 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                         .priceDetails!.couponDiscount
                                         .toString() !=
                                     "0.00"
-                                ? RedColor
-                                : GreyColor,
+                                ? redColor
+                                : greyColor,
                           ),
                         ),
                         Text(
@@ -616,8 +614,8 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                         .priceDetails!.couponDiscount
                                         .toString() !=
                                     "0.00"
-                                ? RedColor
-                                : GreyColor,
+                                ? redColor
+                                : greyColor,
                           ),
                         )
                       ],
@@ -635,7 +633,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 12,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                         Text(
@@ -644,7 +642,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 13,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         )
                       ],
@@ -662,7 +660,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 12,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                         Text(
@@ -671,7 +669,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 13,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         )
                       ],
@@ -689,7 +687,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 12,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                         Text(
@@ -702,7 +700,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 13,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         )
                       ],
@@ -720,7 +718,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Segoe_ui_bold,
                             fontSize: 18,
                             height: 1.0,
-                            color: BlackColor,
+                            color: blackColor,
                           ),
                         ),
                         Text(
@@ -729,7 +727,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                             fontFamily: Segoe_ui_bold,
                             fontSize: 18,
                             height: 1.0,
-                            color: BlackColor,
+                            color: blackColor,
                           ),
                         )
                       ],
@@ -743,7 +741,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 10,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     ),
                   ],
@@ -945,7 +943,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                                   fontSize: 13,
                                                   height: 1.0,
                                                   fontFamily: Segoe_ui_semibold,
-                                                  color: BlackColor),
+                                                  color: blackColor),
                                             ),
                                             SizedBox(
                                               height: 3,
@@ -963,7 +961,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                                         height: 1.0,
                                                         fontFamily:
                                                             Segoe_ui_semibold,
-                                                        color: BlackColor),
+                                                        color: blackColor),
                                                   ),
                                                   Text(
                                                     _orderSummaryDataModel
@@ -978,7 +976,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                                         height: 1.0,
                                                         fontFamily:
                                                             Segoe_ui_semibold,
-                                                        color: BlackColor),
+                                                        color: blackColor),
                                                   ),
                                                 ],
                                               ),
@@ -1086,7 +1084,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                     fontFamily: Segoe_ui_semibold,
                                     fontSize: 13,
                                     height: 1.0,
-                                    color: GreyColor5,
+                                    color: greyColor5,
                                   ),
                                 ),
                                 SizedBox(
@@ -1100,7 +1098,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                     fontFamily: Segoe_ui_semibold,
                                     fontSize: 11,
                                     height: 1.0,
-                                    color: GreyColor5,
+                                    color: greyColor5,
                                   ),
                                 )
                               ],
@@ -1120,7 +1118,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                 fontFamily: Segoe_bold,
                                 fontSize: 19,
                                 height: 1.0,
-                                color: BlackColor,
+                                color: blackColor,
                               ),
                             ),
                             SizedBox(
@@ -1134,7 +1132,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                 fontFamily: Segoe_ui_semibold,
                                 fontSize: 12,
                                 height: 1.0,
-                                color: GreyColor5,
+                                color: greyColor5,
                               ),
                             ),
                             SizedBox(
@@ -1148,7 +1146,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                 fontFamily: Segoe_ui_semibold,
                                 fontSize: 13,
                                 height: 1.0,
-                                color: RedColor,
+                                color: redColor,
                               ),
                             ),
                           ],

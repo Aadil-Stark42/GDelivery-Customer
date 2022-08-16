@@ -66,6 +66,7 @@ dependencies:
   paytm_allinonesdk: ^1.1.7
   awesome_notifications: ^0.6.21
   flutter_phoenix: ^1.0.0
+  dropdown_search: ^5.0.2
   rename: ^2.0.1
 dev_dependencies:
   change_app_package_name: ^1.0.0
@@ -143,3 +144,19 @@ flutter:
     - family: segoeui
       fonts:
         - asset: assets/fonts/segoeui.ttf
+
+    - family: Raleway_Bold
+      fonts:
+        - asset: assets/fonts/Raleway_Bold.ttf
+
+    - family: Raleway_Medium
+      fonts:
+        - asset: assets/fonts/Raleway_Medium.ttf
+
+    - family: Raleway_Regular
+      fonts:
+        - asset: assets/fonts/Raleway_Regular.ttf
+
+    - family: Raleway_SemiBold
+      fonts:
+        - asset: assets/fonts/Raleway_SemiBold.ttf

@@ -19,7 +19,7 @@ class _MyProgressBarState extends State<MyProgressBar> {
     // TODO: implement build
     return const Center(
       child: CircularProgressIndicator(
-        color: MainColor,
+        color: mainColor,
       ),
     );
   }

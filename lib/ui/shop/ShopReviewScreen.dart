@@ -5,9 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
-import 'package:gdeliverycustomer/models/ShopProductDataModel.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
-import 'package:gdeliverycustomer/ui/shop/ClearCartBottomDialog.dart';
 import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,19 +15,10 @@ import '../../../res/ResString.dart';
 import '../../../uicomponents/progress_button.dart';
 import '../../../utils/Utils.dart';
 import '../../animationlist/src/animation_configuration.dart';
-import '../../animationlist/src/animation_limiter.dart';
 import '../../animationlist/src/fade_in_animation.dart';
 import '../../animationlist/src/slide_animation.dart';
-import '../../models/ProductToppingDataModel.dart';
-import '../../models/ShopDetailsDataModel.dart';
 import '../../models/ShopReviewDataModel.dart';
-import '../../uicomponents/AddtoCartView.dart';
-import '../../uicomponents/CustomTabView.dart';
 import '../../uicomponents/MyProgressBar.dart';
-import '../home/homesubscreen/CartSubScreen.dart';
-import '../search/GlobalSearchScreen.dart';
-import 'MainTappingView.dart';
-import 'ShopDetailsHeader.dart';
 
 class ShopReviewScreen extends StatefulWidget {
   final String shop_id;
@@ -56,11 +45,10 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
-        child: SafeArea(child: ShopDetailsView()),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: ShopDetailsView(),
       ),
     );
   }
@@ -90,7 +78,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                         right: 0.0,
                         top: 0.0,
                         child: Container(
-                          color: TransBlackColor,
+                          color: transBlackColor,
                           padding: const EdgeInsets.only(
                             left: 20,
                             right: 20,
@@ -115,13 +103,13 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                         },
                                         child: const CircleAvatar(
                                           radius: 15,
-                                          backgroundColor: WhiteColor,
+                                          backgroundColor: whiteColor,
                                           child: Padding(
                                             padding: EdgeInsets.all(0),
                                             child: Icon(
                                               Icons.arrow_back_ios_rounded,
                                               size: 18,
-                                              color: MainColor,
+                                              color: mainColor,
                                             ),
                                           ),
                                         ),
@@ -134,7 +122,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                             },
                                             child: CircleAvatar(
                                               radius: 15,
-                                              backgroundColor: WhiteColor,
+                                              backgroundColor: whiteColor,
                                               child: Padding(
                                                 padding: EdgeInsets.all(5),
                                                 child: Icon(
@@ -142,7 +130,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                                         ? Icons.favorite
                                                         : Icons.favorite_border,
                                                     size: 18,
-                                                    color: MainColor),
+                                                    color: mainColor),
                                               ),
                                             ),
                                           ),
@@ -160,7 +148,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                     _shopReviewDataModel.shop!.shopName
                                         .toString(),
                                     style: TextStyle(
-                                      color: WhiteColor,
+                                      color: whiteColor,
                                       fontSize: 17.0,
                                       fontFamily: Segoe_ui_semibold,
                                     ),
@@ -192,7 +180,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                             style: TextStyle(
                                                 fontSize: 13,
                                                 fontFamily: Segoe_ui_semibold,
-                                                color: WhiteColor),
+                                                color: whiteColor),
                                           ),
                                           const SizedBox(
                                             width: 4,
@@ -200,7 +188,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                           Icon(
                                             Icons.star_rounded,
                                             size: 15,
-                                            color: WhiteColor,
+                                            color: whiteColor,
                                           ),
                                         ],
                                       ),
@@ -210,7 +198,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                       Container(
                                         width: 1,
                                         height: 12,
-                                        color: WhiteColor,
+                                        color: whiteColor,
                                       ),
                                       SizedBox(
                                         width: 10,
@@ -223,7 +211,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                         style: TextStyle(
                                             fontSize: 13,
                                             fontFamily: Segoe_ui_semibold,
-                                            color: WhiteColor),
+                                            color: whiteColor),
                                       ),
                                       SizedBox(
                                         width: 5,
@@ -235,7 +223,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                         style: TextStyle(
                                             fontSize: 13,
                                             fontFamily: Segoe_ui_semibold,
-                                            color: WhiteColor),
+                                            color: whiteColor),
                                       )
                                     ],
                                   ),
@@ -263,7 +251,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                     Container(
                       width: double.infinity,
                       height: 0.5,
-                      color: GreyColor2,
+                      color: greyColor2,
                     ),
                     SizedBox(height: 5),
                     //add start
@@ -281,7 +269,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                 LeaveRating,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
-                                  color: BlackColor,
+                                  color: blackColor,
                                   fontSize: 15.0,
                                   fontFamily: Inter_bold,
                                 ),
@@ -294,12 +282,12 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                               direction: Axis.horizontal,
                               allowHalfRating: false,
                               itemCount: 5,
-                              unratedColor: MainLightColor2,
+                              unratedColor: mainLightColor2,
                               itemPadding:
                                   EdgeInsets.symmetric(horizontal: 4.0),
                               itemBuilder: (context, _) => Icon(
                                 Icons.star,
-                                color: MainColor,
+                                color: mainColor,
                               ),
                               onRatingUpdate: (rating) {
                                 print(rating);
@@ -314,7 +302,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                     Container(
                       width: double.infinity,
                       height: 0.5,
-                      color: GreyColor2,
+                      color: greyColor2,
                     ),
                     SizedBox(
                       height: 20,
@@ -329,7 +317,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                             RecentReviewss,
                             textAlign: TextAlign.start,
                             style: TextStyle(
-                              color: BlackColor,
+                              color: blackColor,
                               fontSize: 16.0,
                               fontFamily: Inter_bold,
                             ),
@@ -373,7 +361,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                                   child: Image.asset(
                                                     imagePath +
                                                         "profile-user.png",
-                                                    color: MainColor,
+                                                    color: mainColor,
                                                   ),
                                                 ),
                                               ],
@@ -401,7 +389,7 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                                   style: TextStyle(
                                                       fontSize: 17,
                                                       fontFamily: Inter_bold,
-                                                      color: BlackColor),
+                                                      color: blackColor),
                                                 ),
                                                 SizedBox(
                                                   height: 2,
@@ -417,14 +405,14 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
                                                   itemCount: 5,
                                                   itemSize: 15,
                                                   ignoreGestures: true,
-                                                  unratedColor: MainLightColor2,
+                                                  unratedColor: mainLightColor2,
                                                   itemPadding:
                                                       EdgeInsets.symmetric(
                                                           horizontal: 1.0),
                                                   itemBuilder: (context, _) =>
                                                       Icon(
                                                     Icons.star,
-                                                    color: MainColor,
+                                                    color: mainColor,
                                                     size: 15,
                                                   ),
                                                   onRatingUpdate: (rating) {

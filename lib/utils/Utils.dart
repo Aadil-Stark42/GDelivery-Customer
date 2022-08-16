@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../res/ResColor.dart';
+
 class UtilsClass extends Color {
   UtilsClass(final String hexColor) : super(_getColorFromHex(hexColor));
 
@@ -30,6 +32,14 @@ void ShowLongToast(String message, BuildContext context) {
     duration: const Duration(seconds: 2),
     content: Text(message),
   ));
+}
+
+void statusBarColor() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: mainColor,
+      statusBarBrightness: Brightness.light,
+      systemNavigationBarColor: whiteColor,
+      statusBarIconBrightness: Brightness.light));
 }
 
 void HideKeyBoard() {

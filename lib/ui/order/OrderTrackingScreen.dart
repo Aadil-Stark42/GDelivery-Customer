@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/models/OrderDetailsDataModel.dart';
@@ -41,44 +40,48 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: false,
-            backgroundColor: WhiteColor,
-            floating: true,
-            snap: false,
-            flexibleSpace: FlexibleSpaceBar(),
-            elevation: 2,
-            forceElevated: true,
-            centerTitle: false,
-            leading: null,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Image.asset(imagePath + "back_arrow.png",
-                      height: 25, width: 25),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  OrderDetailss,
-                  style: TextStyle(
-                      fontSize: 16, fontFamily: Inter_bold, color: BlackColor),
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: false,
+              backgroundColor: whiteColor,
+              floating: true,
+              snap: false,
+              flexibleSpace: FlexibleSpaceBar(),
+              elevation: 2,
+              forceElevated: true,
+              centerTitle: false,
+              leading: null,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(imagePath + "back_arrow.png",
+                        height: 25, width: 25),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    OrderDetailss,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: Inter_bold,
+                        color: blackColor),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SliverList(delegate: SliverChildListDelegate([OrderDetailsView()]))
-        ],
+            SliverList(delegate: SliverChildListDelegate([OrderDetailsView()]))
+          ],
+        ),
       ),
     );
   }
@@ -144,7 +147,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 17,
                             fontFamily: Inter_bold,
-                            color: BlackColor),
+                            color: blackColor),
                       ),
                       SizedBox(
                         height: 2,
@@ -159,7 +162,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             style: TextStyle(
                                 fontSize: 11,
                                 fontFamily: Poppinsmedium,
-                                color: GreyColor),
+                                color: greyColor),
                           ),
                         ],
                       ),
@@ -175,7 +178,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
               margin: EdgeInsets.symmetric(horizontal: 5),
               width: double.maxFinite,
               height: 0.5,
-              color: GreyColor2,
+              color: greyColor2,
             ),
             SizedBox(
               height: 15,
@@ -186,7 +189,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                 Text(
                   OrderStatus,
                   style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
                 ),
                 SizedBox(
                   height: 15,
@@ -206,15 +209,15 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             backgroundColor: _orderDetailsDataModel
                                         .timeDetails!.confirmedAt ==
                                     null
-                                ? WhiteColor
-                                : MainColor,
+                                ? whiteColor
+                                : mainColor,
                             child: Icon(
                               Icons.circle_outlined,
                               color: _orderDetailsDataModel
                                           .timeDetails!.confirmedAt ==
                                       null
-                                  ? GreyColor
-                                  : MainColor,
+                                  ? greyColor
+                                  : mainColor,
                               size: 20,
                             ),
                           ),
@@ -224,7 +227,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                           child: Container(
                             width: 1,
                             height: 60,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                         //Second
@@ -238,15 +241,15 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               backgroundColor: _orderDetailsDataModel
                                           .timeDetails!.pickedAt ==
                                       null
-                                  ? WhiteColor
-                                  : MainColor,
+                                  ? whiteColor
+                                  : mainColor,
                               child: Icon(
                                 Icons.circle_outlined,
                                 color: _orderDetailsDataModel
                                             .timeDetails!.pickedAt ==
                                         null
-                                    ? GreyColor
-                                    : MainColor,
+                                    ? greyColor
+                                    : mainColor,
                                 size: 20,
                               ),
                             ),
@@ -257,7 +260,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                           child: Container(
                             width: 1,
                             height: 60,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
 
@@ -271,15 +274,15 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               backgroundColor: _orderDetailsDataModel
                                           .timeDetails!.deliveredAt ==
                                       null
-                                  ? WhiteColor
-                                  : MainColor,
+                                  ? whiteColor
+                                  : mainColor,
                               child: Icon(
                                 Icons.circle_outlined,
                                 color: _orderDetailsDataModel
                                             .timeDetails!.deliveredAt ==
                                         null
-                                    ? GreyColor
-                                    : MainColor,
+                                    ? greyColor
+                                    : mainColor,
                                 size: 20,
                               ),
                             ),
@@ -299,7 +302,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                           style: TextStyle(
                               fontSize: 15,
                               fontFamily: Segoe_ui_semibold,
-                              color: BlackColor),
+                              color: blackColor),
                         ),
                         SizedBox(
                           height: 1,
@@ -310,7 +313,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                           style: TextStyle(
                               fontSize: 11,
                               fontFamily: Segoe_ui_semibold,
-                              color: GreyColor),
+                              color: greyColor),
                         ),
 
                         //Second
@@ -325,8 +328,8 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               color: _orderDetailsDataModel
                                           .timeDetails!.pickedAt ==
                                       null
-                                  ? GreyColor
-                                  : BlackColor),
+                                  ? greyColor
+                                  : blackColor),
                         ),
                         SizedBox(
                           height: 1,
@@ -339,7 +342,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                           style: TextStyle(
                               fontSize: 11,
                               fontFamily: Segoe_ui_semibold,
-                              color: GreyColor),
+                              color: greyColor),
                         ),
                         //Third
                         SizedBox(
@@ -353,8 +356,8 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               color: _orderDetailsDataModel
                                           .timeDetails!.deliveredAt ==
                                       null
-                                  ? GreyColor
-                                  : BlackColor),
+                                  ? greyColor
+                                  : blackColor),
                         ),
                         SizedBox(
                           height: 1,
@@ -368,7 +371,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                           style: TextStyle(
                               fontSize: 11,
                               fontFamily: Segoe_ui_semibold,
-                              color: GreyColor),
+                              color: greyColor),
                         )
                       ],
                     ))
@@ -384,7 +387,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                 Text(
                   YourOrders,
                   style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
                 ),
                 SizedBox(
                   height: 15,
@@ -426,7 +429,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                                       fontFamily: Segoe_ui_semibold,
                                       fontSize: 14,
                                       height: 1.0,
-                                      color: GreyColor,
+                                      color: greyColor,
                                     ),
                                   )
                                 ],
@@ -441,7 +444,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               style: TextStyle(
                                   fontSize: 13,
                                   fontFamily: Segoe_ui_semibold,
-                                  color: GreyColor),
+                                  color: greyColor),
                             ),
                             SizedBox(
                               width: 10,
@@ -649,7 +652,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 12,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                         Text(
@@ -658,7 +661,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 13,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         )
                       ],
@@ -676,7 +679,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 12,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                         Text(
@@ -685,7 +688,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 13,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         )
                       ],
@@ -703,7 +706,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 12,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         ),
                         Text(
@@ -712,7 +715,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             fontFamily: Poppinsmedium,
                             fontSize: 13,
                             height: 1.0,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                         )
                       ],
@@ -730,7 +733,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             fontFamily: Segoe_ui_bold,
                             fontSize: 18,
                             height: 1.0,
-                            color: BlackColor,
+                            color: blackColor,
                           ),
                         ),
                         Text(
@@ -739,7 +742,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             fontFamily: Segoe_ui_bold,
                             fontSize: 18,
                             height: 1.0,
-                            color: BlackColor,
+                            color: blackColor,
                           ),
                         )
                       ],
@@ -753,7 +756,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         fontFamily: Poppinsmedium,
                         fontSize: 10,
                         height: 1.0,
-                        color: GreyColor,
+                        color: greyColor,
                       ),
                     ),
                   ],
@@ -764,7 +767,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                 Container(
                   width: double.maxFinite,
                   height: 0.5,
-                  color: GreyColor2,
+                  color: greyColor2,
                   margin: EdgeInsets.symmetric(horizontal: 5),
                 ),
                 SizedBox(
@@ -773,7 +776,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                 Text(
                   OrderDetailss,
                   style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: BlackColor),
+                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -788,7 +791,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -799,7 +802,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -817,7 +820,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -827,7 +830,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -845,7 +848,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -859,7 +862,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -877,7 +880,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: Segoe_ui_semibold,
-                            color: BlackColor2),
+                            color: blackColor2),
                       ),
                       SizedBox(
                         height: 1,
@@ -891,7 +894,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                     ],
                   ),
@@ -919,7 +922,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
           Container(
             width: double.maxFinite,
             height: 0.5,
-            color: GreyColor2,
+            color: greyColor2,
             margin: EdgeInsets.symmetric(horizontal: 5),
           ),
           SizedBox(
@@ -954,7 +957,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 12,
                             fontFamily: Poppinsmedium,
-                            color: GreyColor),
+                            color: greyColor),
                       );
                     }),
               ),
@@ -965,8 +968,8 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                   txtSize: 13,
                   CornerReduis: 7,
                   BorderWidth: 0.8,
-                  BackgroundColor: WhiteColor,
-                  ForgroundColor: MainColor,
+                  BackgroundColor: whiteColor,
+                  ForgroundColor: mainColor,
                   PaddingLeft: 15,
                   PaddingRight: 15,
                   PaddingTop: 7,
@@ -984,7 +987,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
           Container(
             width: double.maxFinite,
             height: 0.5,
-            color: GreyColor2,
+            color: greyColor2,
             margin: EdgeInsets.symmetric(horizontal: 5),
           ),
         ],
@@ -1019,7 +1022,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: Inter_bold,
-                            color: RedColor),
+                            color: redColor),
                       ),
                       SizedBox(
                         height: 30,
@@ -1064,7 +1067,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                                   style: TextStyle(
                                       fontSize: 17,
                                       fontFamily: Inter_bold,
-                                      color: BlackColor),
+                                      color: blackColor),
                                 ),
                                 const SizedBox(
                                   height: 2,
@@ -1076,7 +1079,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                                   style: TextStyle(
                                       fontSize: 11,
                                       fontFamily: Poppinsmedium,
-                                      color: GreyColor),
+                                      color: greyColor),
                                 )
                               ],
                             ),
@@ -1096,7 +1099,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
+                                  color: blackColor2),
                             ),
                             SizedBox(
                               height: 6,
@@ -1114,7 +1117,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: Segoe_ui_semibold,
-                                      color: GreyColor),
+                                      color: greyColor),
                                 );
                               },
                             ),
@@ -1126,7 +1129,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
+                                  color: blackColor2),
                             ),
                             SizedBox(
                               height: 2,
@@ -1136,7 +1139,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: Segoe_ui_bold,
-                                  color: BlackColor2),
+                                  color: blackColor2),
                             ),
                             SizedBox(
                               height: 2,
@@ -1148,7 +1151,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: Segoe_ui_semibold,
-                                  color: GreyColor),
+                                  color: greyColor),
                             )
                           ],
                         ),
@@ -1164,7 +1167,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                         child: Text(
                           CancelOrder,
                           style: TextStyle(
-                            color: WhiteColor,
+                            color: whiteColor,
                             fontFamily: Segoe_ui_semibold,
                             height: 1.1,
                           ),
@@ -1180,8 +1183,8 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               buttonState);
                         },
                         buttonState: buttonState,
-                        backgroundColor: MainColor,
-                        progressColor: WhiteColor,
+                        backgroundColor: mainColor,
+                        progressColor: whiteColor,
                         border_radius: Full_Rounded_Button_Corner,
                       ),
                       SizedBox(
@@ -1225,7 +1228,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
         isScrollControlled: true,
         isDismissible: false,
         enableDrag: false,
-        backgroundColor: WhiteColor,
+        backgroundColor: whiteColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
@@ -1277,7 +1280,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: Inter_bold,
-                                    color: BlackColor),
+                                    color: blackColor),
                               ),
                               SizedBox(
                                 width: 7,
@@ -1296,7 +1299,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             _orderDetailsDataModel.orderDetails!.orderId
                                 .toString(),
                             style: TextStyle(
-                                color: BlackColor,
+                                color: blackColor,
                                 fontFamily: Poppinsmedium,
                                 height: 1.1,
                                 fontSize: 14),
@@ -1313,9 +1316,9 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             decoration: InputDecoration(
                                 enabledBorder: const OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: GreyColor, width: 0.5),
+                                      BorderSide(color: greyColor, width: 0.5),
                                 ),
-                                hintStyle: TextStyle(color: GreyColor2),
+                                hintStyle: TextStyle(color: greyColor2),
                                 hintText:
                                     'Tell us reason of cancellation (optional)'),
                           ),
@@ -1326,7 +1329,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                             child: Text(
                               Submit,
                               style: TextStyle(
-                                color: WhiteColor,
+                                color: whiteColor,
                                 fontFamily: Segoe_ui_semibold,
                                 height: 1.1,
                               ),
@@ -1350,8 +1353,8 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
                               }
                             },
                             buttonState: buttonState,
-                            backgroundColor: MainColor,
-                            progressColor: WhiteColor,
+                            backgroundColor: mainColor,
+                            progressColor: whiteColor,
                             border_radius: Full_Rounded_Button_Corner,
                           ),
                           SizedBox(

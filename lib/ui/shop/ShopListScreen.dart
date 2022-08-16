@@ -65,78 +65,81 @@ class _ShopListScreenState extends State<ShopListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: false,
-            backgroundColor: WhiteColor,
-            floating: true,
-            snap: false,
-            flexibleSpace: FlexibleSpaceBar(),
-            elevation: 2,
-            forceElevated: true,
-            centerTitle: false,
-            leading: null,
-            title: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(imagePath + "back_arrow.png",
-                            height: 25, width: 25),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Text(
-                            widget.Category_Name,
-                            maxLines: 1,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: Inter_bold,
-                                color: BlackColor),
+    statusBarColor();
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              pinned: false,
+              backgroundColor: whiteColor,
+              floating: true,
+              snap: false,
+              flexibleSpace: FlexibleSpaceBar(),
+              elevation: 2,
+              forceElevated: true,
+              centerTitle: false,
+              leading: null,
+              title: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Image.asset(imagePath + "back_arrow.png",
+                              height: 25, width: 25),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Text(
+                              widget.Category_Name,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: Inter_bold,
+                                  color: blackColor),
+                            ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    GlobalSearchScreen("", widget.Category_Id)),
+                          );
+                        },
+                        child: Image.asset(imagePath + "ic_search.png",
+                            height: 20, width: 20),
+                      ),
+                      SizedBox(
+                        width: 5,
                       ),
                     ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context, rootNavigator: true).push(
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  GlobalSearchScreen("", widget.Category_Id)),
-                        );
-                      },
-                      child: Image.asset(imagePath + "ic_search.png",
-                          height: 20, width: 20),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
-          SliverList(delegate: SliverChildListDelegate([ShopListDataView()]))
-        ],
+            SliverList(delegate: SliverChildListDelegate([ShopListDataView()]))
+          ],
+        ),
+        floatingActionButton: HandleAddedtoCart(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
-      floatingActionButton: HandleAddedtoCart(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
@@ -219,8 +222,8 @@ class _ShopListScreenState extends State<ShopListScreen> {
                 txtSize: 13,
                 CornerReduis: FilterButtonRedius,
                 BorderWidth: 0.8,
-                BackgroundColor: WhiteColor,
-                ForgroundColor: GreyColor,
+                BackgroundColor: whiteColor,
+                ForgroundColor: greyColor,
                 PaddingLeft: 10,
                 PaddingRight: 10,
                 PaddingTop: 5,
@@ -252,7 +255,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(FilterButtonRedius),
                   border: Border.all(
-                      color: GreyColor, style: BorderStyle.solid, width: 0.8),
+                      color: greyColor, style: BorderStyle.solid, width: 0.8),
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
@@ -263,7 +266,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                     // Down Arrow Icon
                     icon: const Icon(
                       Icons.keyboard_arrow_down,
-                      color: GreyColor,
+                      color: greyColor,
                     ),
                     // Array list of items
                     items: items.map((String items) {
@@ -271,7 +274,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                         value: items,
                         child: Text(items,
                             style: TextStyle(
-                                color: GreyColor,
+                                color: greyColor,
                                 fontSize: 13,
                                 fontFamily: Poppinsmedium)),
                       );
@@ -323,8 +326,8 @@ class _ShopListScreenState extends State<ShopListScreen> {
                 txtSize: 13,
                 CornerReduis: FilterButtonRedius,
                 BorderWidth: 0.8,
-                BackgroundColor: IsRatedClick == true ? MainColor : WhiteColor,
-                ForgroundColor: IsRatedClick == true ? WhiteColor : GreyColor,
+                BackgroundColor: IsRatedClick == true ? mainColor : whiteColor,
+                ForgroundColor: IsRatedClick == true ? whiteColor : greyColor,
                 PaddingLeft: 10,
                 PaddingRight: 10,
                 PaddingTop: 5,
@@ -355,8 +358,8 @@ class _ShopListScreenState extends State<ShopListScreen> {
                 CornerReduis: FilterButtonRedius,
                 BorderWidth: 0.8,
                 BackgroundColor:
-                    IsOpenNowClick == true ? MainColor : WhiteColor,
-                ForgroundColor: IsOpenNowClick == true ? WhiteColor : GreyColor,
+                    IsOpenNowClick == true ? mainColor : whiteColor,
+                ForgroundColor: IsOpenNowClick == true ? whiteColor : greyColor,
                 PaddingLeft: 10,
                 PaddingRight: 10,
                 PaddingTop: 5,
@@ -385,8 +388,8 @@ class _ShopListScreenState extends State<ShopListScreen> {
                 txtSize: 13,
                 CornerReduis: FilterButtonRedius,
                 BorderWidth: 0.8,
-                BackgroundColor: IsAtoZClick == true ? MainColor : WhiteColor,
-                ForgroundColor: IsAtoZClick == true ? WhiteColor : GreyColor,
+                BackgroundColor: IsAtoZClick == true ? mainColor : whiteColor,
+                ForgroundColor: IsAtoZClick == true ? whiteColor : greyColor,
                 PaddingLeft: 10,
                 PaddingRight: 10,
                 PaddingTop: 5,
@@ -415,8 +418,8 @@ class _ShopListScreenState extends State<ShopListScreen> {
                 txtSize: 13,
                 CornerReduis: FilterButtonRedius,
                 BorderWidth: 0.8,
-                BackgroundColor: IsZtoAClick == true ? MainColor : WhiteColor,
-                ForgroundColor: IsZtoAClick == true ? WhiteColor : GreyColor,
+                BackgroundColor: IsZtoAClick == true ? mainColor : whiteColor,
+                ForgroundColor: IsZtoAClick == true ? whiteColor : greyColor,
                 PaddingLeft: 10,
                 PaddingRight: 10,
                 PaddingTop: 5,
@@ -565,7 +568,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                           fontSize: 11,
                                                           fontFamily:
                                                               Poppinsmedium,
-                                                          color: WhiteColor),
+                                                          color: whiteColor),
                                                     ),
                                                   )
                                                 : Container(
@@ -577,7 +580,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                             right: 7,
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                  color: WhiteColor,
+                                                  color: whiteColor,
                                                   borderRadius:
                                                       BorderRadius.circular(5)),
                                               padding: EdgeInsets.only(
@@ -592,7 +595,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                   Icon(
                                                     Icons.watch_later_outlined,
                                                     size: 11,
-                                                    color: MainColor,
+                                                    color: mainColor,
                                                   ),
                                                   SizedBox(
                                                     width: 3,
@@ -606,7 +609,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                     style: TextStyle(
                                                         fontSize: 8,
                                                         fontFamily: Inter_bold,
-                                                        color: BlackColor),
+                                                        color: blackColor),
                                                   )
                                                 ],
                                               ),
@@ -642,7 +645,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                     style: TextStyle(
                                                         fontSize: 16,
                                                         fontFamily: Inter_bold,
-                                                        color: BlackColor),
+                                                        color: blackColor),
                                                   ),
                                                 ),
                                               ),
@@ -675,7 +678,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                           fontSize: 11,
                                                           fontFamily:
                                                               Segoe_ui_semibold,
-                                                          color: WhiteColor),
+                                                          color: whiteColor),
                                                     ),
                                                     const SizedBox(
                                                       width: 2,
@@ -683,7 +686,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                     Icon(
                                                       Icons.star_rounded,
                                                       size: 11,
-                                                      color: WhiteColor,
+                                                      color: whiteColor,
                                                     ),
                                                     const SizedBox(
                                                       width: 5,
@@ -691,7 +694,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                     Container(
                                                       width: 1,
                                                       height: 10,
-                                                      color: WhiteColor,
+                                                      color: whiteColor,
                                                     ),
                                                     const SizedBox(
                                                       width: 5,
@@ -707,7 +710,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                           fontSize: 12,
                                                           fontFamily:
                                                               Segoe_ui_semibold,
-                                                          color: WhiteColor),
+                                                          color: whiteColor),
                                                     ),
                                                     SizedBox(
                                                       width: 4,
@@ -721,7 +724,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                           fontSize: 11,
                                                           fontFamily:
                                                               Segoe_ui_semibold,
-                                                          color: WhiteColor),
+                                                          color: whiteColor),
                                                     ),
                                                     SizedBox(
                                                       width: 3,
@@ -747,7 +750,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                             style: TextStyle(
                                                 fontSize: 9,
                                                 fontFamily: Poppinsmedium,
-                                                color: GreyColor4),
+                                                color: greyColor4),
                                           ),
                                           SizedBox(
                                             height: 3,
@@ -762,8 +765,8 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                 color: shopList1[index]
                                                             .iscoloured_blue ==
                                                         "true"
-                                                    ? MainColor
-                                                    : RedColor),
+                                                    ? mainColor
+                                                    : redColor),
                                           ),
                                           SizedBox(
                                             height: 10,
@@ -803,7 +806,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
             Text(
               NoDataFound,
               style: TextStyle(
-                  fontSize: 16, fontFamily: Inter_bold, color: MainColor),
+                  fontSize: 16, fontFamily: Inter_bold, color: mainColor),
             )
           ],
         );
@@ -904,7 +907,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                 style: TextStyle(
                                                     fontSize: 11,
                                                     fontFamily: Poppinsmedium,
-                                                    color: WhiteColor),
+                                                    color: whiteColor),
                                               ),
                                             )
                                           : Container(
@@ -916,7 +919,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                       right: 7,
                                       child: Container(
                                         decoration: BoxDecoration(
-                                            color: WhiteColor,
+                                            color: whiteColor,
                                             borderRadius:
                                                 BorderRadius.circular(5)),
                                         padding: EdgeInsets.only(
@@ -931,7 +934,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                             Icon(
                                               Icons.watch_later_outlined,
                                               size: 11,
-                                              color: MainColor,
+                                              color: mainColor,
                                             ),
                                             SizedBox(
                                               width: 3,
@@ -942,7 +945,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                               style: TextStyle(
                                                   fontSize: 8,
                                                   fontFamily: Inter_bold,
-                                                  color: BlackColor),
+                                                  color: blackColor),
                                             )
                                           ],
                                         ),
@@ -975,7 +978,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontFamily: Inter_bold,
-                                                  color: BlackColor),
+                                                  color: blackColor),
                                             ),
                                           ),
                                         ),
@@ -1006,7 +1009,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                     fontSize: 11,
                                                     fontFamily:
                                                         Segoe_ui_semibold,
-                                                    color: WhiteColor),
+                                                    color: whiteColor),
                                               ),
                                               const SizedBox(
                                                 width: 2,
@@ -1014,7 +1017,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                               Icon(
                                                 Icons.star_rounded,
                                                 size: 11,
-                                                color: WhiteColor,
+                                                color: whiteColor,
                                               ),
                                               const SizedBox(
                                                 width: 5,
@@ -1022,7 +1025,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                               Container(
                                                 width: 1,
                                                 height: 10,
-                                                color: WhiteColor,
+                                                color: whiteColor,
                                               ),
                                               const SizedBox(
                                                 width: 5,
@@ -1037,7 +1040,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                     fontSize: 12,
                                                     fontFamily:
                                                         Segoe_ui_semibold,
-                                                    color: WhiteColor),
+                                                    color: whiteColor),
                                               ),
                                               SizedBox(
                                                 width: 4,
@@ -1050,7 +1053,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                     fontSize: 11,
                                                     fontFamily:
                                                         Segoe_ui_semibold,
-                                                    color: WhiteColor),
+                                                    color: whiteColor),
                                               ),
                                               SizedBox(
                                                 width: 3,
@@ -1072,7 +1075,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                       style: TextStyle(
                                           fontSize: 9,
                                           fontFamily: Poppinsmedium,
-                                          color: GreyColor4),
+                                          color: greyColor4),
                                     ),
                                     SizedBox(
                                       height: 3,
@@ -1087,8 +1090,8 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                           color:
                                               shopList[index].iscoloured_blue ==
                                                       "true"
-                                                  ? MainColor
-                                                  : RedColor),
+                                                  ? mainColor
+                                                  : redColor),
                                     ),
                                     SizedBox(
                                       height: 10,
@@ -1122,7 +1125,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
             QuickGrab,
             maxLines: 1,
             style: TextStyle(
-                fontSize: 18, fontFamily: Inter_bold, color: BlackColor2),
+                fontSize: 18, fontFamily: Inter_bold, color: blackColor2),
           ),
         ),
         SizedBox(
@@ -1201,7 +1204,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                         EdgeInsets.all(3.0),
                                                     child: Icon(
                                                       Icons.add_rounded,
-                                                      color: MainColor,
+                                                      color: mainColor,
                                                       size: 25,
                                                     ),
                                                   ),
@@ -1252,7 +1255,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                 style: TextStyle(
                                                     fontSize: 13,
                                                     fontFamily: Inter_bold,
-                                                    color: BlackColor2),
+                                                    color: blackColor2),
                                               ),
                                               SizedBox(
                                                 height: 5,
@@ -1276,7 +1279,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                             fontSize: 12,
                                                             fontFamily:
                                                                 Inter_bold,
-                                                            color: MainColor),
+                                                            color: mainColor),
                                                       ),
                                                       SizedBox(
                                                         width: 3,
@@ -1470,7 +1473,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
           style: TextStyle(
               fontSize: 11,
               fontFamily: Inter_medium,
-              color: GreyColor,
+              color: greyColor,
               decoration: TextDecoration.lineThrough,
               decorationThickness: 1.5),
         ),
@@ -1513,12 +1516,12 @@ class _ShopListScreenState extends State<ShopListScreen> {
         margin: EdgeInsets.only(right: 10),
         padding: EdgeInsets.only(left: 7, right: 7, top: 2, bottom: 2),
         decoration: BoxDecoration(
-            color: MainColor, borderRadius: BorderRadius.circular(15)),
+            color: mainColor, borderRadius: BorderRadius.circular(15)),
         child: Text(
           intprec.toString() + "% OFF",
           maxLines: 1,
           style: TextStyle(
-              fontSize: 10, fontFamily: Segoe_ui_bold, color: WhiteColor),
+              fontSize: 10, fontFamily: Segoe_ui_bold, color: whiteColor),
         ),
       );
     } else {

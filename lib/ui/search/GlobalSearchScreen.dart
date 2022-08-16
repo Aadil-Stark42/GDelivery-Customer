@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gdeliverycustomer/models/SearchDataModel.dart';
 
 import 'package:gdeliverycustomer/res/ResColor.dart';
@@ -47,17 +45,15 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: WhiteColor,
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.dark,
-          child: SafeArea(
-              child: CustomScrollView(
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: whiteColor,
+          body: CustomScrollView(
             slivers: [
               SliverAppBar(
                 automaticallyImplyLeading: false,
                 pinned: false,
-                backgroundColor: WhiteColor,
+                backgroundColor: whiteColor,
                 floating: true,
                 snap: false,
                 flexibleSpace: FlexibleSpaceBar(),
@@ -81,7 +77,7 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: Inter_bold,
-                          color: BlackColor),
+                          color: blackColor),
                     ),
                   ],
                 ),
@@ -121,10 +117,11 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
                 )
               ]))
             ],
-          )),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: HandleAddedtoCart());
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: HandleAddedtoCart()),
+    );
   }
 
   Widget HandleAddedtoCart() {
@@ -202,7 +199,7 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
                                     },
                                     child: const Icon(
                                       Icons.add_rounded,
-                                      color: MainColor,
+                                      color: mainColor,
                                       size: 25,
                                     ),
                                   ),
@@ -241,7 +238,7 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontFamily: Inter_bold,
-                                        color: BlackColor2),
+                                        color: blackColor2),
                                   ),
                                   SizedBox(
                                     height: 2,
@@ -255,7 +252,7 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontFamily: Inter_bold,
-                                        color: MainColor),
+                                        color: mainColor),
                                   )
                                 ],
                               ),
@@ -400,7 +397,7 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
         ),
         Image.asset(
           imagePath + "ic_searchempty.png",
-          color: MainColor,
+          color: mainColor,
           height: 300,
           width: 300,
         ),
@@ -412,7 +409,7 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
           overflow: TextOverflow.ellipsis,
           softWrap: true,
           style: TextStyle(
-              fontSize: 16, fontFamily: Segoe_ui_semibold, color: GreyColor),
+              fontSize: 16, fontFamily: Segoe_ui_semibold, color: greyColor),
         )
       ],
     );

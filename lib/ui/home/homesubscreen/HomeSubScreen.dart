@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +68,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WhiteColor,
+      backgroundColor: whiteColor,
       body: MainHomeDataView(),
     );
   }
@@ -170,7 +169,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                   right: 0.0,
                   top: 0.0,
                   child: Container(
-                    color: TransBlackColor,
+                    color: transBlackColor,
 
                     /* decoration: const BoxDecoration(
                       gradient: LinearGradient(
@@ -201,14 +200,14 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                         ),
                         CircleAvatar(
                           radius: 16,
-                          backgroundColor: WhiteColor,
+                          backgroundColor: whiteColor,
                           child: Padding(
                             padding: EdgeInsets.all(5),
                             child: Image.asset(
                               "${imagePath}right-arrow.png",
                               height: 15,
                               width: 15,
-                              color: MainColor,
+                              color: mainColor,
                             ),
                           ),
                         )
@@ -230,8 +229,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
         child: ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
             child: FadeInImage(
-                placeholder:
-                    AssetImage(imagePath + "no_image_placeholder.png"),
+                placeholder: AssetImage(imagePath + "no_image_placeholder.png"),
                 image: NetworkImage(element.image.toString()))),
       ),
     );
@@ -245,7 +243,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
           slivers: [
             SliverAppBar(
                 pinned: false,
-                backgroundColor: MainColor,
+                backgroundColor: mainColor,
                 floating: true,
                 snap: false,
                 flexibleSpace: FlexibleSpaceBar(),
@@ -270,7 +268,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                               "${imagePath}location.png"),
                                           width: 22,
                                           height: 22,
-                                          color: WhiteColor,
+                                          color: whiteColor,
                                         ),
                                       ),
                                       const SizedBox(
@@ -292,7 +290,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontFamily: Segoe_ui_bold,
-                                                  color: WhiteColor),
+                                                  color: whiteColor),
                                             ),
                                           ),
                                           InkWell(
@@ -307,7 +305,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                                   fontSize: 12,
                                                   height: 1.1,
                                                   fontFamily: Segoeui,
-                                                  color: WhiteColor),
+                                                  color: whiteColor),
                                             ),
                                           )
                                         ],
@@ -346,7 +344,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                           padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
                           child: Icon(
                             Icons.search,
-                            color: WhiteColor,
+                            color: whiteColor,
                             size: 25,
                           ),
                         ),
@@ -370,7 +368,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                           padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
                           child: Icon(
                             Icons.favorite_border,
-                            color: WhiteColor,
+                            color: whiteColor,
                             size: 25,
                           ),
                         ),
@@ -394,7 +392,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                           children: <Widget>[
                             const Icon(
                               Icons.notifications_outlined,
-                              color: WhiteColor,
+                              color: whiteColor,
                               size: 25,
                             ),
                             Positioned(
@@ -405,7 +403,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                   child: Container(
                                     padding: const EdgeInsets.all(1),
                                     decoration: BoxDecoration(
-                                      color: WhiteColor,
+                                      color: whiteColor,
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     constraints: const BoxConstraints(
@@ -416,7 +414,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                       DashBoardData.notificationCount
                                           .toString(),
                                       style: TextStyle(
-                                        color: BlackColor,
+                                        color: blackColor,
                                         fontSize: 8,
                                       ),
                                       textAlign: TextAlign.center,
@@ -462,7 +460,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: Inter_bold,
-                                color: BlackColor),
+                                color: blackColor),
                           )),
                       Padding(
                           padding: const EdgeInsets.only(
@@ -571,7 +569,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                                               decoration: BoxDecoration(
                                                                   border: Border.all(
                                                                       color:
-                                                                          BlackColor,
+                                                                          blackColor,
                                                                       width: 1),
                                                                   borderRadius:
                                                                       BorderRadius
@@ -591,7 +589,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                                                       fontFamily:
                                                                           Segoe_ui_bold,
                                                                       color:
-                                                                          BlackColor),
+                                                                          blackColor),
                                                                 ),
                                                               ),
                                                             ),
@@ -619,7 +617,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                                       child: CircleAvatar(
                                                         radius: 48,
                                                         backgroundColor:
-                                                            MainColor,
+                                                            mainColor,
                                                         backgroundImage:
                                                             NetworkImage(
                                                                 DashBoardData
@@ -659,7 +657,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             letterSpacing: 0.27,
-                                                            color: BlackColor,
+                                                            color: blackColor,
                                                           ),
                                                         ),
                                                       ))
@@ -703,7 +701,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                             style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: Inter_bold,
-                                color: BlackColor),
+                                color: blackColor),
                           )),
                       Column(
                         children: [
@@ -797,7 +795,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         letterSpacing: 0.27,
-                                                        color: BlackColor,
+                                                        color: blackColor,
                                                       ),
                                                     ))
                                               ],
@@ -832,7 +830,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: Inter_bold,
-                                    color: MainColor),
+                                    color: mainColor),
                               ),
                             ),
                             visible: IsvisibleSeeMore,

@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gdeliverycustomer/alertdialog/rflutter_alert.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/models/ShopProductDataModel.dart';
@@ -20,12 +19,10 @@ import '../../animationlist/src/animation_configuration.dart';
 import '../../animationlist/src/animation_limiter.dart';
 import '../../animationlist/src/fade_in_animation.dart';
 import '../../animationlist/src/slide_animation.dart';
-import '../../models/ProductToppingDataModel.dart';
 import '../../models/ShopDetailsDataModel.dart';
 import '../../uicomponents/AddtoCartView.dart';
 import '../../uicomponents/CustomTabView.dart';
 import '../../uicomponents/MyProgressBar.dart';
-import '../home/homesubscreen/CartSubScreen.dart';
 import 'MainTappingView.dart';
 import 'ShopDetailsHeader.dart';
 import 'ShopReviewScreen.dart';
@@ -63,15 +60,14 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
-        child: SafeArea(child: ShopDetailsView()),
-      ),
+    statusBarColor();
+    return SafeArea(
+        child: Scaffold(
+      backgroundColor: whiteColor,
+      body: ShopDetailsView(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: HandleAddedtoCart(),
-    );
+    ));
   }
 
   Widget HandleAddedtoCart() {
@@ -115,7 +111,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                     Container(
                       width: double.infinity,
                       height: 0.5,
-                      color: GreyColor2,
+                      color: greyColor2,
                     ),
                     SizedBox(height: 5),
                     Row(
@@ -132,7 +128,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                         AssetImage("${imagePath}location.png"),
                                     width: 15,
                                     height: 15,
-                                    color: MainColor,
+                                    color: mainColor,
                                   ),
                                   const SizedBox(
                                     width: 4,
@@ -145,7 +141,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontFamily: Segoe_ui_semibold,
-                                        color: GreyColor),
+                                        color: greyColor),
                                   )
                                 ],
                               ),
@@ -161,7 +157,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: Segoe_ui_semibold,
-                                      color: GreyColor),
+                                      color: greyColor),
                                 ),
                               ),
                               SizedBox(
@@ -172,7 +168,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                   Icon(
                                     Icons.watch_later_outlined,
                                     size: 15,
-                                    color: MainColor,
+                                    color: mainColor,
                                   ),
                                   const SizedBox(
                                     width: 4,
@@ -185,7 +181,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontFamily: Segoe_ui_semibold,
-                                        color: GreyColor),
+                                        color: greyColor),
                                   )
                                 ],
                               ),
@@ -201,7 +197,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontFamily: Segoe_ui_semibold,
-                                      color: GreyColor),
+                                      color: greyColor),
                                 ),
                               ),
                               SizedBox(
@@ -217,7 +213,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontFamily: Segoe_ui_semibold,
-                                        color: MainColor),
+                                        color: mainColor),
                                   ),
                                   const SizedBox(
                                     width: 4,
@@ -225,7 +221,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                   Icon(
                                     Icons.star_rounded,
                                     size: 15,
-                                    color: MainColor,
+                                    color: mainColor,
                                   ),
                                 ],
                               ),
@@ -235,7 +231,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                               Container(
                                 width: 1,
                                 height: 12,
-                                color: GreyColor2,
+                                color: greyColor2,
                               ),
                               SizedBox(
                                 width: 10,
@@ -248,7 +244,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                 style: TextStyle(
                                     fontSize: 13,
                                     fontFamily: Segoe_ui_semibold,
-                                    color: GreyColor2),
+                                    color: greyColor2),
                               ),
                               SizedBox(
                                 width: 5,
@@ -260,7 +256,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                 style: TextStyle(
                                     fontSize: 13,
                                     fontFamily: Segoe_ui_semibold,
-                                    color: GreyColor2),
+                                    color: greyColor2),
                               )
                             ],
                           ),
@@ -278,7 +274,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                           child: const Icon(
                             Icons.arrow_forward_ios_rounded,
                             size: 16,
-                            color: MainColor,
+                            color: mainColor,
                           ),
                         )
                       ],
@@ -287,7 +283,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                     Container(
                       width: double.infinity,
                       height: 0.5,
-                      color: GreyColor2,
+                      color: greyColor2,
                     ),
                     CouponListview(),
                     SizedBox(
@@ -514,7 +510,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontFamily: Inter_bold,
-                                    color: BlackColor),
+                                    color: blackColor),
                               ),
                               SizedBox(
                                 height: 2,
@@ -524,7 +520,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                 style: TextStyle(
                                     fontSize: 13,
                                     fontFamily: Poppinsmedium,
-                                    color: GreyColor),
+                                    color: greyColor),
                               ),
                               SizedBox(
                                 height: 2,
@@ -539,7 +535,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                 style: TextStyle(
                                     fontSize: 13,
                                     fontFamily: Segoe_ui_bold,
-                                    color: MainColor),
+                                    color: mainColor),
                               )
                             ],
                           ),
@@ -552,7 +548,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               side:
-                                  const BorderSide(color: MainColor, width: 1),
+                                  const BorderSide(color: mainColor, width: 1),
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             child: Padding(
@@ -563,7 +559,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
-                                    splashColor: GreyColor,
+                                    splashColor: greyColor,
                                     onTap: () {
                                       if (shopProductsList[index]
                                               .variants![0]
@@ -592,7 +588,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                         alignment: Alignment.center,
                                         child: const Icon(
                                           Icons.remove_rounded,
-                                          color: MainColor,
+                                          color: mainColor,
                                           size: 20,
                                         ),
                                         width: 30,
@@ -612,10 +608,10 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontFamily: Poppinsmedium,
-                                        color: BlackColor),
+                                        color: blackColor),
                                   ),
                                   InkWell(
-                                    splashColor: GreyColor2,
+                                    splashColor: greyColor2,
                                     onTap: () {
                                       if (shopProductsList[index]
                                               .canCustomize !=
@@ -636,7 +632,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                       alignment: Alignment.center,
                                       child: Icon(
                                         Icons.add_rounded,
-                                        color: MainColor,
+                                        color: mainColor,
                                         size: 20,
                                       ),
                                       width: 30,
@@ -659,7 +655,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                               style: TextStyle(
                                   fontSize: 10,
                                   fontFamily: Poppinsmedium,
-                                  color: BlackColor),
+                                  color: blackColor),
                             ),
                           ),
                         )
@@ -825,7 +821,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: Segoe_ui_bold,
-                                    color: BlackColor),
+                                    color: blackColor),
                               )
                             ],
                           ),
@@ -848,7 +844,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                     Container(
                       width: double.maxFinite,
                       height: 0.5,
-                      color: GreyColor2,
+                      color: greyColor2,
                     ),
                     SizedBox(
                       height: 15,
@@ -863,7 +859,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 decoration: BoxDecoration(
-                    color: MainColor, borderRadius: BorderRadius.circular(7)),
+                    color: mainColor, borderRadius: BorderRadius.circular(7)),
                 child: Row(
                   children: [
                     Expanded(
@@ -874,7 +870,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: Segoe_ui_semibold,
-                          color: WhiteColor),
+                          color: whiteColor),
                     )),
                     GestureDetector(
                       onTap: () {
@@ -891,7 +887,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                         style: TextStyle(
                             fontSize: 16,
                             fontFamily: Segoe_ui_semibold,
-                            color: WhiteColor),
+                            color: whiteColor),
                       ),
                     )
                   ],
@@ -982,7 +978,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                                   fontSize: 13,
                                                   height: 1.0,
                                                   fontFamily: Segoe_ui_semibold,
-                                                  color: BlackColor),
+                                                  color: blackColor),
                                             ),
                                             SizedBox(
                                               height: 3,
@@ -1000,7 +996,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                                         height: 1.0,
                                                         fontFamily:
                                                             Segoe_ui_semibold,
-                                                        color: BlackColor),
+                                                        color: blackColor),
                                                   ),
                                                   Text(
                                                     shopDetailsDataModel
@@ -1015,7 +1011,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                                                         height: 1.0,
                                                         fontFamily:
                                                             Segoe_ui_semibold,
-                                                        color: BlackColor),
+                                                        color: blackColor),
                                                   ),
                                                 ],
                                               ),

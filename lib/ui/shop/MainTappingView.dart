@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gdeliverycustomer/models/ShopDetailsDataModel.dart';
@@ -91,7 +90,7 @@ class _MainTappingViewState extends State<MainTappingView> {
             Choice,
             softWrap: true,
             style: TextStyle(
-                fontSize: 14, fontFamily: Segoe_ui_bold, color: BlackColor),
+                fontSize: 14, fontFamily: Segoe_ui_bold, color: blackColor),
           ),
           ListView.builder(
             padding: EdgeInsets.zero,
@@ -102,7 +101,7 @@ class _MainTappingViewState extends State<MainTappingView> {
               return Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: InkWell(
-                  splashColor: GreyColor2,
+                  splashColor: greyColor2,
                   onTap: () {
                     setState(() {
                       selectedIndex = index;
@@ -135,7 +134,7 @@ class _MainTappingViewState extends State<MainTappingView> {
                                   : "${imagePath}unselect_button.png",
                               height: 30,
                               width: 30,
-                              color: GreyColor,
+                              color: greyColor,
                             ),
                             const SizedBox(
                               width: 7,
@@ -147,7 +146,7 @@ class _MainTappingViewState extends State<MainTappingView> {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontFamily: Segoe_ui_semibold,
-                                  color: BlackColor2),
+                                  color: blackColor2),
                             )
                           ],
                         ),
@@ -160,7 +159,7 @@ class _MainTappingViewState extends State<MainTappingView> {
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                       const SizedBox(
                         width: 80,
@@ -177,7 +176,7 @@ class _MainTappingViewState extends State<MainTappingView> {
           Container(
             width: double.maxFinite,
             height: 0.5,
-            color: GreyColor2,
+            color: greyColor2,
           ),
           SizedBox(
             height: 15,
@@ -186,7 +185,7 @@ class _MainTappingViewState extends State<MainTappingView> {
             ADDONS,
             softWrap: true,
             style: TextStyle(
-                fontSize: 14, fontFamily: Segoe_ui_bold, color: BlackColor),
+                fontSize: 14, fontFamily: Segoe_ui_bold, color: blackColor),
           ),
           SizedBox(
             height: 5,
@@ -220,7 +219,7 @@ class _MainTappingViewState extends State<MainTappingView> {
           return Padding(
             padding: const EdgeInsets.only(top: 10),
             child: InkWell(
-              splashColor: GreyColor2,
+              splashColor: greyColor2,
               onTap: () {
                 setState(() {
                   if (CheckBOxHandleList[index] == true) {
@@ -255,7 +254,7 @@ class _MainTappingViewState extends State<MainTappingView> {
                               : "${imagePath}uncheckbox.png",
                           height: 16,
                           width: 16,
-                          color: GreyColor,
+                          color: greyColor,
                         ),
                         const SizedBox(
                           width: 12,
@@ -267,7 +266,7 @@ class _MainTappingViewState extends State<MainTappingView> {
                           style: TextStyle(
                               fontSize: 16,
                               fontFamily: Segoe_ui_semibold,
-                              color: BlackColor2),
+                              color: blackColor2),
                         )
                       ],
                     ),
@@ -280,7 +279,7 @@ class _MainTappingViewState extends State<MainTappingView> {
                     style: TextStyle(
                         fontSize: 14,
                         fontFamily: Segoe_ui_semibold,
-                        color: GreyColor),
+                        color: greyColor),
                   ),
                   const SizedBox(
                     width: 80,

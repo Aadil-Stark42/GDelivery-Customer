@@ -150,10 +150,10 @@ class _ProgressButtonState extends State<ProgressButton>
           height: buttonHeight,
           width: buttonHeight, // needs to be a square container
           child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(12),
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(progressColor),
-              strokeWidth: 3,
+              strokeWidth: 2,
             ),
           ));
     }

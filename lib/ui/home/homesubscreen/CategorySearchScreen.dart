@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
@@ -36,50 +35,64 @@ class CategorySearchScreenState extends State<CategorySearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 60,
               automaticallyImplyLeading: false,
               pinned: false,
-              backgroundColor: WhiteColor,
+              backgroundColor: whiteColor,
               floating: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(),
-              elevation: 2,
+              elevation: 0,
               forceElevated: true,
               centerTitle: false,
               leading: null,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    Category,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: Inter_bold,
-                        color: BlackColor),
-                  ),
-                ],
-              ),
-              actions: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute(
-                          builder: (context) => GlobalSearchScreen("", "")),
-                    );
-                  },
-                  child: Image.asset(imagePath + "ic_search.png",
-                      height: 20, width: 20),
+              title: Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      imagePath + "ic_back2.png",
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      Categoriess,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontSize: 17,
+                          height: 1.0,
+                          fontFamily: Segoe_ui_bold,
+                          color: mainColor),
+                    ),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(
+                          MaterialPageRoute(
+                              builder: (context) => GlobalSearchScreen("", "")),
+                        );
+                      },
+                      child: Image.asset(imagePath + "ic_search.png",
+                          height: 20, width: 20),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 15,
-                )
-              ]),
-          SliverList(delegate: SliverChildListDelegate([CategoyDataView()]))
-        ],
+              ),
+            ),
+            SliverList(delegate: SliverChildListDelegate([CategoyDataView()]))
+          ],
+        ),
       ),
     );
   }
@@ -114,19 +127,20 @@ class CategorySearchScreenState extends State<CategorySearchScreen> {
     Size size = MediaQuery.of(context).size;
     if (DashBoardData.status != null && DashBoardData.status != false) {
       return Container(
-        margin: EdgeInsets.symmetric(horizontal: 8),
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
         child: AnimationLimiter(
           child: GridView.count(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            crossAxisCount: 3,
-            mainAxisSpacing: 15,
+            crossAxisCount: 2,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 25,
             children: List.generate(
               DashBoardData.category1!.length,
               (int index) {
                 print(DashBoardData.category1![index].banner);
                 return AnimationConfiguration.staggeredGrid(
-                  columnCount: 3,
+                  columnCount: 2,
                   position: index,
                   duration: Duration(milliseconds: AnimationTime),
                   child: ScaleAnimation(
@@ -145,41 +159,41 @@ class CategorySearchScreenState extends State<CategorySearchScreen> {
                           );
                         },
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              height: 80,
-                              width: 80,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: FadeInImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    DashBoardData.category1![index].banner
-                                        .toString(),
+                            Expanded(
+                              child: Container(
+                                height: 200,
+                                width: double.maxFinite,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(7),
+                                  child: FadeInImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      DashBoardData.category1![index].banner
+                                          .toString(),
+                                    ),
+                                    placeholder:
+                                        AssetImage("${imagePath}ic_logo.png"),
                                   ),
-                                  placeholder:
-                                      AssetImage("${imagePath}ic_logo.png"),
                                 ),
                               ),
                             ),
-                            Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 8, left: 5, right: 5),
-                                child: Text(
-                                  DashBoardData.category1![index].name
-                                      .toString(),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    height: 1.1,
-                                    fontFamily: Inter_bold,
-                                    fontSize: 12,
-                                    letterSpacing: 0.27,
-                                    color: BlackColor,
-                                  ),
-                                ))
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              DashBoardData.category1![index].name.toString(),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                height: 1.1,
+                                fontFamily: Segoe_ui_semibold,
+                                fontSize: 14,
+                                letterSpacing: 0.27,
+                                color: mainColor,
+                              ),
+                            )
                           ],
                         ),
                       ),

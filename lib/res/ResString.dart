@@ -11,7 +11,7 @@ var introscreen = "introscreen";
 var Skip = "Skip";
 var Finish = "Finish";
 var Next = "Next";
-var LOGIN = "Login";
+var LOGIN = "Login NOW";
 var ADD = "ADD";
 var APPLY = "APPLY";
 var CONTINUE = "Continue";
@@ -24,7 +24,7 @@ var CONTINUESHOPPING = "Continue Shopping";
 var OKAY = "Okay";
 var EnterMobileHint = "Enter mobile number";
 var EnterValidmobile = "Enter valid mobile number";
-var EnterNameHint = "Enter your name";
+var EnterNameHint = "Enter your Name";
 var HOUSEFLATBLOCK = "HOUSE / FLAT / BLOCK NO.";
 var LANDMARKOPTIONAL = "LANDMARK (optional)";
 var HintName = "Name";
@@ -111,6 +111,7 @@ var NoProductFound = "No Products Found";
 var NotificationdontYouhave = "You don't have any Notification";
 var NoDataFound = "No Data Found";
 var Category = "Category";
+var Categoriess = "Categories";
 var LeaveRating = "Leave Rating";
 var RecentReviewss = "Recent Reviews";
 var Favorite = "Favorite";
@@ -148,12 +149,14 @@ var OrderPlaced = "Order Placed";
 var OrderRejectedByVendor = "Order Rejected By Vendor";
 var CHECKAPPSTATUS = "CHECK APP STATUS";
 var STATUSNUMBER = "0";
+var gDeliveryStart = "Get started with G digital delivery";
 var yourcartcontain =
     "Your cart contains items from Shop 1. Do you want to clear the cart and add items from Shop 2";
 var howdoyourate = "How do you rate our delivery boy?";
 var Yourfeedbackwill =
     "Your feedback will help us improve delivery experience better.";
 var Confirmss = "Confirm";
+var selectYourLocation = "Select Your Location";
 /*--------------------*/
 
 /*Animation Tim*/
@@ -179,6 +182,10 @@ var Poppinsmedium = "poppinsmedium";
 var Segoe_bold = "segoe_bold";
 var Segoe_ui_bold = "segoe_ui_bold";
 var Segoe_ui_semibold = "segoe_ui_semibold";
+var Raleway_Bold = "Raleway_Bold";
+var Raleway_Medium = "Raleway_Medium";
+var Raleway_Regular = "Raleway_Regular";
+var Raleway_SemiBold = "Raleway_SemiBold";
 
 /*View Shape*/
 var Rounded_Button_Corner = 8.0;

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gdeliverycustomer/ui/home/HomeScreen.dart';
 import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
 import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,10 +20,12 @@ import '../address/SelectAddressScreen.dart';
 class OtpScreen extends StatefulWidget {
   String mobileNumber;
   String UserName;
+  String cityId;
 
   OtpScreen({
     required this.mobileNumber,
     required this.UserName,
+    required this.cityId,
   });
 
   @override
@@ -36,187 +39,143 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    statusBarColor();
     Firebase.initializeApp();
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: WhiteColor,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 25),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: 200,
-                height: 200,
-                child: Image.asset(
-                  '${imagePath}step-one.png',
-                ),
-              ),
-              SizedBox(
-                height: 28,
-              ),
-              Text(
-                Verification,
-                style: TextStyle(
-                    fontSize: 22, fontFamily: Segoe_ui_semibold, height: 1),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                EnterYourOTP,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black38,
-                    fontFamily: Inter_regular,
-                    height: 1),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                "OTP Send to " + widget.mobileNumber,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: GreyColor3,
-                    fontFamily: Segoe_ui_semibold,
-                    height: 1),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(28.0),
+      backgroundColor: whiteColor,
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(imagePath + "ic_otp.png"))),
+          ),
+          Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: whiteColor,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15))),
+                padding:
+                    EdgeInsets.only(left: 15, right: 15, bottom: 30, top: 30),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: OTPTextField(
-                            length: 4,
-                            width: MediaQuery.of(context).size.width,
-                            fieldWidth: 60,
-                            style: TextStyle(fontSize: 17),
-                            textFieldAlignment: MainAxisAlignment.spaceAround,
-                            fieldStyle: FieldStyle.box,
-                            onChanged: (currentvalue) {},
-                            onCompleted: (pin) {
-                              print("Completed: " + pin);
-                              OttStr = pin;
-                            },
+                    Text(
+                      Verification,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: Raleway_Bold,
+                          color: blackColor),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Submit the 4 digit code you got on your " +
+                          widget.mobileNumber +
+                          " number.",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: Raleway_Medium,
+                          color: greyColor9),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    OTPTextField(
+                      length: 4,
+                      width: MediaQuery.of(context).size.width,
+                      fieldWidth: 60,
+                      otpFieldStyle: OtpFieldStyle(
+                        focusBorderColor: mainColor,
+                        enabledBorderColor: greyColor7,
+                      ),
+                      style: TextStyle(fontSize: 17),
+                      textFieldAlignment: MainAxisAlignment.spaceAround,
+                      fieldStyle: FieldStyle.box,
+                      onChanged: (currentvalue) {},
+                      onCompleted: (pin) {
+                        print("Completed: " + pin);
+                        OttStr = pin;
+                      },
+                    ),
+                    SizedBox(
+                      height: 45,
+                    ),
+                    Center(
+                      child: Container(
+                        width: 150,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: mainColor,
+                            borderRadius: BorderRadius.circular(14)),
+                        child: ProgressButton(
+                          child: Text(
+                            Verify,
+                            style: TextStyle(
+                              color: whiteColor,
+                              fontFamily: Raleway_Bold,
+                              height: 1.0,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 28,
-                    ),
-                    ProgressButton(
-                      child: Text(
-                        Verify,
-                        style: TextStyle(
-                          color: WhiteColor,
-                          fontFamily: Segoe_ui_semibold,
-                          height: 1.1,
+                          onPressed: () {
+                            setState(() {
+                              buttonState = ButtonState.inProgress;
+                            });
+                            OtpVerification();
+                          },
+                          buttonState: buttonState,
+                          backgroundColor: mainColor,
+                          progressColor: whiteColor,
+                          border_radius: Full_Rounded_Button_Corner,
                         ),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          buttonState = ButtonState.inProgress;
-                        });
-                        OtpVerification();
-                      },
-                      buttonState: buttonState,
-                      backgroundColor: MainColor,
-                      progressColor: WhiteColor,
-                      border_radius: Full_Rounded_Button_Corner,
-                    )
+                    ),
+                    SizedBox(
+                      height: 45,
+                    ),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          ResendOtp();
+                        },
+                        child: Text(
+                          "Didn't receive an OTP? Resend",
+                          style: TextStyle(
+                            shadows: [
+                              Shadow(color: greyColor8, offset: Offset(0, -3))
+                            ],
+                            color: Colors.transparent,
+                            decoration: TextDecoration.underline,
+                            decorationColor: greyColor8,
+                            decorationThickness: 1,
+                            fontFamily: Poppins_light,
+                            fontWeight: FontWeight.bold,
+                            decorationStyle: TextDecorationStyle.solid,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                DidnotReceive,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black38,
-                    fontFamily: Inter_regular,
-                    height: 1),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              GestureDetector(
-                onTap: () {
-                  ResendOtp();
-                },
-                child: Text(
-                  Resend,
-                  style: TextStyle(
-                      height: 1,
-                      fontSize: 15,
-                      color: MainColor,
-                      fontFamily: Poppinsmedium),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-        ),
+              ))
+        ],
       ),
-    );
+    ));
   }
-
-/*
-  Widget _textFieldOTP({required bool first, last}) {
-    return Container(
-      height: 60,
-      width: 60,
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: TextField(
-          autofocus: true,
-          onChanged: (value) {
-            if (value.length == 1 && last == false) {
-              FocusScope.of(context).nextFocus();
-            }
-            if (value.length == 1 && last == true) {}
-            if (value.length == 0 && first == false) {
-              FocusScope.of(context).previousFocus();
-            }
-          },
-          showCursor: false,
-          readOnly: false,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          keyboardType: TextInputType.number,
-          maxLength: 1,
-          decoration: InputDecoration(
-            counter: Offstage(),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: Colors.black12),
-                borderRadius: BorderRadius.circular(12)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: MainColor),
-                borderRadius: BorderRadius.circular(12)),
-          ),
-        ),
-      ),
-    );
-  }
-*/
 
   Future<void> OtpVerification() async {
     String? token = await FirebaseMessaging.instance.getToken();
@@ -271,11 +230,13 @@ class _OtpScreenState extends State<OtpScreen> {
 
   Future<void> ResendOtp() async {
     HideKeyBoard();
-
     var dio = GetApiInstance();
     Response response;
-    response = await dio.post(LOGIN_API,
-        data: {mobile: widget.mobileNumber, name: widget.UserName});
+    response = await dio.post(LOGIN_API, data: {
+      mobile: widget.mobileNumber,
+      name: widget.UserName,
+      city: widget.cityId
+    });
 
     ShowToast(response.data[MESSAGE], context);
   }

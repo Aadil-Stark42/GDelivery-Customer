@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:gdeliverycustomer/res/ResColor.dart';
 
 import '../../res/ResString.dart';
+import '../../utils/Utils.dart';
 import 'AppMaintainanceScreen.dart';
 import 'homesubscreen/CartSubScreen.dart';
 import 'homesubscreen/CategorySearchScreen.dart';
 import 'homesubscreen/HomeSubScreen.dart';
 import 'homesubscreen/ProfileScreen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomeScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class MyHomeScreen extends StatefulWidget {
-  @override
-  MyHomeScreenState createState() => MyHomeScreenState();
-}
-
-class MyHomeScreenState extends State<MyHomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
 
   /*final List<Widget> viewContainer = [
@@ -60,15 +52,15 @@ class MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    statusBarColor();
     return Scaffold(
-      backgroundColor: WhiteColor,
+      backgroundColor: whiteColor,
       body: bottomView(),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
         child: BottomNavigationBar(
-            backgroundColor: MainColor,
-            selectedItemColor: WhiteColor,
+            backgroundColor: mainColor,
+            selectedItemColor: whiteColor,
             type: BottomNavigationBarType.fixed,
             unselectedItemColor: lightWhiteColor,
             onTap: (index) {

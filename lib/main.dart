@@ -1,9 +1,5 @@
-import 'dart:convert';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter/services.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
 import 'package:gdeliverycustomer/res/ResString.dart';
 import 'package:gdeliverycustomer/ui/home/HomeScreen.dart';
@@ -11,61 +7,11 @@ import 'package:gdeliverycustomer/ui/intro/IntroScreen.dart';
 import 'package:gdeliverycustomer/ui/address/SelectAddressScreen.dart';
 import 'package:gdeliverycustomer/ui/login/LoginScreen.dart';
 import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
-import 'package:overlay_support/overlay_support.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    description:
-        'This channel is used for important notifications.', // description
-    importance: Importance.high,
-    playSound: true);
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  var notyres = json.decode(message.data["data"]);
-
-  flutterLocalNotificationsPlugin.show(
-      5,
-      notyres["title"].toString(),
-      notyres["message"].toString(),
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          channel.id,
-          channel.name,
-          channelDescription: channel.description,
-          color: Colors.blue,
-          priority: Priority.max,
-          playSound: true,
-          icon: '@mipmap/launcher_icon',
-        ),
-      ));
-
-  print('A bg message just showed up :  ${message.messageId}');
-}
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
-
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  runApp(
-    const MyApp(),
-  );
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -74,17 +20,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return OverlaySupport(
-      child: MaterialApp(
-        title: 'Insuvai Customer',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MySplashScreenPage(),
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: mainColor,
+      statusBarColor: mainColor,
+    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    return MaterialApp(
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColorDark: mainColor,
+        primaryColor: mainColor,
+        primarySwatch: Colors.blue,
       ),
+      home: MySplashScreenPage(),
     );
   }
+
+/*  Future<void> statusbaColorChange() async {
+    await FlutterStatusbarcolor.setStatusBarColor(MainColor);
+  }*/
 }
 
 class MySplashScreenPage extends StatefulWidget {
@@ -140,100 +95,19 @@ class SplashScreenState extends State<MySplashScreenPage> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      PopUpNotification(message.data);
-    });
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      print('A new onMessageOpenedApp event was published!');
-      await Firebase.initializeApp();
-      var notyres = json.decode(message.data["data"]);
-
-      flutterLocalNotificationsPlugin.show(
-          5,
-          notyres["title"].toString(),
-          notyres["message"].toString(),
-          NotificationDetails(
-            android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
-              channelDescription: channel.description,
-              color: Colors.blue,
-              priority: Priority.max,
-              playSound: true,
-              icon: '@mipmap/launcher_icon',
-            ),
-          ));
-    });
     checkFirstSeen();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: double.maxFinite,
         width: double.maxFinite,
-        child: Image(
-          image: AssetImage('${imagePath}insuvai_splash.png'),
-          fit: BoxFit.cover,
-        ));
-  }
-
-  Future<void> PopUpNotification(Map<String, dynamic> data) async {
-    var notyres = json.decode(data["data"]);
-    flutterLocalNotificationsPlugin.show(
-        5,
-        notyres["title"].toString(),
-        notyres["message"].toString(),
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            channel.id,
-            channel.name,
-            channelDescription: channel.description,
-            color: Colors.blue,
-            priority: Priority.max,
-            playSound: true,
-            icon: '@mipmap/launcher_icon',
+        height: double.maxFinite,
+        color: splashColor,
+        child: Center(
+          child: Lottie.asset(
+            imagePath + 'gdsplash.json',
           ),
         ));
-
-    showSimpleNotification(
-      Text(
-        notyres["title"].toString(),
-        style: TextStyle(
-          color: WhiteColor,
-          fontSize: 15.0,
-          fontFamily: Segoe_ui_bold,
-        ),
-      ),
-      leading: NotificationBadge(),
-      subtitle: Text(
-        notyres["message"].toString(),
-        style: TextStyle(
-          color: WhiteColor,
-          fontSize: 12.0,
-          fontFamily: Segoe_ui_bold,
-        ),
-      ),
-      background: MainColor,
-      duration: Duration(seconds: 3),
-    );
   }
-}
-
-class NotificationBadge extends StatelessWidget {
-  const NotificationBadge();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 40.0,
-      height: 40.0,
-      decoration: new BoxDecoration(
-          shape: BoxShape.circle,
-          image:
-              DecorationImage(image: AssetImage(imagePath + "ic_logo.png"))),
-    );
-  }
-}
+} //Image(image: AssetImage('${IMAGE_PATH}gdelivery_splash.png'))

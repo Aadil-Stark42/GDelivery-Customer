@@ -1,28 +1,17 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/models/CartDataModel.dart';
 import 'package:gdeliverycustomer/models/SlotsDataModel.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
-import 'package:gdeliverycustomer/ui/order/OrderSummaryScreen.dart';
 import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
 import 'package:gdeliverycustomer/utils/LowerCaseTextFormatter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../models/DashBoardDataModell.dart';
-import '../../../animationlist/src/animation_configuration.dart';
-import '../../../animationlist/src/animation_limiter.dart';
-import '../../../animationlist/src/fade_in_animation.dart';
-import '../../../animationlist/src/scale_animation.dart';
-import '../../../animationlist/src/slide_animation.dart';
 import '../../../apiservice/ApiService.dart';
 import '../../../apiservice/EndPoints.dart';
-import '../../../imageslider/carousel_slider.dart';
 import '../../../res/ResString.dart';
 import '../../../uicomponents/MyProgressBar.dart';
 import '../../../uicomponents/progress_button.dart';
@@ -61,9 +50,11 @@ class CartSubScreenState extends State<CartSubScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: WhiteColor,
-      body: CartMainview(),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        body: CartMainview(),
+      ),
     );
   }
 
@@ -143,7 +134,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                 fontFamily: Segoe_ui_semibold,
                                 fontSize: 14,
                                 height: 1.0,
-                                color: GreyColor,
+                                color: greyColor,
                               ),
                             ),
                             const SizedBox(
@@ -155,7 +146,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                 fontFamily: Segoe_ui_semibold,
                                 fontSize: 11,
                                 height: 1.0,
-                                color: GreyColor,
+                                color: greyColor,
                               ),
                             )
                           ],
@@ -169,7 +160,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                       Card(
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: MainColor, width: 1),
+                            side: const BorderSide(color: mainColor, width: 1),
                             borderRadius: BorderRadius.circular(4.0),
                           ),
                           child: Padding(
@@ -180,7 +171,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 InkWell(
-                                  splashColor: GreyColor,
+                                  splashColor: greyColor,
                                   onTap: () {
                                     AddOrRemoveProduct(
                                         cartDataModel
@@ -192,7 +183,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                     alignment: Alignment.center,
                                     child: const Icon(
                                       Icons.remove_rounded,
-                                      color: MainColor,
+                                      color: mainColor,
                                       size: 20,
                                     ),
                                     width: 30,
@@ -204,10 +195,10 @@ class CartSubScreenState extends State<CartSubScreen> {
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontFamily: Poppinsmedium,
-                                      color: BlackColor),
+                                      color: blackColor),
                                 ),
                                 InkWell(
-                                  splashColor: GreyColor2,
+                                  splashColor: greyColor2,
                                   onTap: () {
                                     AddOrRemoveProduct(
                                         cartDataModel
@@ -219,7 +210,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                     alignment: Alignment.center,
                                     child: Icon(
                                       Icons.add_rounded,
-                                      color: MainColor,
+                                      color: mainColor,
                                       size: 20,
                                     ),
                                     width: 30,
@@ -236,7 +227,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                         style: TextStyle(
                             fontSize: 13,
                             fontFamily: Segoe_ui_semibold,
-                            color: GreyColor),
+                            color: greyColor),
                       ),
                       SizedBox(
                         width: 10,
@@ -262,7 +253,7 @@ class CartSubScreenState extends State<CartSubScreen> {
               fontFamily: Inter_bold,
               fontSize: 15,
               height: 1.0,
-              color: BlackColor,
+              color: blackColor,
             ),
           ),
           SizedBox(
@@ -278,7 +269,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                   fontFamily: Poppinsmedium,
                   fontSize: 12,
                   height: 1.0,
-                  color: GreyColor,
+                  color: greyColor,
                 ),
               ),
               Text(
@@ -287,7 +278,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                   fontFamily: Poppinsmedium,
                   fontSize: 13,
                   height: 1.0,
-                  color: GreyColor,
+                  color: greyColor,
                 ),
               )
             ],
@@ -306,8 +297,8 @@ class CartSubScreenState extends State<CartSubScreen> {
                   fontSize: 12,
                   height: 1.0,
                   color: cartDataModel.couponDiscount.toString() != "0.00"
-                      ? RedColor
-                      : GreyColor,
+                      ? redColor
+                      : greyColor,
                 ),
               ),
               Text(
@@ -317,8 +308,8 @@ class CartSubScreenState extends State<CartSubScreen> {
                   fontSize: 13,
                   height: 1.0,
                   color: cartDataModel.couponDiscount.toString() != "0.00"
-                      ? RedColor
-                      : GreyColor,
+                      ? redColor
+                      : greyColor,
                 ),
               )
             ],
@@ -361,7 +352,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                   fontFamily: Poppinsmedium,
                   fontSize: 12,
                   height: 1.0,
-                  color: GreyColor,
+                  color: greyColor,
                 ),
               ),
               Text(
@@ -370,7 +361,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                   fontFamily: Poppinsmedium,
                   fontSize: 13,
                   height: 1.0,
-                  color: GreyColor,
+                  color: greyColor,
                 ),
               )
             ],
@@ -388,7 +379,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                   fontFamily: Segoe_ui_bold,
                   fontSize: 18,
                   height: 1.0,
-                  color: BlackColor,
+                  color: blackColor,
                 ),
               ),
               Text(
@@ -397,7 +388,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                   fontFamily: Segoe_ui_bold,
                   fontSize: 18,
                   height: 1.0,
-                  color: BlackColor,
+                  color: blackColor,
                 ),
               )
             ],
@@ -411,7 +402,7 @@ class CartSubScreenState extends State<CartSubScreen> {
               fontFamily: Poppinsmedium,
               fontSize: 10,
               height: 1.0,
-              color: GreyColor,
+              color: greyColor,
             ),
           ),
           SizedBox(
@@ -421,7 +412,7 @@ class CartSubScreenState extends State<CartSubScreen> {
             child: Text(
               CONTINUE,
               style: TextStyle(
-                color: WhiteColor,
+                color: whiteColor,
                 fontFamily: Segoe_ui_semibold,
                 height: 1.1,
               ),
@@ -434,8 +425,8 @@ class CartSubScreenState extends State<CartSubScreen> {
               }
             },
             buttonState: buttonState,
-            backgroundColor: MainColor,
-            progressColor: WhiteColor,
+            backgroundColor: mainColor,
+            progressColor: whiteColor,
             border_radius: Rounded_Button_Corner,
           ),
           SizedBox(
@@ -479,7 +470,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                   children: [
                     Image.asset(
                       imagePath + "ic_emptycart_man.png",
-                      color: MainColor,
+                      color: mainColor,
                       height: 300,
                       width: 300,
                     ),
@@ -493,7 +484,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: Segoe_ui_bold,
-                          color: GreyColor),
+                          color: greyColor),
                     ),
                     SizedBox(
                       height: 5,
@@ -505,7 +496,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: Segoe_ui_semibold,
-                          color: GreyColor),
+                          color: greyColor),
                     )
                   ],
                 ),
@@ -521,7 +512,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                 child: Text(
                   CONTINUESHOPPING,
                   style: TextStyle(
-                    color: WhiteColor,
+                    color: whiteColor,
                     fontFamily: Segoe_ui_semibold,
                     height: 1.1,
                   ),
@@ -538,8 +529,8 @@ class CartSubScreenState extends State<CartSubScreen> {
                   }
                 },
                 buttonState: buttonState,
-                backgroundColor: MainColor,
-                progressColor: WhiteColor,
+                backgroundColor: mainColor,
+                progressColor: whiteColor,
                 border_radius: Rounded_Button_Corner,
               ),
             ))
@@ -555,7 +546,7 @@ class CartSubScreenState extends State<CartSubScreen> {
           slivers: [
             SliverAppBar(
               pinned: false,
-              backgroundColor: WhiteColor,
+              backgroundColor: whiteColor,
               floating: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(),
@@ -585,7 +576,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: Inter_bold,
-                        color: BlackColor),
+                        color: blackColor),
                   ),
                 ],
               ),
@@ -620,8 +611,8 @@ class CartSubScreenState extends State<CartSubScreen> {
                                   color: cartDataModel
                                               .shopDetails!.shop_isopened ==
                                           true
-                                      ? MainColor
-                                      : RedColor,
+                                      ? mainColor
+                                      : redColor,
                                   child: Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Text(
@@ -635,7 +626,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontFamily: Segoeui,
-                                          color: WhiteColor),
+                                          color: whiteColor),
                                     ),
                                   ),
                                 ),
@@ -659,7 +650,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                               style: TextStyle(
                                   fontSize: 17,
                                   fontFamily: Inter_bold,
-                                  color: BlackColor),
+                                  color: blackColor),
                             ),
                             SizedBox(
                               height: 5,
@@ -671,7 +662,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                               style: TextStyle(
                                   fontSize: 13,
                                   fontFamily: Poppinsmedium,
-                                  color: GreyColor),
+                                  color: greyColor),
                             )
                           ],
                         ))
@@ -689,7 +680,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                         child: Container(
                           padding: const EdgeInsets.all(3.0),
                           decoration: BoxDecoration(
-                            border: Border.all(color: GreyColor2),
+                            border: Border.all(color: greyColor2),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Row(
@@ -715,7 +706,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                   child: Text(
                                     ADD,
                                     style: TextStyle(
-                                      color: WhiteColor,
+                                      color: whiteColor,
                                       fontFamily: Segoe_ui_semibold,
                                       height: 1.1,
                                     ),
@@ -729,8 +720,8 @@ class CartSubScreenState extends State<CartSubScreen> {
                                     }
                                   },
                                   buttonState: buttonState,
-                                  backgroundColor: MainColor,
-                                  progressColor: WhiteColor,
+                                  backgroundColor: mainColor,
+                                  progressColor: whiteColor,
                                   border_radius: Rounded_Button_Corner,
                                 ),
                               ),
@@ -748,7 +739,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                         child: Container(
                           padding: const EdgeInsets.all(3.0),
                           decoration: BoxDecoration(
-                            border: Border.all(color: GreyColor2),
+                            border: Border.all(color: greyColor2),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: Row(
@@ -774,7 +765,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                   child: Text(
                                     APPLY,
                                     style: TextStyle(
-                                      color: WhiteColor,
+                                      color: whiteColor,
                                       fontFamily: Segoe_ui_semibold,
                                       height: 1.1,
                                     ),
@@ -789,8 +780,8 @@ class CartSubScreenState extends State<CartSubScreen> {
                                     }
                                   },
                                   buttonState: buttonState,
-                                  backgroundColor: MainColor,
-                                  progressColor: WhiteColor,
+                                  backgroundColor: mainColor,
+                                  progressColor: whiteColor,
                                   border_radius: Rounded_Button_Corner,
                                 ),
                               ),
@@ -916,7 +907,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                         style: TextStyle(
                             fontSize: 15,
                             fontFamily: Inter_bold,
-                            color: BlackColor),
+                            color: blackColor),
                       ),
                     ),
                     SizedBox(
@@ -929,7 +920,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                            color: GreyColor,
+                            color: greyColor,
                             style: BorderStyle.solid,
                             width: 0.8),
                       ),
@@ -942,7 +933,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                           // Down Arrow Icon
                           icon: const Icon(
                             Icons.keyboard_arrow_down,
-                            color: GreyColor,
+                            color: greyColor,
                           ),
                           // Array list of items
                           items: slottimelist.map((String slotetiem) {
@@ -950,7 +941,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                               value: slotetiem,
                               child: Text(slotetiem.toString(),
                                   style: TextStyle(
-                                      color: GreyColor,
+                                      color: greyColor,
                                       fontSize: 13,
                                       fontFamily: Poppinsmedium)),
                             );
@@ -977,7 +968,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                         child: Text(
                           "Schedule Order",
                           style: TextStyle(
-                            color: WhiteColor,
+                            color: whiteColor,
                             fontFamily: Segoe_ui_semibold,
                             height: 1.1,
                           ),
@@ -986,8 +977,8 @@ class CartSubScreenState extends State<CartSubScreen> {
                           BookSchedule("1");
                         },
                         buttonState: buttonState,
-                        backgroundColor: MainColor,
-                        progressColor: WhiteColor,
+                        backgroundColor: mainColor,
+                        progressColor: whiteColor,
                         border_radius: 8,
                       ),
                     ),
@@ -1076,14 +1067,14 @@ class CartSubScreenState extends State<CartSubScreen> {
                                             EdgeInsets.all(15)),
                                         foregroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                MainColor),
+                                                mainColor),
                                         shape: MaterialStateProperty.all<
                                                 RoundedRectangleBorder>(
                                             RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
                                                 side: const BorderSide(
-                                                    color: MainColor)))),
+                                                    color: mainColor)))),
                                     onPressed: () {
                                       Navigator.pop(context);
                                     })),
@@ -1099,16 +1090,16 @@ class CartSubScreenState extends State<CartSubScreen> {
                                             EdgeInsets.all(15)),
                                         foregroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                WhiteColor),
+                                                whiteColor),
                                         backgroundColor:
                                             MaterialStateProperty.all<Color>(
-                                                MainColor),
+                                                mainColor),
                                         shape: MaterialStateProperty.all<
                                                 RoundedRectangleBorder>(
                                             RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
-                                                side: const BorderSide(color: MainColor)))),
+                                                side: const BorderSide(color: mainColor)))),
                                     onPressed: () {
                                       {
                                         BookSchedule("0");
@@ -1156,7 +1147,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                           },
                           child: Icon(
                             Icons.close_rounded,
-                            color: BlackColor,
+                            color: blackColor,
                             size: 25,
                           ),
                         )
@@ -1177,7 +1168,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                       style: TextStyle(
                           fontSize: 15,
                           fontFamily: Inter_bold,
-                          color: RedColor),
+                          color: redColor),
                     ),
                     SizedBox(
                       height: 10,
@@ -1189,7 +1180,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                       style: TextStyle(
                           fontSize: 13,
                           fontFamily: Inter_regular,
-                          color: RedColor),
+                          color: redColor),
                     ),
                     SizedBox(
                       height: 20,
@@ -1255,7 +1246,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                     fontFamily: Segoe_ui_semibold,
                                     fontSize: 13,
                                     height: 1.0,
-                                    color: GreyColor5,
+                                    color: greyColor5,
                                   ),
                                 ),
                                 SizedBox(
@@ -1269,7 +1260,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                     fontFamily: Segoe_ui_semibold,
                                     fontSize: 11,
                                     height: 1.0,
-                                    color: GreyColor5,
+                                    color: greyColor5,
                                   ),
                                 )
                               ],
@@ -1287,7 +1278,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                 fontFamily: Segoe_bold,
                                 fontSize: 19,
                                 height: 1.0,
-                                color: BlackColor,
+                                color: blackColor,
                               ),
                             ),
                             SizedBox(
@@ -1301,7 +1292,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                 fontFamily: Segoe_ui_semibold,
                                 fontSize: 12,
                                 height: 1.0,
-                                color: GreyColor5,
+                                color: greyColor5,
                               ),
                             ),
                             SizedBox(
@@ -1315,7 +1306,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                                 fontFamily: Segoe_ui_semibold,
                                 fontSize: 13,
                                 height: 1.0,
-                                color: RedColor,
+                                color: redColor,
                               ),
                             ),
                           ],
