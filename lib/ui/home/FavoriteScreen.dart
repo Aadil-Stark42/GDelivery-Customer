@@ -51,7 +51,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
               floating: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(),
-              elevation: 2,
+              elevation: 0,
               forceElevated: true,
               centerTitle: false,
               leading: null,
@@ -62,8 +62,11 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Image.asset(imagePath + "back_arrow.png",
-                        height: 25, width: 25),
+                    child: Image.asset(
+                      imagePath + "ic_back2.png",
+                      width: 30,
+                      height: 30,
+                    ),
                   ),
                   SizedBox(
                     width: 10,
@@ -71,7 +74,9 @@ class FavoriteScreenState extends State<FavoriteScreen> {
                   Text(
                     Favorite,
                     style: TextStyle(
-                        fontSize: 16, fontFamily: Inter_bold, color: blackColor),
+                        fontSize: 16,
+                        fontFamily: Inter_bold,
+                        color: darkMainColor2),
                   ),
                 ],
               ),
@@ -88,256 +93,250 @@ class FavoriteScreenState extends State<FavoriteScreen> {
     Size size = MediaQuery.of(context).size;
     if (wishListDataModel.shops != null) {
       if (wishListDataModel.shops!.isNotEmpty) {
-        return Container(
-          padding: EdgeInsets.only(top: 20),
-          child: AnimationLimiter(
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero,
-              itemCount: wishListDataModel.shops!.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (BuildContext context, int index) {
-                return AnimationConfiguration.staggeredList(
-                  position: index,
-                  duration: Duration(milliseconds: AnimationTime),
-                  child: SlideAnimation(
-                    horizontalOffset: 50.0,
-                    child: FadeInAnimation(
-                        child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 15, right: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          if (CHECKAPPSTATUS == STATUSNUMBER) {
-                            Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AppMaintainanceScreen(true)),
-                            );
-                          } else {
-                            Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ShopDetailsScreen(
-                                          wishListDataModel.shops![index].shopId
-                                              .toString(),
-                                          "14",
+        return AnimationLimiter(
+          child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemCount: wishListDataModel.shops!.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: Duration(milliseconds: AnimationTime),
+                child: SlideAnimation(
+                  horizontalOffset: 50.0,
+                  child: FadeInAnimation(
+                      child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 15, right: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        if (CHECKAPPSTATUS == STATUSNUMBER) {
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AppMaintainanceScreen(true)),
+                          );
+                        } else {
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) => ShopDetailsScreen(
+                                        wishListDataModel.shops![index].shopId
+                                            .toString(),
+                                        "14",
+                                        wishListDataModel.shops![index].shopName
+                                            .toString(), () {
+                                      GetWishList();
+                                    })),
+                          );
+                        }
+                      },
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10.0)),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  height: 90,
+                                  width: 90,
+                                  child: FadeInImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      wishListDataModel.shops![index].shopImage
+                                          .toString(),
+                                    ),
+                                    placeholder:
+                                        AssetImage("${imagePath}ic_logo.png"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Text(
                                           wishListDataModel
                                               .shops![index].shopName
-                                              .toString(), () {
-                                        GetWishList();
-                                      })),
-                            );
-                          }
-                        },
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10.0)),
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 90,
-                                    width: 90,
-                                    child: FadeInImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        wishListDataModel
-                                            .shops![index].shopImage
-                                            .toString(),
+                                              .toString(),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              fontFamily: Inter_bold,
+                                              color: blackColor),
+                                        ),
                                       ),
-                                      placeholder:
-                                          AssetImage("${imagePath}ic_logo.png"),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 10),
-                                          child: Text(
+                                    InkWell(
+                                      onTap: () {
+                                        ManageWishList(
                                             wishListDataModel
-                                                .shops![index].shopName
+                                                .shops![index].shopId
                                                 .toString(),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                fontFamily: Inter_bold,
-                                                color: blackColor),
-                                          ),
+                                            index);
+                                      },
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                        child: Icon(
+                                          wishListDataModel.shops![index]
+                                                      .isWishlist ==
+                                                  true
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: mainColor,
+                                          size: 22,
                                         ),
                                       ),
-                                      InkWell(
-                                        onTap: () {
-                                          ManageWishList(
-                                              wishListDataModel
-                                                  .shops![index].shopId
-                                                  .toString(),
-                                              index);
-                                        },
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(0, 0, 7, 0),
-                                          child: Icon(
-                                            wishListDataModel.shops![index]
-                                                        .isWishlist ==
-                                                    true
-                                                ? Icons.favorite
-                                                : Icons.favorite_border,
-                                            color: mainColor,
-                                            size: 22,
-                                          ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      wishListDataModel.shops![index].shopArea
+                                              .toString() +
+                                          " " +
+                                          wishListDataModel
+                                              .shops![index].distance
+                                              .toString(),
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          fontFamily: Poppinsmedium,
+                                          color: greyColor),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Icon(
+                                      Icons.watch_later_outlined,
+                                      size: 15,
+                                      color: greyColor,
+                                    ),
+                                    SizedBox(
+                                      width: 2,
+                                    ),
+                                    Text(
+                                      wishListDataModel.shops![index].time
+                                          .toString(),
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          fontFamily: Poppinsmedium,
+                                          color: greyColor),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  "Approx price for two person : " +
+                                      wishListDataModel.shops![index].price
+                                          .toString(),
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      fontFamily: Poppinsmedium,
+                                      color: greyColor),
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Row(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          wishListDataModel.shops![index].rating
+                                              .toString(),
+                                          overflow: TextOverflow.ellipsis,
+                                          softWrap: true,
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: Segoe_ui_semibold,
+                                              color: mainColor),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        wishListDataModel.shops![index].shopArea
-                                                .toString() +
-                                            " " +
-                                            wishListDataModel
-                                                .shops![index].distance
-                                                .toString(),
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            fontFamily: Poppinsmedium,
-                                            color: greyColor),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Icon(
-                                        Icons.watch_later_outlined,
-                                        size: 15,
-                                        color: greyColor,
-                                      ),
-                                      SizedBox(
-                                        width: 2,
-                                      ),
-                                      Text(
-                                        wishListDataModel.shops![index].time
-                                            .toString(),
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            fontFamily: Poppinsmedium,
-                                            color: greyColor),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                    "Approx price for two person : " +
-                                        wishListDataModel.shops![index].price
-                                            .toString(),
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontFamily: Poppinsmedium,
-                                        color: greyColor),
-                                  ),
-                                  SizedBox(
-                                    height: 3,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            wishListDataModel
-                                                .shops![index].rating
-                                                .toString(),
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontFamily: Segoe_ui_semibold,
-                                                color: mainColor),
-                                          ),
-                                          const SizedBox(
-                                            width: 2,
-                                          ),
-                                          Icon(
-                                            Icons.star_rounded,
-                                            size: 15,
-                                            color: mainColor,
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Container(
-                                        width: 1,
-                                        height: 12,
-                                        color: greyColor2,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        wishListDataModel
-                                            .shops![index].ratingCount
-                                            .toString(),
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            fontFamily: Segoe_ui_semibold,
-                                            color: greyColor2),
-                                      ),
-                                      SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        "Reviews",
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            fontFamily: Segoe_ui_semibold,
-                                            color: greyColor2),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                                        const SizedBox(
+                                          width: 2,
+                                        ),
+                                        Icon(
+                                          Icons.star_rounded,
+                                          size: 15,
+                                          color: mainColor,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Container(
+                                      width: 1,
+                                      height: 12,
+                                      color: greyColor2,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      wishListDataModel
+                                          .shops![index].ratingCount
+                                          .toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: true,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontFamily: Segoe_ui_semibold,
+                                          color: greyColor2),
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "Reviews",
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: true,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontFamily: Segoe_ui_semibold,
+                                          color: greyColor2),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                    )),
-                  ),
-                );
-              },
-            ),
+                    ),
+                  )),
+                ),
+              );
+            },
           ),
         );
       } else {

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -66,8 +67,11 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Image.asset(imagePath + "back_arrow.png",
-                          height: 25, width: 25),
+                      child: Image.asset(
+                        imagePath + "ic_back2.png",
+                        width: 30,
+                        height: 30,
+                      ),
                     ),
                     SizedBox(
                       width: 10,
@@ -77,7 +81,7 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: Inter_bold,
-                          color: blackColor),
+                          color: darkMainColor2),
                     ),
                   ],
                 ),
@@ -212,15 +216,15 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
                                 child: SizedBox(
                                   height: 110,
                                   width: 110,
-                                  child: FadeInImage(
+                                  child: CachedNetworkImage(
                                     fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                      searchDataModel
-                                          .products![index].productImage
-                                          .toString(),
-                                    ),
-                                    placeholder:
-                                        AssetImage("${imagePath}ic_logo.png"),
+                                    imageUrl: searchDataModel
+                                        .products![index].productImage
+                                        .toString(),
+                                    placeholder: (context, url) => Image.asset(
+                                        imagePath + "no_image_placeholder.png",
+                                        fit: BoxFit.cover,
+                                        width: double.maxFinite),
                                   ),
                                 ),
                               ),

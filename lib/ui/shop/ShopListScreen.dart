@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gdeliverycustomer/models/ShopListDataModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,7 +78,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
               floating: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(),
-              elevation: 2,
+              elevation: 0,
               forceElevated: true,
               centerTitle: false,
               leading: null,
@@ -91,8 +91,11 @@ class _ShopListScreenState extends State<ShopListScreen> {
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: Image.asset(imagePath + "back_arrow.png",
-                              height: 25, width: 25),
+                          child: Image.asset(
+                            imagePath + "ic_back2.png",
+                            width: 30,
+                            height: 30,
+                          ),
                         ),
                         SizedBox(
                           width: 10,
@@ -106,7 +109,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
                               style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: Inter_bold,
-                                  color: blackColor),
+                                  color: darkMainColor2),
                             ),
                           ),
                         ),
@@ -178,7 +181,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
       response = await ApiCalling.post(FEATURECAT, data: Params);
     }
 
-    print("responseresponseresponse${response.data["products"].toString()}");
+    print("responseresponseresponse${response.data["shops"].toString()}");
     setState(() {
       shopListDataModel = ShopListDataModel.fromJson(response.data);
     });
@@ -524,15 +527,17 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                           child: SizedBox(
                                             height: 250,
                                             width: double.maxFinite,
-                                            child: FadeInImage(
+                                            child: CachedNetworkImage(
                                               fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                shopList1![index]
-                                                    .shopImage
-                                                    .toString(),
-                                              ),
-                                              placeholder: AssetImage(
-                                                  "${imagePath}ic_logo.png"),
+                                              imageUrl: shopList1![index]
+                                                  .shopImage
+                                                  .toString(),
+                                              placeholder: (context, url) =>
+                                                  Image.asset(
+                                                      imagePath +
+                                                          "no_image_placeholder.png",
+                                                      fit: BoxFit.cover,
+                                                      width: double.maxFinite),
                                             ),
                                           ),
                                         ),
@@ -867,13 +872,17 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                     child: SizedBox(
                                       height: 250,
                                       width: double.maxFinite,
-                                      child: FadeInImage(
+                                      child: CachedNetworkImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                          shopList[index].shopImage.toString(),
-                                        ),
-                                        placeholder: AssetImage(
-                                            "${imagePath}ic_logo.png"),
+                                        imageUrl: shopList[index]
+                                            .shopImage
+                                            .toString(),
+                                        placeholder: (context, url) =>
+                                            Image.asset(
+                                                imagePath +
+                                                    "no_image_placeholder.png",
+                                                fit: BoxFit.cover,
+                                                width: double.maxFinite),
                                       ),
                                     ),
                                   ),
@@ -1222,19 +1231,24 @@ class _ShopListScreenState extends State<ShopListScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(60),
                                                   child: SizedBox(
-                                                    height: 110,
-                                                    width: 110,
-                                                    child: FadeInImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                        productList[index]
-                                                            .productImage
-                                                            .toString(),
-                                                      ),
-                                                      placeholder: AssetImage(
-                                                          "${imagePath}ic_logo.png"),
-                                                    ),
-                                                  ),
+                                                      height: 110,
+                                                      width: 110,
+                                                      child: CachedNetworkImage(
+                                                        fit: BoxFit.cover,
+                                                        imageUrl:
+                                                            productList[index]
+                                                                .productImage
+                                                                .toString(),
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            Image.asset(
+                                                                imagePath +
+                                                                    "no_image_placeholder.png",
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                width: double
+                                                                    .maxFinite),
+                                                      )),
                                                 ),
                                               ),
                                             ),
@@ -1413,7 +1427,8 @@ class _ShopListScreenState extends State<ShopListScreen> {
     var ApiCalling = GetApiInstanceWithHeaders(header);
     Response response;
     response = await ApiCalling.post(SORT, data: Params);
-    print("GetSingleFilterresponseresponseresponse${response.toString()}");
+    print(
+        "GetSingleFilterresponseresponseresponse${response.data["shops"].toString()}");
     setState(() {
       shopListDataModel = ShopListDataModel.fromJson(response.data);
     });

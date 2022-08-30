@@ -49,7 +49,7 @@ class NotificationScreenState extends State<NotificationScreen> {
               floating: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(),
-              elevation: 2,
+              elevation: 0,
               forceElevated: true,
               centerTitle: false,
               leading: null,
@@ -60,8 +60,11 @@ class NotificationScreenState extends State<NotificationScreen> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Image.asset(imagePath + "back_arrow.png",
-                        height: 25, width: 25),
+                    child: Image.asset(
+                      imagePath + "ic_back2.png",
+                      width: 30,
+                      height: 30,
+                    ),
                   ),
                   SizedBox(
                     width: 10,
@@ -71,7 +74,7 @@ class NotificationScreenState extends State<NotificationScreen> {
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: Inter_bold,
-                        color: blackColor),
+                        color: darkMainColor2),
                   ),
                 ],
               ),
@@ -88,98 +91,95 @@ class NotificationScreenState extends State<NotificationScreen> {
     Size size = MediaQuery.of(context).size;
     if (_notificationDataListModel.notificationList != null) {
       if (_notificationDataListModel.notificationList!.isNotEmpty) {
-        return Container(
-          padding: EdgeInsets.only(top: 20),
-          child: AnimationLimiter(
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero,
-              itemCount: _notificationDataListModel.notificationList!.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (BuildContext context, int index) {
-                return AnimationConfiguration.staggeredList(
-                  position: index,
-                  duration: Duration(milliseconds: AnimationTime),
-                  child: SlideAnimation(
-                    horizontalOffset: 50.0,
-                    child: FadeInAnimation(
-                        child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 15, right: 10),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10.0)),
-                              child: Stack(
-                                children: [
-                                  SizedBox(
-                                    height: 90,
-                                    width: 90,
-                                    child: FadeInImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        _notificationDataListModel
-                                            .notificationList![index].image
-                                            .toString(),
-                                      ),
-                                      placeholder:
-                                          AssetImage("${imagePath}ic_logo.png"),
+        return AnimationLimiter(
+          child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemCount: _notificationDataListModel.notificationList!.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: Duration(milliseconds: AnimationTime),
+                child: SlideAnimation(
+                  horizontalOffset: 50.0,
+                  child: FadeInAnimation(
+                      child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 15, right: 10),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10.0)),
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  height: 90,
+                                  width: 90,
+                                  child: FadeInImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                      _notificationDataListModel
+                                          .notificationList![index].image
+                                          .toString(),
                                     ),
+                                    placeholder:
+                                        AssetImage("${imagePath}ic_logo.png"),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              width: 10,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  _notificationDataListModel
+                                      .notificationList![index].notifyHead
+                                      .toString(),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontFamily: Inter_bold,
+                                      color: blackColor),
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(
+                                  _notificationDataListModel
+                                      .notificationList![index].description
+                                      .toString(),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      fontFamily: Poppinsmedium,
+                                      color: greyColor),
+                                ),
+                              ],
                             ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    _notificationDataListModel
-                                        .notificationList![index].notifyHead
-                                        .toString(),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontFamily: Inter_bold,
-                                        color: blackColor),
-                                  ),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                    _notificationDataListModel
-                                        .notificationList![index].description
-                                        .toString(),
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontFamily: Poppinsmedium,
-                                        color: greyColor),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
-                    )),
-                  ),
-                );
-              },
-            ),
+                    ),
+                  )),
+                ),
+              );
+            },
           ),
         );
       } else {

@@ -54,25 +54,25 @@ class _IntroScreenState extends State<IntroScreen> {
                       image: '${imagePath}step-one.png',
                       title: stepOneTitle,
                       content: stepOneContent,
-                      height: 450.0),
+                      height: 380.0),
                   makePage(
                       reverse: false,
                       image: '${imagePath}step-two.png',
                       title: stepTwoTitle,
                       content: stepTwoContent,
-                      height: 450.0),
+                      height: 380.0),
                   makePage(
                       image: '${imagePath}step-three.png',
                       title: stepThreeTitle,
                       content: stepThreeContent,
-                      height: 450.0),
+                      height: 380.0),
                 ],
               ),
             ),
             Positioned(
                 bottom: 0,
                 child: Container(
-                    margin: EdgeInsets.only(bottom: 30),
+                    margin: EdgeInsets.only(bottom: 10),
                     child: Column(
                       children: [
                         Row(

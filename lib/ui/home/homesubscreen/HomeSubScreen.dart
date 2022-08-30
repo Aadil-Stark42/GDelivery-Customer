@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:gdeliverycustomer/ui/home/NotificationScreen.dart';
 import 'package:gdeliverycustomer/ui/shop/ShopDetailsScreen.dart';
 import 'package:gdeliverycustomer/ui/shop/ShopListScreen.dart';
 import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:update_available/update_available.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -95,6 +97,8 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
 
       DashBoardData = DashBoardDataModel.fromJson(response.data);
       CHECKAPPSTATUS = DashBoardData.appStatus.toString();
+      print(
+          "bannersbannersbannersbanners${response.data["banners"].toString()}");
       print("responseresponseresponse${response.data.toString()}");
       prefs.setString(
           TERMS_CONDITION, DashBoardData.termsAndConditions.toString());
@@ -130,12 +134,15 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
 
   Widget ImageSlideView(ShopBanners element) {
     return Container(
-      width: double.maxFinite,
-      child: FadeInImage(
+        width: double.maxFinite,
+        child: CachedNetworkImage(
           fit: BoxFit.cover,
-          placeholder: AssetImage(imagePath + "no_image_placeholder.png"),
-          image: NetworkImage(element.image.toString())),
-    );
+          imageUrl: element.image.toString(),
+          placeholder: (context, url) => Image.asset(
+              imagePath + "no_image_placeholder.png",
+              fit: BoxFit.cover,
+              width: double.maxFinite),
+        ));
   }
 
   Widget RestaurantFoodView(Category1 element) {
@@ -161,8 +168,15 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
             child: Stack(
               children: <Widget>[
-                Image.network(element.image.toString(),
-                    fit: BoxFit.cover, width: 1000.0),
+                CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  width: double.maxFinite,
+                  imageUrl: element.image.toString(),
+                  placeholder: (context, url) => Image.asset(
+                      imagePath + "no_image_placeholder.png",
+                      fit: BoxFit.cover,
+                      width: double.maxFinite),
+                ),
                 Positioned(
                   bottom: 0.0,
                   left: 0.0,
@@ -227,10 +241,17 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
       child: Container(
         margin: const EdgeInsets.only(left: 8, right: 8, top: 20),
         child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            child: FadeInImage(
-                placeholder: AssetImage(imagePath + "no_image_placeholder.png"),
-                image: NetworkImage(element.image.toString()))),
+          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          child: CachedNetworkImage(
+            fit: BoxFit.cover,
+            width: double.maxFinite,
+            imageUrl: element.image.toString(),
+            placeholder: (context, url) => Image.asset(
+                imagePath + "no_image_placeholder.png",
+                fit: BoxFit.cover,
+                width: double.maxFinite),
+          ),
+        ),
       ),
     );
   }
@@ -261,7 +282,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                     children: <Widget>[
                                       InkWell(
                                         onTap: () {
-                                          OpenLocationPicker();
+                                          _showLocationChangeDialog();
                                         },
                                         child: Image(
                                           image: AssetImage(
@@ -281,7 +302,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              OpenLocationPicker();
+                                              _showLocationChangeDialog();
                                             },
                                             child: Text(
                                               SelectedAddressType,
@@ -295,7 +316,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              OpenLocationPicker();
+                                              _showLocationChangeDialog();
                                             },
                                             child: Text(
                                               SelectedAddress,
@@ -764,16 +785,26 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                                                 Container(
                                                   height: 75,
                                                   width: 75,
-                                                  child: FadeInImage(
-                                                    image: NetworkImage(
-                                                      catImagePath +
-                                                          DashBoardData
-                                                              .catList![index]
-                                                              .image
-                                                              .toString(),
+                                                  child: CachedNetworkImage(
+                                                    fit: BoxFit.cover,
+                                                    imageUrl: catImagePath +
+                                                        DashBoardData
+                                                            .catList![index]
+                                                            .image
+                                                            .toString(),
+                                                    placeholder:
+                                                        (context, url) =>
+                                                            Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      child: Image.asset(
+                                                          imagePath +
+                                                              "no_image_placeholder.png",
+                                                          fit: BoxFit.cover,
+                                                          width:
+                                                              double.maxFinite),
                                                     ),
-                                                    placeholder: AssetImage(
-                                                        "${imagePath}ic_logo.png"),
                                                   ),
                                                 ),
                                                 Padding(
@@ -842,20 +873,23 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                       )
                     ],
                   ),
-                  CarouselSlider(
-                    items: BottomBannerList,
-                    options: CarouselOptions(
-                        height: 160,
-                        autoPlay: false,
-                        enlargeCenterPage: false,
-                        aspectRatio: 16 / 9,
-                        enableInfiniteScroll: false,
-                        viewportFraction: 1,
-                        onPageChanged: (index, reason) {
-                          // setState(() {
-                          //   // _current = index;
-                          // });
-                        }),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: CarouselSlider(
+                      items: BottomBannerList,
+                      options: CarouselOptions(
+                          height: 160,
+                          autoPlay: false,
+                          enlargeCenterPage: false,
+                          aspectRatio: 16 / 9,
+                          enableInfiniteScroll: false,
+                          viewportFraction: 1,
+                          onPageChanged: (index, reason) {
+                            // setState(() {
+                            //   // _current = index;
+                            // });
+                          }),
+                    ),
                   ),
                   SizedBox(
                     height: 40,
@@ -890,7 +924,7 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
             GetDashBoardList();
           },
           selectInitialPosition: true,
-          IsComeFromHome: true,
+          IsComeFromHome: home,
           initialPosition: LatLng(
               double.parse(prefs.getString(SELECTED_LATITUDE).toString()),
               double.parse(prefs.getString(SELECTED_LONGITUDE).toString())),
@@ -928,7 +962,10 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                 actions: <Widget>[
                   FlatButton(
                     child: Text(btnLabel),
-                    onPressed: () => _launchURL(APP_STORE_URL),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _launchURL(APP_STORE_URL);
+                    },
                   ),
                   FlatButton(
                     child: Text(btnLabelCancel),
@@ -942,7 +979,10 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
                 actions: <Widget>[
                   FlatButton(
                     child: Text(btnLabel),
-                    onPressed: () => _launchURL(PLAY_STORE_URL),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _launchURL(PLAY_STORE_URL);
+                    },
                   ),
                   FlatButton(
                     child: Text(btnLabelCancel),
@@ -968,6 +1008,54 @@ class MyHomeSubScreenState extends State<MyHomeSubScreen> {
     });
     printAvailability();
     GetDashBoardList();
+  }
+
+  _showLocationChangeDialog() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    await showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        String title = packageInfo.appName;
+        String message = "Are you Sure to change location?";
+        String btnLabel = "Change";
+        String btnLabelCancel = "Later";
+        return Platform.isIOS
+            ? new CupertinoAlertDialog(
+                title: Text(title),
+                content: Text(message),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(btnLabelCancel),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  FlatButton(
+                    child: Text(btnLabel),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      OpenLocationPicker();
+                    },
+                  ),
+                ],
+              )
+            : new AlertDialog(
+                title: Text(title),
+                content: Text(message),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(btnLabelCancel),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  FlatButton(
+                      child: Text(btnLabel),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        OpenLocationPicker();
+                      }),
+                ],
+              );
+      },
+    );
   }
 }
 

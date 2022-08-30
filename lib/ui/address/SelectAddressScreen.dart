@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gdeliverycustomer/res/ResColor.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/locationpicker/src/place_picker.dart';
-import 'package:gdeliverycustomer/res/ResColor.dart';
 import 'package:gdeliverycustomer/ui/home/HomeScreen.dart';
 import 'package:gdeliverycustomer/utils/LocalStorageName.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart' as permis;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,11 +23,16 @@ import '../../utils/Utils.dart';
 import '../order/OrderSummaryScreen.dart';
 
 class SelectAddressScreen extends StatefulWidget {
-  final bool IsJustChangeAddress;
-  final String GstPer;
-  final bool IsForCart;
+  bool? IsJustChangeAddress;
+  String? GstPer;
+  bool? IsForCart = true;
+  bool? isBackAvaillable = true;
 
-  SelectAddressScreen(this.IsJustChangeAddress, this.GstPer, this.IsForCart);
+  SelectAddressScreen(
+      {this.IsJustChangeAddress,
+      this.GstPer,
+      this.IsForCart,
+      this.isBackAvaillable});
 
   @override
   SelectAddressScreenState createState() => SelectAddressScreenState();
@@ -54,9 +60,11 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-          body: CustomScrollView(
+    return Scaffold(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.dark,
+          child: SafeArea(
+              child: CustomScrollView(
             slivers: [
               SliverAppBar(
                   pinned: false,
@@ -69,15 +77,29 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Image.asset(imagePath + "back_arrow.png",
-                            height: 25, width: 25),
-                      ),
+                      widget.isBackAvaillable == false
+                          ? InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                                /*    if (widget.isBackAvaillable == true) {
+                            if (Platform.isAndroid) {
+                              SystemNavigator.pop();
+                            } else if (Platform.isIOS) {
+                              exit(0);
+                            }
+                          } else {
+                            Navigator.pop(context);
+                          }*/
+                              },
+                              child: Image.asset(imagePath + "back_arrow.png",
+                                  height: 25, width: 25),
+                            )
+                          : SizedBox(
+                              width: 0,
+                              height: 0,
+                            ),
                       SizedBox(
-                        width: 10,
+                        width: widget.isBackAvaillable == false ? 10 : 0,
                       ),
                       Text(
                         SelectAddress,
@@ -133,55 +155,54 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                 HandleAddressListView(),
               ]))
             ],
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: Container(
-            color: mainColor,
-            height: 45,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40),
-              child: ProgressButton(
-                child: Text(
-                  CONTINUE,
-                  style: TextStyle(
-                    color: whiteColor,
-                    fontFamily: Segoe_ui_semibold,
-                    height: 1.1,
-                  ),
-                ),
-                onPressed: () {
-                  if (widget.IsJustChangeAddress == false) {
-                    if (SelectedAddressId.isNotEmpty) {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (Route<dynamic> route) => false);
-                    } else {
-                      ShowToast("Please Pick Address", context);
-                    }
-                  } else {
-                    if (widget.IsForCart) {
-                      Navigator.of(context, rootNavigator: true)
-                          .push(MaterialPageRoute(
-                        builder: (context) => OrderSummaryScreen(
-                            widget.GstPer,
-                            list![selectedIndex][address_id].toString(),
-                            list![selectedIndex][address].toString()),
-                      ));
-                    } else {
-                      Navigator.pop(context);
-                    }
-                  }
-                },
-                buttonState: buttonState,
-                backgroundColor: mainColor,
-                progressColor: whiteColor,
-                border_radius: Full_Rounded_Button_Corner,
-              ),
-            ),
           )),
-    );
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          color: mainColor,
+          height: 45,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: ProgressButton(
+              child: Text(
+                CONTINUE,
+                style: TextStyle(
+                  color: whiteColor,
+                  fontFamily: Segoe_ui_semibold,
+                  height: 1.1,
+                ),
+              ),
+              onPressed: () {
+                if (widget.IsJustChangeAddress == false) {
+                  if (SelectedAddressId.isNotEmpty) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        (Route<dynamic> route) => false);
+                  } else {
+                    ShowToast("Please Pick Address", context);
+                  }
+                } else {
+                  if (widget.IsForCart == true) {
+                    Navigator.of(context, rootNavigator: true)
+                        .push(MaterialPageRoute(
+                      builder: (context) => OrderSummaryScreen(
+                          widget.GstPer.toString(),
+                          list![selectedIndex][address_id].toString(),
+                          list![selectedIndex][address].toString()),
+                    ));
+                  } else {
+                    Navigator.pop(context);
+                  }
+                }
+              },
+              buttonState: buttonState,
+              backgroundColor: mainColor,
+              progressColor: whiteColor,
+              border_radius: Full_Rounded_Button_Corner,
+            ),
+          ),
+        ));
   }
 
   Future<void> GetAddressList() async {
@@ -247,9 +268,10 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
             Navigator.pop(context);
             GetAddressList();
           },
-          IsComeFromHome: false,
+          IsComeFromHome: save,
           initialPosition: const LatLng(-33.8567844, 151.213108),
           useCurrentLocation: true,
+          address_id: "",
         ),
       ),
     );
@@ -372,20 +394,57 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        Remove,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontFamily: Segoe_bold,
-                                          color: mainColor,
+                                      InkWell(
+                                        onTap: () {
+                                          showAlertDialog(
+                                              list![index][address_id]);
+                                        },
+                                        child: Text(
+                                          Remove,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: Segoe_bold,
+                                            color: mainColor,
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        EditAddress,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontFamily: Segoe_bold,
-                                          color: mainColor,
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => PlacePicker(
+                                                apiKey: Platform.isAndroid
+                                                    ? MAP_API_KEY
+                                                    : "YOUR IOS API KEY",
+                                                onPlacePicked: (result) {
+                                                  print(
+                                                      result.formattedAddress);
+                                                  Navigator.pop(context);
+                                                  GetAddressList();
+                                                },
+                                                IsComeFromHome: edit,
+                                                initialPosition: LatLng(
+                                                    double.parse(
+                                                        list![index][latitude]),
+                                                    double.parse(list![index]
+                                                        [longitude])),
+                                                useCurrentLocation: false,
+                                                selectInitialPosition: true,
+                                                address_id: list![index]
+                                                        [address_id]
+                                                    .toString(),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          EditAddress,
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: Segoe_bold,
+                                            color: mainColor,
+                                          ),
                                         ),
                                       )
                                     ],
@@ -415,5 +474,69 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
         child: MyProgressBar(),
       );
     }
+  }
+
+  showAlertDialog(id) async {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text(
+        "No",
+        style: TextStyle(color: mainColor, fontFamily: Segoe_ui_bold),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text(
+        "Remove",
+        style: TextStyle(color: mainColor, fontFamily: Segoe_ui_bold),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+        removeAddress(id);
+      },
+    );
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String appName = packageInfo.appName;
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(appName,
+          style: TextStyle(color: blackColor, fontFamily: Segoe_bold)),
+      content: Text(AreYouRemoveAddress,
+          style: TextStyle(color: blackColor, fontFamily: Inter_medium)),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  Future<void> removeAddress(id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var header = <String, dynamic>{};
+    String? token = prefs.getString(TOKEN);
+    header[Authorization] = Bearer + token.toString();
+    print("HEADERSSS${header.toString()}");
+
+    var Params = <String, dynamic>{};
+    Params[address_id] = id;
+    print("ParamsParamsParams${Params.toString()}");
+    var ApiCalling = GetApiInstanceWithHeaders(header);
+    Response response;
+    response = await ApiCalling.post(DELETE_ADDRESS, data: Params);
+    setState(() {
+      ShowToast(response.data[message].toString(), context);
+      GetAddressList();
+      print("responseresponseresponse${response.toString().toString()}");
+    });
   }
 }

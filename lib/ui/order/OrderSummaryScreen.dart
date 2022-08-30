@@ -53,6 +53,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
   final Razorpay _razorpay = Razorpay();
   bool IsLoadingPayment = false;
   String CouponValue = "";
+  String appName = "";
   ButtonState buttonState = ButtonState.normal;
   bool isClickCouponAplly = false;
 
@@ -60,7 +61,15 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
   void initState() {
     super.initState();
     Firebase.initializeApp();
+    PackageInfoo();
     GetOrderSummaryDetails("");
+  }
+
+  Future PackageInfoo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      appName = packageInfo.appName;
+    });
   }
 
   @override
@@ -102,7 +111,9 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   Text(
                     OrderSummary,
                     style: TextStyle(
-                        fontSize: 16, fontFamily: Inter_bold, color: blackColor),
+                        fontSize: 16,
+                        fontFamily: Inter_bold,
+                        color: blackColor),
                   ),
                 ],
               ),
@@ -445,7 +456,7 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
                     children: [
                       Flexible(
                           child: RoundedInputField(
-                        hintText: "Use INSUVAI Coupons",
+                        hintText: "Use ${appName} Coupons",
                         onChanged: (value) {
                           CouponValue = value.toUpperCase();
                         },

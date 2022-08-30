@@ -103,18 +103,34 @@ class HomeScreenState extends State<HomeScreen> {
         if (currentIndex == 0) {
           return HomeSubScreen();
         } else {
-          return ProfileScreen();
+          return ProfileScreen(() {
+            setState(() {
+              currentIndex = 0;
+            });
+          });
         }
       }
     } else {
       if (currentIndex == 0) {
         return HomeSubScreen();
       } else if (currentIndex == 1) {
-        return CategorySearchScreen();
+        return CategorySearchScreen(() {
+          setState(() {
+            currentIndex = 0;
+          });
+        });
       } else if (currentIndex == 2) {
-        return CartSubScreen(false, true, () {});
+        return CartSubScreen(false, true, () {}, () {
+          setState(() {
+            currentIndex = 0;
+          });
+        });
       } else {
-        return ProfileScreen();
+        return ProfileScreen(() {
+          setState(() {
+            currentIndex = 0;
+          });
+        });
       }
     }
   }

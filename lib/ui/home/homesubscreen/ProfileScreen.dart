@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gdeliverycustomer/main.dart';
@@ -7,6 +9,8 @@ import 'package:gdeliverycustomer/ui/information/CantactUsScreen.dart';
 import 'package:gdeliverycustomer/ui/information/TermsAndConditionScreen.dart';
 import 'package:gdeliverycustomer/ui/order/MyOrdersScreen.dart';
 import 'package:gdeliverycustomer/utils/Utils.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:store_redirect/store_redirect.dart';
@@ -21,6 +25,9 @@ import '../../address/SelectAddressScreen.dart';
 import '../AppMaintainanceScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final VoidCallback isBackPress;
+
+  ProfileScreen(this.isBackPress);
   @override
   ProfileScreenState createState() => ProfileScreenState();
 }
@@ -34,7 +41,12 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   ButtonState buttonState = ButtonState.normal;
-  String VersionName = "", User_Name = "", User_Mobile = "", Package_Name = "";
+  String VersionName = "",
+      User_Name = "",
+      User_Mobile = "",
+      Package_Name = "",
+      profileImage = "";
+  File imgfilepath = File("");
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +66,15 @@ class ProfileScreenState extends State<ProfileScreen> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        imagePath + "ic_back.png",
-                        width: 30,
-                        height: 30,
+                      InkWell(
+                        onTap: () {
+                          widget.isBackPress();
+                        },
+                        child: Image.asset(
+                          imagePath + "ic_back.png",
+                          width: 30,
+                          height: 30,
+                        ),
                       ),
                       SizedBox(
                         width: 15,
@@ -83,14 +100,22 @@ class ProfileScreenState extends State<ProfileScreen> {
                           child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(7),
-                            child: Image.asset(
-                              imagePath + "temp_profile.png",
-                              width: 47,
-                              height: 47,
-                            ),
-                          ),
+                          profileImage.isNotEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(7),
+                                  child: Image.network(
+                                    profileImage,
+                                    width: 47,
+                                    height: 47,
+                                  ))
+                              : SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: whiteColor,
+                                  ),
+                                ),
                           SizedBox(
                             width: 10,
                           ),
@@ -166,8 +191,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                           } else {
                             Navigator.of(context, rootNavigator: true)
                                 .push(MaterialPageRoute(
-                              builder: (context) =>
-                                  SelectAddressScreen(true, "", false),
+                              builder: (context) => SelectAddressScreen(
+                                  IsJustChangeAddress: true,
+                                  GstPer: "",
+                                  IsForCart: false,
+                                  isBackAvaillable: false),
                             ));
                           }
                         },
@@ -414,9 +442,19 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   void UserDetails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var header = <String, dynamic>{};
+    String? token = prefs.getString(TOKEN);
+    header[Authorization] = Bearer + token.toString();
+    print("HEADERSSS${header.toString()}");
+    var ApiCalling = GetApiInstanceWithHeaders(header);
+    Response response;
+    response = await ApiCalling.get(GET_USER_DETAILS);
+    print("UserDetailsRESPONSE${response.data.toString()}");
     setState(() {
-      User_Name = prefs.getString(USER_NAME)!;
-      User_Mobile = prefs.getString(USER_MOBILE)!;
+      User_Name = response.data[user][name];
+      User_Mobile = response.data[user][mobile];
+      profileImage = response.data[user][image];
     });
   }
 
@@ -452,7 +490,65 @@ class ProfileScreenState extends State<ProfileScreen> {
                             color: blackColor),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 25,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          final ImagePicker _picker = ImagePicker();
+                          // Pick an image
+                          final XFile? image = await _picker.pickImage(
+                              source: ImageSource.gallery);
+                          if (image != null) {
+                            CroppedFile? croppedFile =
+                                await ImageCropper().cropImage(
+                              sourcePath: image.path,
+                              aspectRatioPresets: [
+                                CropAspectRatioPreset.square,
+                                CropAspectRatioPreset.ratio3x2,
+                                CropAspectRatioPreset.original,
+                                CropAspectRatioPreset.ratio4x3,
+                                CropAspectRatioPreset.ratio16x9
+                              ],
+                              uiSettings: [
+                                AndroidUiSettings(
+                                    toolbarTitle: 'Cropper',
+                                    toolbarColor: mainColor,
+                                    toolbarWidgetColor: whiteColor,
+                                    initAspectRatio:
+                                        CropAspectRatioPreset.square,
+                                    lockAspectRatio: false),
+                                IOSUiSettings(
+                                  title: 'Cropper',
+                                ),
+                              ],
+                            );
+
+                            if (croppedFile != null) {
+                              setState(() {
+                                imgfilepath = File(croppedFile.path.toString());
+                              });
+                            }
+                          }
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: imgfilepath.path.isNotEmpty
+                              ? Image.file(
+                                  imgfilepath,
+                                  width: 80,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.network(
+                                  profileImage,
+                                  width: 80,
+                                  fit: BoxFit.cover,
+                                  height: 80,
+                                ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
                       ),
                       Container(
                         height: 52,
@@ -541,21 +637,31 @@ class ProfileScreenState extends State<ProfileScreen> {
     header[Authorization] = Bearer + token.toString();
     print("HEADERSSS${header.toString()}");
     var ApiCalling = GetApiInstanceWithHeaders(header);
-    var Params = <String, dynamic>{};
-    Params[mobile] = User_Mobile;
-    Params[Email_param] = "";
-    Params[name] = namee;
-    Response response;
-    response = await ApiCalling.post(USER_UPDATE, data: Params);
-    print("SaveUserProfileRESPONSE${response.data.toString()}");
-    ShowToast("User updated successfully", context);
 
-    buttonState = ButtonState.normal;
-    setState(() {
-      User_Name = namee;
-      prefs.setString(USER_NAME, namee);
-      Navigator.pop(context);
+    var formData = FormData.fromMap({
+      mobile: User_Mobile,
+      name: namee,
+      image: imgfilepath.path == ""
+          ? ""
+          : await MultipartFile.fromFile(imgfilepath.path,
+              filename: imgfilepath.path.split('/').last),
     });
+    print("User_Mobile :- ${User_Mobile}");
+    print("nameenamee :- ${namee}");
+    print("imgfilepath.path${imgfilepath.path}");
+    Response response;
+    response = await ApiCalling.post(USER_UPDATE, data: formData);
+    print("SaveUserProfileRESPONSE${response.data.toString()}");
+    ShowToast(response.data[message], context);
+    buttonState = ButtonState.normal;
+    if (response.data[status]) {
+      setState(() {
+        User_Name = namee;
+        prefs.setString(USER_NAME, namee);
+        UserDetails();
+        Navigator.pop(context);
+      });
+    }
   }
 
   LogoutDialogShow(BuildContext context) {

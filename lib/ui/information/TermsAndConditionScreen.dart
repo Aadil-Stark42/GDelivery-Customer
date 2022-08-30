@@ -64,7 +64,7 @@ class TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
           ),
         ),
         appBar: AppBar(
-          elevation: 0.5,
+          elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: whiteColor,
           title: Row(
@@ -74,8 +74,11 @@ class TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Image.asset(imagePath + "back_arrow.png",
-                    height: 25, width: 25),
+                child: Image.asset(
+                  imagePath + "ic_back2.png",
+                  width: 30,
+                  height: 30,
+                ),
               ),
               SizedBox(
                 width: 10,
@@ -85,7 +88,9 @@ class TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                     ? TermsandConditions
                     : PrivacyPolicy,
                 style: TextStyle(
-                    fontSize: 16, fontFamily: Inter_bold, color: blackColor),
+                    fontSize: 16,
+                    fontFamily: Inter_bold,
+                    color: darkMainColor2),
               ),
             ],
           ),

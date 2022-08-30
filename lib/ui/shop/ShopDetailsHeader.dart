@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gdeliverycustomer/models/ShopDetailsDataModel.dart';
@@ -16,6 +17,7 @@ class ShopDetailsHeader extends StatefulWidget {
   final String shop_id, shop_cat_id;
   bool? IsFavorite;
   VoidCallback likebuttonclick;
+
   ShopDetailsHeader(this.shopDetailsDataModel, this.shop_id, this.shop_cat_id,
       this.IsFavorite, this.likebuttonclick);
 
@@ -37,9 +39,14 @@ class _ShopDetailsHeaderState extends State<ShopDetailsHeader> {
               Container(
                 height: 200,
                 width: double.infinity,
-                child: Image.network(
-                  widget.shopDetailsDataModel.shopDetails!.shopImage.toString(),
+                child: CachedNetworkImage(
                   fit: BoxFit.cover,
+                  imageUrl: widget.shopDetailsDataModel.shopDetails!.shopImage
+                      .toString(),
+                  placeholder: (context, url) => Image.asset(
+                      imagePath + "no_image_placeholder.png",
+                      fit: BoxFit.cover,
+                      width: double.maxFinite),
                 ),
               ),
               Positioned(

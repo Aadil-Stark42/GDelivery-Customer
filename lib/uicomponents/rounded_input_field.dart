@@ -30,8 +30,7 @@ class RoundedInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: TextFieldContainer(
+    return TextFieldContainer(
       Corner_radius: Corner_radius,
       horizontal_margin: horizontal_margin,
       elevations: elevations,
@@ -41,6 +40,7 @@ class RoundedInputField extends StatelessWidget {
           onChanged: onChanged,
           cursorColor: mainColor,
           keyboardType: inputType,
+          textCapitalization: TextCapitalization.words,
           inputFormatters: [
             formatter,
           ],
@@ -48,7 +48,7 @@ class RoundedInputField extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontFamily: Segoe_ui_semibold,
               fontSize: 13,
-              color: greyColor),
+              color: darkMainColor2),
           decoration: InputDecoration(
             icon: Icon(
               icon,
@@ -56,10 +56,15 @@ class RoundedInputField extends StatelessWidget {
               size: 20,
             ),
             hintText: hintText,
+            hintStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontFamily: Segoe_ui_semibold,
+                fontSize: 13,
+                color: darkMainColor2),
             border: InputBorder.none,
           ),
         ),
       ),
-    ));
+    );
   }
 }

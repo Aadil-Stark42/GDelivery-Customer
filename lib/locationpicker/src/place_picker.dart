@@ -17,12 +17,15 @@ import 'dart:io' show Platform;
 
 import 'package:uuid/uuid.dart';
 
+import '../../utils/Utils.dart';
+
 typedef IntroModalWidgetBuilder = Widget Function(
   BuildContext context,
   Function? close,
 );
 
 enum PinState { Preparing, Idle, Dragging }
+
 enum SearchingState { Idle, Searching }
 
 class PlacePicker extends StatefulWidget {
@@ -75,6 +78,7 @@ class PlacePicker extends StatefulWidget {
     this.onCameraMove,
     this.onCameraIdle,
     this.IsComeFromHome,
+    this.address_id,
   }) : super(key: key);
 
   final String apiKey;
@@ -83,11 +87,12 @@ class PlacePicker extends StatefulWidget {
   final bool? useCurrentLocation;
   final LocationAccuracy desiredLocationAccuracy;
 
-  final bool? IsComeFromHome;
+  final String? IsComeFromHome;
   final String? hintText;
   final String? searchingText;
   final String? selectText;
   final String? outsideOfPickAreaText;
+  final String? address_id;
 
   final ValueChanged<String>? onAutoCompleteFailed;
   final ValueChanged<String>? onGeocodingSearchFailed;
@@ -360,7 +365,10 @@ class _PlacePickerState extends State<PlacePicker> {
               searchingText: widget.searchingText,
               debounceMilliseconds: widget.autoCompleteDebounceInMilliseconds,
               onPicked: (prediction) {
-                _pickPrediction(prediction);
+                HideKeyBoard();
+                Timer(Duration(milliseconds: 500), () {
+                  _pickPrediction(prediction);
+                });
               },
               onSearchFailed: (status) {
                 if (widget.onAutoCompleteFailed != null) {
@@ -508,6 +516,7 @@ class _PlacePickerState extends State<PlacePicker> {
       onCameraMove: widget.onCameraMove,
       onCameraIdle: widget.onCameraIdle,
       IsComeFromHome: widget.IsComeFromHome,
+      address_ids: widget.address_id,
     );
   }
 

@@ -1,12 +1,15 @@
-var BASE_URL = 'http://dev.gdigitaldelivery.com/api/v2/';
-var MAP_API_KEY = "AIzaSyA-YiqHgS6yxhPcdH26m4nLZt3LOMcv2Ac";
+var BASE_URL = 'http://production.gdigitaldelivery.com/api/v2/';
+var MAP_API_KEY = "AIzaSyCa-nAjpKiRLIq51wUUHVdDlVbBHUz0fMg";
 /*var MAP_API_KEY = "AIzaSyAxYuaYIxsp-27vfQcDAE8P-Ih_J4TRjOM";*/
 var LOGIN_API = "login";
 var VERIFICATION_OTP = "verify-otp";
 var ADDRESS_LIST = "address-list";
 var ADD_ADDRESS = "add-address";
+var UPDATE_ADDRESS = "update-address";
+var DELETE_ADDRESS = "delete-address";
 var DASHBOARD = "dashboard";
 var USER_UPDATE = "user-update";
+var GET_USER_DETAILS = "user";
 var CARTDATA = "cart-data";
 var MANAGECARTPRODUCT = "manage-cart-product";
 var PRODUCTS = "products";
@@ -42,6 +45,7 @@ var GET_Cities = "get-cities";
 /*PARAMS*/
 var mobile = "mobile";
 var name = "name";
+var image = "image";
 var city = "city";
 var Email_param = "email";
 var otp = "otp";

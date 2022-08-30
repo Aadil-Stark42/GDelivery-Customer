@@ -22,40 +22,50 @@ class AppMaintainanceScreenState extends State<AppMaintainanceScreen> {
       child: Scaffold(
         backgroundColor: whiteColor,
         body: Container(
+          height: double.infinity,
           padding: EdgeInsets.only(top: 15, left: 15, right: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 20,
+              Text(
+                AppMaintenance,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: 18,
+                    height: 1.0,
+                    fontFamily: Segoe_ui_bold,
+                    color: darkMainColor2),
               ),
               Image.asset(
                 imagePath + "maintanence.png",
-                height: 250,
-                width: 350,
-              ),
-              SizedBox(
-                height: 30,
+                height: 342,
               ),
               Text(
-                "INSUVAI DELIVERY SERVICES",
-                textAlign: TextAlign.center,
+                "G Digital Delivery",
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
                 style: TextStyle(
-                    fontSize: 18, fontFamily: Inter_bold, color: blackColor),
+                    fontSize: 17,
+                    height: 1.0,
+                    fontFamily: Segoe_ui_bold,
+                    color: darkMainColor2),
               ),
               SizedBox(
-                height: 10,
+                height: 15,
               ),
-              Text(
-                "We are closed now, will be back online soon! Please stay connected!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: Segoe_ui_semibold,
-                    color: blackColor2),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  "We are closed now, will be back online soon! Please stay connected!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 15, fontFamily: Segoeui, color: greyColor4),
+                ),
               ),
               SizedBox(
-                height: 20,
+                height: 60,
               ),
               ProgressButton(
                 child: Text(
@@ -76,24 +86,6 @@ class AppMaintainanceScreenState extends State<AppMaintainanceScreen> {
                 progressColor: whiteColor,
                 border_radius: Rounded_Button_Corner,
               )
-            ],
-          ),
-        ),
-        appBar: AppBar(
-          backgroundColor: whiteColor,
-          flexibleSpace: FlexibleSpaceBar(),
-          elevation: 2,
-          centerTitle: false,
-          automaticallyImplyLeading: false,
-          leading: null,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                AppMaintenance,
-                style: TextStyle(
-                    fontSize: 16, fontFamily: Inter_bold, color: blackColor),
-              ),
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,9 @@ import '../../search/GlobalSearchScreen.dart';
 import '../../shop/ShopListScreen.dart';
 
 class CategorySearchScreen extends StatefulWidget {
+  VoidCallback backpress;
+  CategorySearchScreen(this.backpress);
+
   @override
   CategorySearchScreenState createState() => CategorySearchScreenState();
 }
@@ -57,10 +61,15 @@ class CategorySearchScreenState extends State<CategorySearchScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      imagePath + "ic_back2.png",
-                      width: 30,
-                      height: 30,
+                    InkWell(
+                      onTap: () {
+                        widget.backpress();
+                      },
+                      child: Image.asset(
+                        imagePath + "ic_back2.png",
+                        width: 30,
+                        height: 30,
+                      ),
                     ),
                     SizedBox(
                       width: 15,
@@ -73,7 +82,7 @@ class CategorySearchScreenState extends State<CategorySearchScreen> {
                           fontSize: 17,
                           height: 1.0,
                           fontFamily: Segoe_ui_bold,
-                          color: mainColor),
+                          color: darkMainColor2),
                     ),
                     Spacer(),
                     GestureDetector(
@@ -166,14 +175,15 @@ class CategorySearchScreenState extends State<CategorySearchScreen> {
                                 width: double.maxFinite,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(7),
-                                  child: FadeInImage(
+                                  child: CachedNetworkImage(
                                     fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                      DashBoardData.category1![index].banner
-                                          .toString(),
-                                    ),
-                                    placeholder:
-                                        AssetImage("${imagePath}ic_logo.png"),
+                                    imageUrl: DashBoardData
+                                        .category1![index].banner
+                                        .toString(),
+                                    placeholder: (context, url) => Image.asset(
+                                        imagePath + "no_image_placeholder.png",
+                                        fit: BoxFit.cover,
+                                        width: double.maxFinite),
                                   ),
                                 ),
                               ),

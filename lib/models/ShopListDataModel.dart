@@ -62,10 +62,10 @@ class Shops {
   int? ratingCount;
   bool? isOpened;
   String? shop_openclose_dtl;
-  String? coupon_detail;
+
   String iscoloured_blue = "";
   List<Coupons>? coupons = [];
-
+  String? coupon_detail;
   Shops({
     this.shopId,
     this.shopName,

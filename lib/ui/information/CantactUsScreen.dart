@@ -28,133 +28,137 @@ class CantactUsScreenState extends State<CantactUsScreen> {
       child: Scaffold(
         backgroundColor: whiteColor,
         appBar: AppBar(
-          elevation: 0.5,
+          elevation: 0,
           automaticallyImplyLeading: false,
           backgroundColor: whiteColor,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Image.asset(imagePath + "back_arrow.png",
-                    height: 25, width: 25),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                ContactUs,
-                style: TextStyle(
-                    fontSize: 16, fontFamily: Inter_bold, color: blackColor),
-              ),
-            ],
+          title: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Image.asset(
+                    imagePath + "ic_back2.png",
+                    width: 30,
+                    height: 30,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  ContactUs,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: Inter_bold,
+                      color: darkMainColor2),
+                ),
+              ],
+            ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InkWell(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 12,
+            ),
+            Container(
+              width: double.maxFinite,
+              height: 1.5,
+              color: greyColor12,
+            ),
+            SizedBox(
+              height: 14,
+            ),
+            InkWell(
                 onTap: () {
                   launch("tel:$mobile_contact");
                 },
-                child: Row(
-                  children: [
-                    Image.asset(
-                      imagePath + "ic_telephone.png",
-                      width: 30,
-                      height: 30,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Phone",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: Segoe_ui_semibold,
-                          color: blackColor),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 15),
-                width: double.maxFinite,
-                height: 0.5,
-                color: greyColor2,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              InkWell(
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 13, bottom: 13),
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        imagePath + "ic_telephone.png",
+                        width: 39,
+                        height: 39,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text(
+                        "Phone",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontFamily: Segoe_ui_semibold,
+                            color: blackColor),
+                      )
+                    ],
+                  ),
+                )),
+            InkWell(
                 onTap: () {
                   launch("mailto:$email_contact?subject=&body=");
                 },
-                child: Row(
-                  children: [
-                    Image.asset(
-                      imagePath + "ic_mail.png",
-                      width: 30,
-                      height: 30,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Email",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: Segoe_ui_semibold,
-                          color: blackColor),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 15),
-                width: double.maxFinite,
-                height: 0.5,
-                color: greyColor2,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              InkWell(
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 13, bottom: 13),
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        imagePath + "ic_mail.png",
+                        width: 39,
+                        height: 39,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Email",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontFamily: Segoe_ui_semibold,
+                            color: blackColor),
+                      )
+                    ],
+                  ),
+                )),
+            InkWell(
                 onTap: () {
                   launch("https://wa.me/${mobile_contact}?text=Hello");
                 },
-                child: Row(
-                  children: [
-                    Image.asset(
-                      imagePath + "ic_whatsapp.png",
-                      width: 30,
-                      height: 30,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Whatsapp",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: Segoe_ui_semibold,
-                          color: blackColor),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 13, bottom: 13),
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        imagePath + "ic_whatsapp.png",
+                        width: 39,
+                        height: 39,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Whatsapp",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontFamily: Segoe_ui_semibold,
+                            color: blackColor),
+                      )
+                    ],
+                  ),
+                )),
+          ],
         ),
       ),
     );

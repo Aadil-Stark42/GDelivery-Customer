@@ -65,8 +65,11 @@ class SplashScreenState extends State<MySplashScreenPage> {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        SelectAddressScreen(false, "", false)),
+                    builder: (context) => SelectAddressScreen(
+                        IsJustChangeAddress: false,
+                        GstPer: "",
+                        IsForCart: false,
+                        isBackAvaillable: true)),
                 (Route<dynamic> route) => false);
           } else {
             Navigator.pushAndRemoveUntil(

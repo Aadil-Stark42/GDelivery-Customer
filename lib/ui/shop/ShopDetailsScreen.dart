@@ -1,7 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/models/ShopProductDataModel.dart';
@@ -291,7 +291,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                     ),
                     /*---TabVIew----*/
                     Container(
-                      height: MediaQuery.of(context).size.height / 1.7,
+                      height: MediaQuery.of(context).size.height / 1.6,
                       width: MediaQuery.of(context).size.width,
                       child: CustomTabView(
                         initPosition: CurrentPosition,
@@ -381,7 +381,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
             shopDetailsDataModel.shopProducts;
         return Container(
           child: Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 30),
+            padding: EdgeInsets.only(top: 10),
             child: CommanListview(shopProductsList!),
           ),
         );
@@ -399,7 +399,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
       List<ShopProducts>? shopProductsList = shopProductDataModel.shopProducts;
       return Container(
         child: Padding(
-          padding: EdgeInsets.only(top: 10, bottom: 30),
+          padding: EdgeInsets.only(top: 10),
           child: CommanListview(shopProductsList!),
         ),
       );
@@ -439,7 +439,8 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
   Widget CommanListview(List<ShopProducts> shopProductsList) {
     return AnimationLimiter(
       child: ListView.builder(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(
+            bottom: shopDetailsDataModel.coupons!.isNotEmpty ? 130 : 70),
         itemCount: shopProductsList.length,
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
@@ -466,15 +467,15 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                               SizedBox(
                                 height: 80,
                                 width: 80,
-                                child: FadeInImage(
+                                child: CachedNetworkImage(
                                   fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    shopProductsList[index]
-                                        .productImage
-                                        .toString(),
-                                  ),
-                                  placeholder:
-                                      AssetImage("${imagePath}ic_logo.png"),
+                                  imageUrl: shopProductsList[index]
+                                      .productImage
+                                      .toString(),
+                                  placeholder: (context, url) => Image.asset(
+                                      imagePath + "no_image_placeholder.png",
+                                      fit: BoxFit.cover,
+                                      width: double.maxFinite),
                                 ),
                               ),
                               Positioned(

@@ -25,9 +25,10 @@ class CartSubScreen extends StatefulWidget {
   final bool IstitleShow;
   final bool IsComeFromHome;
   final VoidCallback ContinueShopingClick;
+  final VoidCallback isBackPress;
 
-  CartSubScreen(
-      this.IstitleShow, this.IsComeFromHome, this.ContinueShopingClick);
+  CartSubScreen(this.IstitleShow, this.IsComeFromHome,
+      this.ContinueShopingClick, this.isBackPress);
 
   @override
   CartSubScreenState createState() => CartSubScreenState();
@@ -42,10 +43,11 @@ class CartSubScreenState extends State<CartSubScreen> {
   String dropdownvalue = 'Select';
   String slotsId = '';
   bool isClickCouponAplly = false;
+
   @override
   void initState() {
     super.initState();
-    GetCartList();
+    GetCartList(000);
   }
 
   @override
@@ -58,7 +60,7 @@ class CartSubScreenState extends State<CartSubScreen> {
     );
   }
 
-  Future<void> GetCartList() async {
+  Future<void> GetCartList(int index) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var header = <String, dynamic>{};
     String? token = prefs.getString(TOKEN);
@@ -77,6 +79,10 @@ class CartSubScreenState extends State<CartSubScreen> {
 
     setState(() {
       DataVisible = true;
+      if (index != 000) {
+        cartDataModel.products![index].isPlusLoading = false;
+        cartDataModel.products![index].isMinusLoading = false;
+      }
       cartDataModel = CartDataModel.fromJson(response.data);
       if (response.data[status] != true) {
         cartDataModel.status = false;
@@ -106,47 +112,43 @@ class CartSubScreenState extends State<CartSubScreen> {
           return Padding(
               padding: EdgeInsets.only(top: 20),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
                       child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 15,
-                        height: 15,
-                        child: Image.asset(
-                          cartDataModel.products![index].variety == 1
-                              ? "${imagePath}veg.png"
-                              : "${imagePath}nonveg.png",
-                        ),
-                      ),
-                      SizedBox(width: 10),
                       Flexible(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               cartDataModel.products![index].productName
                                   .toString(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                fontFamily: Segoe_ui_semibold,
-                                fontSize: 14,
+                                fontFamily: Segoeui,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 15,
                                 height: 1.0,
-                                color: greyColor,
+                                color: darkMainColor2,
                               ),
                             ),
                             const SizedBox(
                               height: 3,
                             ),
-                            Text(
-                              cartDataModel.products![index].size.toString(),
-                              style: TextStyle(
-                                fontFamily: Segoe_ui_semibold,
-                                fontSize: 11,
-                                height: 1.0,
-                                color: greyColor,
+                            Visibility(
+                              visible: cartDataModel.products![index].size
+                                          .toString() ==
+                                      " "
+                                  ? false
+                                  : true,
+                              child: Text(
+                                cartDataModel.products![index].size.toString(),
+                                style: TextStyle(
+                                  fontFamily: Segoe_ui_semibold,
+                                  fontSize: 11,
+                                  height: 1.0,
+                                  color: greyColor,
+                                ),
                               ),
                             )
                           ],
@@ -155,85 +157,95 @@ class CartSubScreenState extends State<CartSubScreen> {
                     ],
                   )),
 
+                  Text(
+                    "₹${cartDataModel.products![index].amount.toString()}",
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontFamily: Segoe_ui_semibold,
+                        color: darkMainColor),
+                  ),
+                  SizedBox(
+                    width: 60,
+                  ),
+
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: mainColor, width: 1),
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 3, top: 5, bottom: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  splashColor: greyColor,
-                                  onTap: () {
-                                    AddOrRemoveProduct(
-                                        cartDataModel
-                                            .products![index].cartProductId
-                                            .toString(),
-                                        "-1");
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: const Icon(
-                                      Icons.remove_rounded,
-                                      color: mainColor,
-                                      size: 20,
-                                    ),
-                                    width: 30,
-                                  ),
-                                ),
-                                Text(
-                                  cartDataModel.products![index].quantity
-                                      .toString(),
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      fontFamily: Poppinsmedium,
-                                      color: blackColor),
-                                ),
-                                InkWell(
-                                  splashColor: greyColor2,
-                                  onTap: () {
-                                    AddOrRemoveProduct(
-                                        cartDataModel
-                                            .products![index].cartProductId
-                                            .toString(),
-                                        "1");
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Icon(
-                                      Icons.add_rounded,
-                                      color: mainColor,
-                                      size: 20,
-                                    ),
-                                    width: 30,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        "₹${cartDataModel.products![index].amount.toString()}",
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontFamily: Segoe_ui_semibold,
-                            color: greyColor),
+                      InkWell(
+                        splashColor: greyColor,
+                        onTap: () {
+                          setState(() {
+                            cartDataModel.products![index].isMinusLoading =
+                                true;
+                          });
+                          AddOrRemoveProduct(
+                              cartDataModel.products![index].cartProductId
+                                  .toString(),
+                              "-1",
+                              index);
+                        },
+                        child: cartDataModel.products![index].isMinusLoading ==
+                                false
+                            ? Image.asset(
+                                imagePath + "ic_minus.png",
+                                width: 20,
+                                height: 20,
+                              )
+                            : SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: SizedBox(
+                                  width: 12,
+                                  height: 12,
+                                  child: CircularProgressIndicator(
+                                      strokeWidth: 1, color: mainColor),
+                                )),
                       ),
                       SizedBox(
                         width: 10,
                       ),
+                      Text(
+                        cartDataModel.products![index].quantity.toString(),
+                        style: TextStyle(
+                            fontSize: 13,
+                            fontFamily: Poppinsmedium,
+                            color: blackColor),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        splashColor: greyColor2,
+                        onTap: () {
+                          setState(() {
+                            cartDataModel.products![index].isPlusLoading = true;
+                          });
+                          AddOrRemoveProduct(
+                              cartDataModel.products![index].cartProductId
+                                  .toString(),
+                              "1",
+                              index);
+                        },
+                        child: cartDataModel.products![index].isPlusLoading ==
+                                false
+                            ? Image.asset(
+                                imagePath + "ic_plus.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.fill,
+                              )
+                            : SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: SizedBox(
+                                  width: 12,
+                                  height: 12,
+                                  child: CircularProgressIndicator(
+                                      strokeWidth: 1, color: mainColor),
+                                )),
+                      ),
                     ],
-                  )
+                  ),
                   //Farzi
                 ],
               ));
@@ -241,8 +253,11 @@ class CartSubScreenState extends State<CartSubScreen> {
   }
 
   Widget BillDetailsView() {
-    return Padding(
-      padding: EdgeInsets.only(left: 0, right: 0, top: 40),
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: greyColor10, width: 1),
+          borderRadius: BorderRadius.circular(30)),
+      padding: EdgeInsets.only(left: 13, right: 13, bottom: 12, top: 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -430,14 +445,15 @@ class CartSubScreenState extends State<CartSubScreen> {
             border_radius: Rounded_Button_Corner,
           ),
           SizedBox(
-            height: 35,
+            height: 10,
           ),
         ],
       ),
     );
   }
 
-  Future<void> AddOrRemoveProduct(String cartProductId, String qnty) async {
+  Future<void> AddOrRemoveProduct(
+      String cartProductId, String qnty, int index) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var header = <String, dynamic>{};
     String? token = prefs.getString(TOKEN);
@@ -453,7 +469,7 @@ class CartSubScreenState extends State<CartSubScreen> {
     if (!response.data[status]) {
       ShowToast(response.data[message], context);
     }
-    GetCartList();
+    GetCartList(index);
     print("responseresponseresponse${response.data.toString()}");
   }
 
@@ -550,248 +566,268 @@ class CartSubScreenState extends State<CartSubScreen> {
               floating: true,
               snap: false,
               flexibleSpace: FlexibleSpaceBar(),
-              elevation: 2,
+              elevation: 0,
               forceElevated: true,
               centerTitle: false,
               automaticallyImplyLeading: false,
               leading: null,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  if (widget.IstitleShow)
+              title: Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pop(context);
+                        widget.isBackPress();
                       },
-                      child: Image.asset(imagePath + "back_arrow.png",
-                          height: 25, width: 25),
-                    )
-                  else
-                    SizedBox(),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    Cart,
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: Inter_bold,
-                        color: blackColor),
-                  ),
-                ],
+                      child: Image.asset(
+                        imagePath + "ic_back2.png",
+                        width: 30,
+                        height: 30,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Text(
+                      Cart,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontSize: 17,
+                          height: 1.0,
+                          fontFamily: Segoe_ui_bold,
+                          color: darkMainColor2),
+                    ),
+                  ],
+                ),
               ),
             ),
             SliverList(
                 delegate: SliverChildListDelegate([
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10.0)),
-                          child: Stack(
-                            children: [
-                              Image.network(
-                                cartDataModel.shopDetails!.shopImage.toString(),
-                                fit: BoxFit.cover,
-                                height: 80,
-                                width: 80,
-                              ),
-                              ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(5),
-                                  topRight: Radius.circular(5),
-                                ),
-                                child: Container(
-                                  color: cartDataModel
-                                              .shopDetails!.shop_isopened ==
-                                          true
-                                      ? mainColor
-                                      : redColor,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Text(
-                                      cartDataModel
-                                                  .shopDetails!.shop_isopened ==
-                                              true
-                                          ? "Open"
-                                          : "Close",
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: true,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: Segoeui,
-                                          color: whiteColor),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                            child: Column(
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: greyColor10, width: 1),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: 12, right: 12, bottom: 12, top: 15),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(15.0)),
+                                    child: SizedBox(
+                                      height: 50,
+                                      width: 50,
+                                      child: FadeInImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                          cartDataModel.shopDetails!.shopImage
+                                              .toString()
+                                              .toString(),
+                                        ),
+                                        placeholder: AssetImage(
+                                            "${imagePath}ic_logo.png"),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          cartDataModel.shopDetails!.shopName
+                                              .toString(),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontFamily: Segoe_ui_semibold,
+                                              color: blackColor),
+                                        ),
+                                        const SizedBox(
+                                          height: 2,
+                                        ),
+                                        Text(
+                                          cartDataModel.shopDetails!.shopStreet
+                                              .toString(),
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontSize: 11,
+                                              fontFamily: Segoeui,
+                                              color: greyColor),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              cartDataModel.shopDetails!.shopName.toString(),
-                              softWrap: true,
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: Inter_bold,
-                                  color: blackColor),
+                            Container(
+                              width: double.maxFinite,
+                              height: 1,
+                              color: greyColor10,
                             ),
                             SizedBox(
-                              height: 5,
+                              height: 10,
                             ),
-                            Text(
-                              cartDataModel.shopDetails!.shopStreet.toString(),
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontFamily: Poppinsmedium,
-                                  color: greyColor),
-                            )
-                          ],
-                        ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    CartProductList(),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: greyColor2),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                  child: RoundedInputField(
-                                hintText: instructions,
-                                onChanged: (value) {
-                                  Instrucvalue = value.toString();
-                                },
-                                inputType: TextInputType.name,
-                                icon: Icons.note_alt_outlined,
-                                Corner_radius: 0,
-                                horizontal_margin: 0,
-                                elevations: 0,
-                                formatter: LowerCaseTextFormatter(),
-                              )),
-                              Container(
-                                width: 80,
-                                height: 45,
-                                child: ProgressButton(
-                                  child: Text(
-                                    ADD,
-                                    style: TextStyle(
-                                      color: whiteColor,
-                                      fontFamily: Segoe_ui_semibold,
-                                      height: 1.1,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: CartProductList(),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(5.0),
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: greyColor2),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(22)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                      child: RoundedInputField(
+                                    hintText: instructions,
+                                    onChanged: (value) {
+                                      Instrucvalue = value.toString();
+                                    },
+                                    inputType: TextInputType.text,
+                                    icon: Icons.note_alt_outlined,
+                                    Corner_radius: 20,
+                                    horizontal_margin: 0,
+                                    elevations: 0,
+                                    formatter: LowerCaseTextFormatter(),
+                                  )),
+                                  Container(
+                                    width: 80,
+                                    height: 45,
+                                    child: ProgressButton(
+                                      child: Text(
+                                        ADD,
+                                        style: TextStyle(
+                                          color: whiteColor,
+                                          fontFamily: Segoe_ui_semibold,
+                                          height: 1.1,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        if (Instrucvalue.isNotEmpty) {
+                                          AddInstruction();
+                                        } else {
+                                          ShowToast("Please enter instruction",
+                                              context);
+                                        }
+                                      },
+                                      buttonState: buttonState,
+                                      backgroundColor: mainColor,
+                                      progressColor: whiteColor,
+                                      border_radius: 18,
                                     ),
                                   ),
-                                  onPressed: () {
-                                    if (Instrucvalue.isNotEmpty) {
-                                      AddInstruction();
-                                    } else {
-                                      ShowToast(
-                                          "Please enter instruction", context);
-                                    }
-                                  },
-                                  buttonState: buttonState,
-                                  backgroundColor: mainColor,
-                                  progressColor: whiteColor,
-                                  border_radius: Rounded_Button_Corner,
-                                ),
+                                  SizedBox(
+                                    width: 5,
+                                  )
+                                ],
                               ),
-                              SizedBox(
-                                width: 3,
-                              )
-                            ],
-                          ),
-                        )),
-                    SizedBox(
-                      height: 30,
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                          ]),
                     ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        child: Container(
-                          padding: const EdgeInsets.all(3.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: greyColor2),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                  child: RoundedInputField(
-                                hintText: CouponCode,
-                                onChanged: (value) {
-                                  CouponValue = value;
-                                },
-                                inputType: TextInputType.name,
-                                icon: Icons.airplane_ticket_outlined,
-                                Corner_radius: 0,
-                                horizontal_margin: 0,
-                                elevations: 0,
-                                formatter: UpperCaseTextFormatter(),
-                              )),
-                              Container(
-                                width: 80,
-                                height: 45,
-                                child: ProgressButton(
-                                  child: Text(
-                                    APPLY,
-                                    style: TextStyle(
-                                      color: whiteColor,
-                                      fontFamily: Segoe_ui_semibold,
-                                      height: 1.1,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    if (CouponValue.isNotEmpty) {
-                                      isClickCouponAplly = true;
-                                      AddCouponCode();
-                                    } else {
-                                      ShowToast(
-                                          "Please enter coupon code", context);
-                                    }
-                                  },
-                                  buttonState: buttonState,
-                                  backgroundColor: mainColor,
-                                  progressColor: whiteColor,
-                                  border_radius: Rounded_Button_Corner,
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(5.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: greyColor2),
+                        borderRadius: BorderRadius.all(Radius.circular(22)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                              child: RoundedInputField(
+                            hintText: CouponCode,
+                            onChanged: (value) {
+                              CouponValue = value;
+                            },
+                            inputType: TextInputType.name,
+                            icon: Icons.bookmark_border_sharp,
+                            Corner_radius: 20,
+                            horizontal_margin: 0,
+                            elevations: 0,
+                            formatter: UpperCaseTextFormatter(),
+                          )),
+                          Container(
+                            width: 80,
+                            height: 45,
+                            child: ProgressButton(
+                              child: Text(
+                                APPLY,
+                                style: TextStyle(
+                                  color: whiteColor,
+                                  fontFamily: Segoe_ui_semibold,
+                                  height: 1.1,
                                 ),
                               ),
-                              SizedBox(
-                                width: 3,
-                              )
-                            ],
+                              onPressed: () {
+                                if (CouponValue.isNotEmpty) {
+                                  isClickCouponAplly = true;
+                                  AddCouponCode();
+                                } else {
+                                  ShowToast(
+                                      "Please enter coupon code", context);
+                                }
+                              },
+                              buttonState: buttonState,
+                              backgroundColor: mainColor,
+                              progressColor: whiteColor,
+                              border_radius: 18,
+                            ),
                           ),
-                        )),
-                    BillDetailsView()
+                          SizedBox(
+                            width: 3,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    BillDetailsView(),
+                    SizedBox(
+                      height: 15,
+                    )
                   ],
                 ),
               )
@@ -838,7 +874,7 @@ class CartSubScreenState extends State<CartSubScreen> {
     response = await ApiCalling.post(APPLY_COUPON, data: Params);
     ShowToast(response.data[message].toString(), context);
     if (response.data[status]) {
-      GetCartList();
+      GetCartList(000);
     }
     print("responseresponseresponse${response.data.toString()}");
   }
@@ -1013,7 +1049,10 @@ class CartSubScreenState extends State<CartSubScreen> {
       Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
             builder: (context) => SelectAddressScreen(
-                true, cartDataModel.gstPer.toString(), true)),
+                IsJustChangeAddress: true,
+                GstPer: cartDataModel.gstPer.toString(),
+                IsForCart: true,
+                isBackAvaillable: false)),
       );
     }
     print("responseresponseresponse${response.data.toString()}");

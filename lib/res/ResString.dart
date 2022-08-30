@@ -5,7 +5,7 @@ var iconPath = "assets/icons/";
 const APP_STORE_URL =
     'https://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftwareUpdate?id=YOUR-APP-ID&mt=8';
 const PLAY_STORE_URL =
-    'https://play.google.com/store/apps/details?id=com.insuvai_customer';
+    'https://play.google.com/store/apps/details?id=com.gdelivery_customer';
 /*Local Storage String*/
 var introscreen = "introscreen";
 var Skip = "Skip";
@@ -157,6 +157,10 @@ var Yourfeedbackwill =
     "Your feedback will help us improve delivery experience better.";
 var Confirmss = "Confirm";
 var selectYourLocation = "Select Your Location";
+var home = "home";
+var edit = "edit";
+var AreYouRemoveAddress = "Are you sure to remove this address?";
+var save = "save";
 /*--------------------*/
 
 /*Animation Tim*/

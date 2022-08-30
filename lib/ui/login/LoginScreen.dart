@@ -185,10 +185,7 @@ class LoginScreenState extends State<LoginScreen> {
                                           child: Text(
                                             items.name.toString(),
                                             style: TextStyle(
-                                                color: items.name.toString() ==
-                                                        selectYourLocation
-                                                    ? greyColor6
-                                                    : blackColor,
+                                                color: blackColor,
                                                 height: 1.0,
                                                 fontFamily: Raleway_SemiBold,
                                                 fontSize: 15),
@@ -332,7 +329,7 @@ class LoginScreenState extends State<LoginScreen> {
       var dio = GetApiInstance();
       Response response;
       response = await dio.post(LOGIN_API,
-          data: {mobile: MobileNumber, name: UserName, city: initcity.id});
+          data: {mobile: MobileNumber, name: UserName, city: initcity.name});
       print("response.data${response.data}");
       if (response.data[STATUS]) {
         Future.delayed(const Duration(milliseconds: 1000), () {

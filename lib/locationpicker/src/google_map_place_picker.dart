@@ -11,15 +11,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gdeliverycustomer/locationpicker/google_maps_place_picker.dart';
 import 'package:gdeliverycustomer/locationpicker/providers/place_provider.dart';
 import 'package:gdeliverycustomer/locationpicker/src/components/animated_pin.dart';
-import 'package:gdeliverycustomer/locationpicker/src/components/floating_card.dart';
-import 'package:gdeliverycustomer/locationpicker/src/place_picker.dart';
 import 'package:google_maps_webservice/geocoding.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:gdeliverycustomer/utils/Utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tuple/tuple.dart';
-import 'dart:math' as math;
 
 import '../../apiservice/ApiService.dart';
 import '../../apiservice/EndPoints.dart';
@@ -27,7 +24,6 @@ import '../../res/ResColor.dart';
 import '../../res/ResString.dart';
 import '../../uicomponents/RoundedBorderButton.dart';
 import '../../uicomponents/progress_button.dart';
-import '../../uicomponents/rounded_input_field.dart';
 import '../../utils/LocalStorageName.dart';
 
 typedef SelectedPlaceWidgetBuilder = Widget Function(
@@ -71,6 +67,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
     this.selectText,
     this.outsideOfPickAreaText,
     this.IsComeFromHome,
+    this.address_ids,
   }) : super(key: key);
 
   final LatLng initialTarget;
@@ -108,8 +105,9 @@ class GoogleMapPlacePicker extends StatelessWidget {
 
   // strings
   final String? selectText;
-  final bool? IsComeFromHome;
+  final String? IsComeFromHome;
   final String? outsideOfPickAreaText;
+  final String? address_ids;
 
   _searchByCameraLocation(PlaceProvider provider) async {
     // We don't want to search location again if camera location is changed by zooming in/out.
@@ -478,7 +476,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
                 style: TextStyle(fontSize: 12, fontFamily: Segoe_ui_semibold),
               ),
             ),
-            IsComeFromHome == false
+            IsComeFromHome != home
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -603,7 +601,11 @@ class GoogleMapPlacePicker extends StatelessWidget {
             SizedBox(height: 35),
             ProgressButton(
               child: Text(
-                IsComeFromHome == true ? SelectAddress : SaveAddress,
+                IsComeFromHome == home
+                    ? SelectAddress
+                    : IsComeFromHome == save
+                        ? SaveAddress
+                        : EditAddress,
                 style: TextStyle(
                   color: whiteColor,
                   fontFamily: Segoe_ui_semibold,
@@ -611,7 +613,7 @@ class GoogleMapPlacePicker extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                if (IsComeFromHome == false) {
+                if (IsComeFromHome != home) {
                   if (House.isEmpty) {
                     ShowToast(HouseOrFlatRequired, context);
                   } else if (Delivery_Type.isEmpty) {
@@ -771,10 +773,16 @@ class GoogleMapPlacePicker extends StatelessWidget {
     Params[latitude] = lat;
     Params[longitude] = lng;
     Params[landmark] = landMark;
+    if (address_ids.toString().isNotEmpty) {
+      Params[address_id] = address_ids;
+    }
+
     print("ParamsParamsParams${Params.toString()}");
     var ApiCalling = GetApiInstanceWithHeaders(header);
     Response response;
-    response = await ApiCalling.post(ADD_ADDRESS, data: Params);
+    response = await ApiCalling.post(
+        address_ids.toString().isNotEmpty ? UPDATE_ADDRESS : ADD_ADDRESS,
+        data: Params);
     print("SavingAddressresponseresponse${response.data.toString()}");
     ShowToast(response.data[MESSAGE], context);
     if (response.data[status]) {

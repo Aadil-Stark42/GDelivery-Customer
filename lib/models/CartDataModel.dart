@@ -136,7 +136,8 @@ class Products {
   int? quantity;
   int? canCustomize;
   List<Topping>? toppings;
-
+  bool isPlusLoading = false;
+  bool isMinusLoading = false;
   Products(
       {this.id,
       this.cartProductId,

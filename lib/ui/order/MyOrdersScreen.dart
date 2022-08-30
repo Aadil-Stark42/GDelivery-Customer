@@ -54,36 +54,33 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
               forceElevated: true,
               centerTitle: false,
               leading: null,
-              title: Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset(
-                        imagePath + "ic_back2.png",
-                        width: 30,
-                        height: 30,
-                      ),
+              title: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(
+                      imagePath + "ic_back2.png",
+                      width: 30,
+                      height: 30,
                     ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      MyOrders,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                      style: TextStyle(
-                          fontSize: 17,
-                          height: 1.0,
-                          fontFamily: Segoe_ui_bold,
-                          color: mainColor),
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    MyOrders,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    style: TextStyle(
+                        fontSize: 17,
+                        height: 1.0,
+                        fontFamily: Segoe_ui_bold,
+                        color: darkMainColor2),
+                  ),
+                ],
               ),
             ),
             SliverList(delegate: SliverChildListDelegate([OrderListDataView()]))
@@ -245,7 +242,7 @@ class MyOrdersScreenState extends State<MyOrdersScreen> {
                                           .productDetails![inerindex]
                                           .productName;
                                       return Text(
-                                        "sdlkvnodvnsidjovnsdijvnsdijvnsdivnsidvnsdivjn",
+                                        item.toString(),
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontFamily: Segoeui,

@@ -60,6 +60,8 @@ class _AddtoCartViewState extends State<AddtoCartView> {
                             builder: (context) =>
                                 CartSubScreen(true, false, () {
                                   widget.ContinueShopingClick();
+                                }, () {
+                                  Navigator.pop(context);
                                 })),
                       );
                     },
