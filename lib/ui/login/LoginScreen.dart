@@ -34,7 +34,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    statusBarColor();
+
     // TODO: implement build
     return SafeArea(
         child: Scaffold(

@@ -60,7 +60,7 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    statusBarColor();
+    statusBarColorChange();
     return SafeArea(
         child: Scaffold(
       backgroundColor: whiteColor,
@@ -93,6 +93,10 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
 
         return CustomScrollView(
           slivers: [
+            SliverAppBar(
+              toolbarHeight: 0,
+              systemOverlayStyle: SystemUiOverlayStyle.light,
+            ),
             ShopDetailsHeader(
                 shopDetailsDataModel,
                 widget.shop_id,
@@ -791,74 +795,85 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
 
   void ToppingBottomSheetMenu(ShopProducts shopProductsList, String quanty) {
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
         builder: (builder) {
-          return Scaffold(
-              body: Container(
-                margin: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Row(
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height - 80,
+                child: SingleChildScrollView(
+                  child: Container(
+                    margin: EdgeInsets.all(20),
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                shopProductsList.variety == 1
-                                    ? "${imagePath}veg.png"
-                                    : "${imagePath}nonveg.png",
-                                width: 15,
-                                height: 15,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                shopProductsList.productName.toString(),
-                                softWrap: true,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: Segoe_ui_bold,
-                                    color: blackColor),
-                              )
-                            ],
-                          ),
+                        SizedBox(
+                          height: 20,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Image.asset(
-                            imagePath + "ic_topping_close.png",
-                            width: 30,
-                            height: 30,
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    shopProductsList.variety == 1
+                                        ? "${imagePath}veg.png"
+                                        : "${imagePath}nonveg.png",
+                                    width: 15,
+                                    height: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    shopProductsList.productName.toString(),
+                                    softWrap: true,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: Segoe_ui_bold,
+                                        color: blackColor),
+                                  )
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Image.asset(
+                                imagePath + "ic_topping_close.png",
+                                width: 30,
+                                height: 30,
+                              ),
+                            ),
+                          ],
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: double.maxFinite,
+                          height: 0.5,
+                          color: greyColor2,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        MainTappingView(shopProductsList),
                       ],
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      width: double.maxFinite,
-                      height: 0.5,
-                      color: greyColor2,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    MainTappingView(shopProductsList),
-                  ],
+                  ),
                 ),
               ),
-              bottomNavigationBar: Container(
+              Container(
                 width: double.maxFinite,
                 height: 50,
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                margin: EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 decoration: BoxDecoration(
                     color: mainColor, borderRadius: BorderRadius.circular(7)),
                 child: Row(
@@ -893,7 +908,9 @@ class ShopDetailsScreenState extends State<ShopDetailsScreen>
                     )
                   ],
                 ),
-              ));
+              )
+            ],
+          );
         });
   }
 

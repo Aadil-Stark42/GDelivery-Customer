@@ -52,7 +52,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    statusBarColor();
+
     return Scaffold(
       backgroundColor: whiteColor,
       body: bottomView(),

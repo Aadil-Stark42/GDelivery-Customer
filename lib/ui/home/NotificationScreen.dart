@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
@@ -43,6 +44,7 @@ class NotificationScreenState extends State<NotificationScreen> {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
               automaticallyImplyLeading: false,
               pinned: false,
               backgroundColor: whiteColor,

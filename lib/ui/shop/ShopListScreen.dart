@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gdeliverycustomer/models/ShopListDataModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -65,13 +66,13 @@ class _ShopListScreenState extends State<ShopListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    statusBarColor();
     return SafeArea(
       child: Scaffold(
         backgroundColor: whiteColor,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
               automaticallyImplyLeading: false,
               pinned: false,
               backgroundColor: whiteColor,

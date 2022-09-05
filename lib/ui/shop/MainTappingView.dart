@@ -73,11 +73,34 @@ class _MainTappingViewState extends State<MainTappingView> {
           ProductToppingDataModel.fromJson(response.data).message.toString(),
           context);
     }
-
     return ProductToppingDataModel.fromJson(response.data);
   }
 
   Widget TappingDataView() {
+/*    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+    productToppingDataModel.toppings!.add(productToppingDataModel.toppings![0]);
+
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);
+    productToppingDataModel.quantity!.add(productToppingDataModel.quantity![0]);*/
     print(
         "productToppingDataModel.status  ${productToppingDataModel.status.toString()}");
     if (productToppingDataModel.status != null &&
@@ -94,6 +117,7 @@ class _MainTappingViewState extends State<MainTappingView> {
           ),
           ListView.builder(
             padding: EdgeInsets.zero,
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: productToppingDataModel.quantity!.length,
             scrollDirection: Axis.vertical,
@@ -190,7 +214,10 @@ class _MainTappingViewState extends State<MainTappingView> {
           SizedBox(
             height: 5,
           ),
-          ActualTappingListview()
+          ActualTappingListview(),
+          SizedBox(
+            height: 50,
+          ),
         ],
       );
     } else {
@@ -213,6 +240,7 @@ class _MainTappingViewState extends State<MainTappingView> {
       return ListView.builder(
         padding: EdgeInsets.zero,
         shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         itemCount: productToppingDataModel.toppings!.length,
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {

@@ -56,6 +56,9 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
   String appName = "";
   ButtonState buttonState = ButtonState.normal;
   bool isClickCouponAplly = false;
+  bool isDeliveryAvailable = false;
+  bool isLoading = true;
+  String messagee = "";
 
   @override
   void initState() {
@@ -122,27 +125,32 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: RoundedButton(
-          color: mainColor,
-          text: IsLoadingPayment == true ? Loadinggg : ConfirmedOrder,
-          corner_radius: Rounded_Button_Corner,
-          press: () {
-            if (Payment_Method.isNotEmpty) {
-              if (!IsLoadingPayment) {
-                setState(() {
-                  IsLoadingPayment = true;
-                });
-                if (Payment_Method == CashOnDelivery) {
-                  OrderConfirmation();
-                } else {
-                  GetTokenForPayment();
-                }
-              }
-            } else {
-              ShowToast(Selectpaymentmethod, context);
-            }
-          },
-        ),
+        floatingActionButton: isDeliveryAvailable == true
+            ? RoundedButton(
+                color: mainColor,
+                text: IsLoadingPayment == true ? Loadinggg : ConfirmedOrder,
+                corner_radius: Rounded_Button_Corner,
+                press: () {
+                  if (Payment_Method.isNotEmpty) {
+                    if (!IsLoadingPayment) {
+                      setState(() {
+                        IsLoadingPayment = true;
+                      });
+                      if (Payment_Method == CashOnDelivery) {
+                        OrderConfirmation();
+                      } else {
+                        GetTokenForPayment();
+                      }
+                    }
+                  } else {
+                    ShowToast(Selectpaymentmethod, context);
+                  }
+                },
+              )
+            : SizedBox(
+                width: 0,
+                height: 0,
+              ),
       ),
     );
   }
@@ -186,7 +194,15 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
     if (coupon.isNotEmpty) {
       ShowToast(response.data[message], context);
     }
+
     setState(() {
+      isLoading = false;
+
+      isDeliveryAvailable = response.data[status];
+      if (!response.data[status]) {
+        ShowLongToast(response.data[message], context);
+        messagee = response.data["message"];
+      }
       if (OrderSummaryDataModel.fromJson(response.data).items!.isNotEmpty) {
         _orderSummaryDataModel = OrderSummaryDataModel.fromJson(response.data);
         /*     List<Coupons> list = [];
@@ -253,518 +269,542 @@ class OrderSummaryScreenState extends State<OrderSummaryScreen> {
 
   Widget OrderDetailsView() {
     Size size = MediaQuery.of(context).size;
-    if (_orderSummaryDataModel.status != null) {
-      return Padding(
-        padding: EdgeInsets.only(bottom: 60, left: 10, right: 10, top: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  YourOrders,
-                  style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                ListView.builder(
-                  padding: EdgeInsets.zero,
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: _orderSummaryDataModel.items!.length,
-                  itemBuilder: (context, index) {
-                    final itemdata = _orderSummaryDataModel.items![index];
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 15,
-                                height: 15,
-                                child: Image.asset(
-                                  itemdata.variety == 1
-                                      ? "${imagePath}veg.png"
-                                      : "${imagePath}nonveg.png",
+
+    if (isLoading == false) {
+      if (isDeliveryAvailable == true) {
+        return Padding(
+          padding: EdgeInsets.only(bottom: 60, left: 10, right: 10, top: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    YourOrders,
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: Inter_bold,
+                        color: blackColor),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  ListView.builder(
+                    padding: EdgeInsets.zero,
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _orderSummaryDataModel.items!.length,
+                    itemBuilder: (context, index) {
+                      final itemdata = _orderSummaryDataModel.items![index];
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 6),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 15,
+                                  height: 15,
+                                  child: Image.asset(
+                                    itemdata.variety == 1
+                                        ? "${imagePath}veg.png"
+                                        : "${imagePath}nonveg.png",
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 10),
-                              Flexible(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      itemdata.productName.toString() +
-                                          " x " +
-                                          itemdata.quantity.toString(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: Segoe_ui_semibold,
-                                        fontSize: 14,
-                                        height: 1.0,
-                                        color: greyColor,
-                                      ),
-                                    )
-                                  ],
+                                SizedBox(width: 10),
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        itemdata.productName.toString() +
+                                            " x " +
+                                            itemdata.quantity.toString(),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: Segoe_ui_semibold,
+                                          fontSize: 14,
+                                          height: 1.0,
+                                          color: greyColor,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )),
+                            Row(
+                              children: [
+                                Text(
+                                  "₹${itemdata.amount.toString()}",
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontFamily: Segoe_ui_semibold,
+                                      color: greyColor),
                                 ),
-                              )
-                            ],
-                          )),
-                          Row(
-                            children: [
-                              Text(
-                                "₹${itemdata.amount.toString()}",
-                                style: TextStyle(
-                                    fontSize: 13,
-                                    fontFamily: Segoe_ui_semibold,
-                                    color: greyColor),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                            ],
-                          )
-                          //Farzi
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  OrderDetailss,
-                  style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        OrderNumber,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: Segoe_ui_semibold,
-                            color: blackColor2),
-                      ),
-                      SizedBox(
-                        height: 1,
-                      ),
-                      Text(
-                        _orderSummaryDataModel.orderDetails!.orderNumber
-                            .toString(),
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: Segoe_ui_semibold,
-                            color: greyColor),
-                      ),
-                    ],
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            )
+                            //Farzi
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        Address,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: Segoe_ui_semibold,
-                            color: blackColor2),
-                      ),
-                      SizedBox(
-                        height: 1,
-                      ),
-                      Text(
-                        widget.Temp_address_name,
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: Segoe_ui_semibold,
-                            color: greyColor),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        DeliveryWithin,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: Segoe_ui_semibold,
-                            color: blackColor2),
-                      ),
-                      SizedBox(
-                        height: 1,
-                      ),
-                      Text(
-                        _orderSummaryDataModel.orderDetails!.isScheduled == 1
-                            ? _orderSummaryDataModel.orderDetails!.estimatedTime
-                                    .toString() +
-                                " Min"
-                            : EstimateTime,
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: Segoe_ui_semibold,
-                            color: greyColor),
-                      ),
-                    ],
+                  Text(
+                    OrderDetailss,
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: Inter_bold,
+                        color: blackColor),
                   ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  "Use delivery coupons here",
-                  style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(3.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: greyColor2),
-                    borderRadius: BorderRadius.all(Radius.circular(7)),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                          child: RoundedInputField(
-                        hintText: "Use ${appName} Coupons",
-                        onChanged: (value) {
-                          CouponValue = value.toUpperCase();
-                        },
-                        icon: Icons.airplane_ticket_outlined,
-                        Corner_radius: 0,
-                        horizontal_margin: 0,
-                        elevations: 0,
-                        formatter: UpperCaseTextFormatter(),
-                        inputType: TextInputType.text,
-                      )),
-                      Container(
-                        width: 80,
-                        height: 45,
-                        child: ProgressButton(
-                          child: Text(
-                            APPLY,
-                            style: TextStyle(
-                              color: whiteColor,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          OrderNumber,
+                          style: TextStyle(
+                              fontSize: 14,
                               fontFamily: Segoe_ui_semibold,
-                              height: 1.1,
+                              color: blackColor2),
+                        ),
+                        SizedBox(
+                          height: 1,
+                        ),
+                        Text(
+                          _orderSummaryDataModel.orderDetails!.orderNumber
+                              .toString(),
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: Segoe_ui_semibold,
+                              color: greyColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          Address,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: Segoe_ui_semibold,
+                              color: blackColor2),
+                        ),
+                        SizedBox(
+                          height: 1,
+                        ),
+                        Text(
+                          widget.Temp_address_name,
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: Segoe_ui_semibold,
+                              color: greyColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          DeliveryWithin,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: Segoe_ui_semibold,
+                              color: blackColor2),
+                        ),
+                        SizedBox(
+                          height: 1,
+                        ),
+                        Text(
+                          _orderSummaryDataModel.orderDetails!.isScheduled == 1
+                              ? _orderSummaryDataModel
+                                      .orderDetails!.estimatedTime
+                                      .toString() +
+                                  " Min"
+                              : EstimateTime,
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: Segoe_ui_semibold,
+                              color: greyColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    "Use delivery coupons here",
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: Inter_bold,
+                        color: blackColor),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(3.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: greyColor2),
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                            child: RoundedInputField(
+                          hintText: "Use ${appName} Coupons",
+                          onChanged: (value) {
+                            CouponValue = value.toUpperCase();
+                          },
+                          icon: Icons.airplane_ticket_outlined,
+                          Corner_radius: 0,
+                          horizontal_margin: 0,
+                          elevations: 0,
+                          formatter: UpperCaseTextFormatter(),
+                          inputType: TextInputType.text,
+                        )),
+                        Container(
+                          width: 80,
+                          height: 45,
+                          child: ProgressButton(
+                            child: Text(
+                              APPLY,
+                              style: TextStyle(
+                                color: whiteColor,
+                                fontFamily: Segoe_ui_semibold,
+                                height: 1.1,
+                              ),
+                            ),
+                            onPressed: () {
+                              if (CouponValue.isNotEmpty) {
+                                isClickCouponAplly = true;
+                                GetOrderSummaryDetails(CouponValue);
+                              } else {
+                                ShowToast("Please enter coupon code", context);
+                              }
+                            },
+                            buttonState: buttonState,
+                            backgroundColor: mainColor,
+                            progressColor: whiteColor,
+                            border_radius: Rounded_Button_Corner,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 3,
+                        )
+                      ],
+                    ),
+                  ),
+                  CouponListview(),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    Payment,
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontFamily: Inter_bold,
+                        color: blackColor),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: RoundedBorderButton(
+                        txt: CashOnDelivery,
+                        txtSize: 13,
+                        CornerReduis: 7,
+                        BorderWidth: 0.8,
+                        BackgroundColor: IsCashOnDeliveryCLick == true
+                            ? mainColor
+                            : whiteColor,
+                        ForgroundColor: IsCashOnDeliveryCLick == true
+                            ? whiteColor
+                            : mainColor,
+                        PaddingLeft: 15,
+                        PaddingRight: 15,
+                        PaddingTop: 15,
+                        PaddingBottom: 15,
+                        press: () {
+                          Payment_Method = CashOnDelivery;
+                          setState(() {
+                            IsCashOnDeliveryCLick = true;
+                            IsOnlineCLick = false;
+                          });
+                        },
+                      )),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                          child: RoundedBorderButton(
+                        txt: OnlinePayment,
+                        txtSize: 13,
+                        CornerReduis: 7,
+                        BorderWidth: 0.8,
+                        BackgroundColor:
+                            IsOnlineCLick == true ? mainColor : whiteColor,
+                        ForgroundColor:
+                            IsOnlineCLick == true ? whiteColor : mainColor,
+                        PaddingLeft: 15,
+                        PaddingRight: 15,
+                        PaddingTop: 15,
+                        PaddingBottom: 15,
+                        press: () {
+                          Payment_Method = OnlinePayment;
+                          setState(() {
+                            IsCashOnDeliveryCLick = false;
+                            IsOnlineCLick = true;
+                          });
+                        },
+                      ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            TotalFoodCost,
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 12,
+                              height: 1.0,
+                              color: greyColor,
                             ),
                           ),
-                          onPressed: () {
-                            if (CouponValue.isNotEmpty) {
-                              isClickCouponAplly = true;
-                              GetOrderSummaryDetails(CouponValue);
-                            } else {
-                              ShowToast("Please enter coupon code", context);
-                            }
-                          },
-                          buttonState: buttonState,
-                          backgroundColor: mainColor,
-                          progressColor: whiteColor,
-                          border_radius: Rounded_Button_Corner,
-                        ),
+                          Text(
+                            "₹${_orderSummaryDataModel.priceDetails!.subTotal}",
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 13,
+                              height: 1.0,
+                              color: greyColor,
+                            ),
+                          )
+                        ],
                       ),
                       SizedBox(
-                        width: 3,
-                      )
+                        height: 15,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            CouponDiscount,
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 12,
+                              height: 1.0,
+                              color: _orderSummaryDataModel
+                                          .priceDetails!.couponDiscount
+                                          .toString() !=
+                                      "0.00"
+                                  ? redColor
+                                  : greyColor,
+                            ),
+                          ),
+                          Text(
+                            "₹${_orderSummaryDataModel.priceDetails!.couponDiscount}",
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 13,
+                              height: 1.0,
+                              color: _orderSummaryDataModel
+                                          .priceDetails!.couponDiscount
+                                          .toString() !=
+                                      "0.00"
+                                  ? redColor
+                                  : greyColor,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "GST " + widget.GstPer + "%",
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 12,
+                              height: 1.0,
+                              color: greyColor,
+                            ),
+                          ),
+                          Text(
+                            "₹${_orderSummaryDataModel.priceDetails!.gstPrice}",
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 13,
+                              height: 1.0,
+                              color: greyColor,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            PackingCharges,
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 12,
+                              height: 1.0,
+                              color: greyColor,
+                            ),
+                          ),
+                          Text(
+                            "₹${_orderSummaryDataModel.priceDetails!.packingCharge}",
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 13,
+                              height: 1.0,
+                              color: greyColor,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            DeliveryChargesTag,
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 12,
+                              height: 1.0,
+                              color: greyColor,
+                            ),
+                          ),
+                          Text(
+                            "(" +
+                                _orderSummaryDataModel.priceDetails!.distance_km
+                                    .toString() +
+                                ") " +
+                                "₹${_orderSummaryDataModel.priceDetails!.deliveryCharge}",
+                            style: TextStyle(
+                              fontFamily: Poppinsmedium,
+                              fontSize: 13,
+                              height: 1.0,
+                              color: greyColor,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            GrandTotal,
+                            style: TextStyle(
+                              fontFamily: Segoe_ui_bold,
+                              fontSize: 18,
+                              height: 1.0,
+                              color: blackColor,
+                            ),
+                          ),
+                          Text(
+                            "₹${_orderSummaryDataModel.priceDetails!.total}",
+                            style: TextStyle(
+                              fontFamily: Segoe_ui_bold,
+                              fontSize: 18,
+                              height: 1.0,
+                              color: blackColor,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        Inclusivecharges,
+                        style: TextStyle(
+                          fontFamily: Poppinsmedium,
+                          fontSize: 10,
+                          height: 1.0,
+                          color: greyColor,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                CouponListview(),
-                SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  Payment,
-                  style: TextStyle(
-                      fontSize: 17, fontFamily: Inter_bold, color: blackColor),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: RoundedBorderButton(
-                      txt: CashOnDelivery,
-                      txtSize: 13,
-                      CornerReduis: 7,
-                      BorderWidth: 0.8,
-                      BackgroundColor: IsCashOnDeliveryCLick == true
-                          ? mainColor
-                          : whiteColor,
-                      ForgroundColor: IsCashOnDeliveryCLick == true
-                          ? whiteColor
-                          : mainColor,
-                      PaddingLeft: 15,
-                      PaddingRight: 15,
-                      PaddingTop: 15,
-                      PaddingBottom: 15,
-                      press: () {
-                        Payment_Method = CashOnDelivery;
-                        setState(() {
-                          IsCashOnDeliveryCLick = true;
-                          IsOnlineCLick = false;
-                        });
-                      },
-                    )),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Expanded(
-                        child: RoundedBorderButton(
-                      txt: OnlinePayment,
-                      txtSize: 13,
-                      CornerReduis: 7,
-                      BorderWidth: 0.8,
-                      BackgroundColor:
-                          IsOnlineCLick == true ? mainColor : whiteColor,
-                      ForgroundColor:
-                          IsOnlineCLick == true ? whiteColor : mainColor,
-                      PaddingLeft: 15,
-                      PaddingRight: 15,
-                      PaddingTop: 15,
-                      PaddingBottom: 15,
-                      press: () {
-                        Payment_Method = OnlinePayment;
-                        setState(() {
-                          IsCashOnDeliveryCLick = false;
-                          IsOnlineCLick = true;
-                        });
-                      },
-                    ))
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          TotalFoodCost,
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 12,
-                            height: 1.0,
-                            color: greyColor,
-                          ),
-                        ),
-                        Text(
-                          "₹${_orderSummaryDataModel.priceDetails!.subTotal}",
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 13,
-                            height: 1.0,
-                            color: greyColor,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          CouponDiscount,
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 12,
-                            height: 1.0,
-                            color: _orderSummaryDataModel
-                                        .priceDetails!.couponDiscount
-                                        .toString() !=
-                                    "0.00"
-                                ? redColor
-                                : greyColor,
-                          ),
-                        ),
-                        Text(
-                          "₹${_orderSummaryDataModel.priceDetails!.couponDiscount}",
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 13,
-                            height: 1.0,
-                            color: _orderSummaryDataModel
-                                        .priceDetails!.couponDiscount
-                                        .toString() !=
-                                    "0.00"
-                                ? redColor
-                                : greyColor,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "GST " + widget.GstPer + "%",
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 12,
-                            height: 1.0,
-                            color: greyColor,
-                          ),
-                        ),
-                        Text(
-                          "₹${_orderSummaryDataModel.priceDetails!.gstPrice}",
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 13,
-                            height: 1.0,
-                            color: greyColor,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          PackingCharges,
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 12,
-                            height: 1.0,
-                            color: greyColor,
-                          ),
-                        ),
-                        Text(
-                          "₹${_orderSummaryDataModel.priceDetails!.packingCharge}",
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 13,
-                            height: 1.0,
-                            color: greyColor,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          DeliveryChargesTag,
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 12,
-                            height: 1.0,
-                            color: greyColor,
-                          ),
-                        ),
-                        Text(
-                          "(" +
-                              _orderSummaryDataModel.priceDetails!.distance_km
-                                  .toString() +
-                              ") " +
-                              "₹${_orderSummaryDataModel.priceDetails!.deliveryCharge}",
-                          style: TextStyle(
-                            fontFamily: Poppinsmedium,
-                            fontSize: 13,
-                            height: 1.0,
-                            color: greyColor,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          GrandTotal,
-                          style: TextStyle(
-                            fontFamily: Segoe_ui_bold,
-                            fontSize: 18,
-                            height: 1.0,
-                            color: blackColor,
-                          ),
-                        ),
-                        Text(
-                          "₹${_orderSummaryDataModel.priceDetails!.total}",
-                          style: TextStyle(
-                            fontFamily: Segoe_ui_bold,
-                            fontSize: 18,
-                            height: 1.0,
-                            color: blackColor,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      Inclusivecharges,
-                      style: TextStyle(
-                        fontFamily: Poppinsmedium,
-                        fontSize: 10,
-                        height: 1.0,
-                        color: greyColor,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
-            )
-          ],
-        ),
-      );
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      } else {
+        return Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: size.height / 2.7),
+            child: Text(
+              messagee.toString(),
+              style: TextStyle(
+                  fontSize: 17, fontFamily: Raleway_Bold, color: blackColor),
+            ),
+          ),
+        );
+      }
     } else {
       return Padding(
         padding: EdgeInsets.only(top: size.height / 2.7),

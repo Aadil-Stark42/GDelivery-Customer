@@ -61,27 +61,25 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.dark,
-          child: SafeArea(
-              child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                  pinned: false,
-                  backgroundColor: whiteColor,
-                  floating: true,
-                  snap: false,
-                  automaticallyImplyLeading: false,
-                  flexibleSpace: FlexibleSpaceBar(),
-                  elevation: 0.5,
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      widget.isBackAvaillable == false
-                          ? InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                                /*    if (widget.isBackAvaillable == true) {
+        body: SafeArea(
+            child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+                pinned: false,
+                backgroundColor: whiteColor,
+                floating: true,
+                snap: false,
+                automaticallyImplyLeading: false,
+                flexibleSpace: FlexibleSpaceBar(),
+                elevation: 0.5,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    widget.isBackAvaillable == false
+                        ? InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                              /*    if (widget.isBackAvaillable == true) {
                             if (Platform.isAndroid) {
                               SystemNavigator.pop();
                             } else if (Platform.isIOS) {
@@ -90,73 +88,72 @@ class SelectAddressScreenState extends State<SelectAddressScreen> {
                           } else {
                             Navigator.pop(context);
                           }*/
-                              },
-                              child: Image.asset(imagePath + "back_arrow.png",
-                                  height: 25, width: 25),
-                            )
-                          : SizedBox(
-                              width: 0,
-                              height: 0,
-                            ),
-                      SizedBox(
-                        width: widget.isBackAvaillable == false ? 10 : 0,
-                      ),
-                      Text(
-                        SelectAddress,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: Inter_bold,
-                            color: blackColor),
-                      ),
-                    ],
-                  ),
-                  actions: [
-                    GestureDetector(
-                      onTap: () async {
-                        final serviceStatusLocation =
-                            await permis.Permission.locationWhenInUse.isGranted;
-                        bool isLocation = serviceStatusLocation ==
-                            permis.ServiceStatus.enabled;
-                        final status =
-                            await permis.Permission.locationWhenInUse.request();
-                        if (status == permis.PermissionStatus.granted) {
-                          print('Permission Granted');
-                          OpenLocationPicker();
-                        } else {
-                          print('Permission denied');
-                        }
-                      },
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.add,
-                            color: mainColor,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            AddAddress,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: Segoe_ui_semibold,
-                              color: blackColor,
-                            ),
+                            },
+                            child: Image.asset(imagePath + "back_arrow.png",
+                                height: 25, width: 25),
                           )
-                        ],
-                      ),
+                        : SizedBox(
+                            width: 0,
+                            height: 0,
+                          ),
+                    SizedBox(
+                      width: widget.isBackAvaillable == false ? 10 : 0,
                     ),
-                    const SizedBox(
-                      width: 20,
-                    )
-                  ]),
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                HandleAddressListView(),
-              ]))
-            ],
-          )),
-        ),
+                    Text(
+                      SelectAddress,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: Inter_bold,
+                          color: blackColor),
+                    ),
+                  ],
+                ),
+                actions: [
+                  GestureDetector(
+                    onTap: () async {
+                      final serviceStatusLocation =
+                          await permis.Permission.locationWhenInUse.isGranted;
+                      bool isLocation =
+                          serviceStatusLocation == permis.ServiceStatus.enabled;
+                      final status =
+                          await permis.Permission.locationWhenInUse.request();
+                      if (status == permis.PermissionStatus.granted) {
+                        print('Permission Granted');
+                        OpenLocationPicker();
+                      } else {
+                        print('Permission denied');
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.add,
+                          color: mainColor,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          AddAddress,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: Segoe_ui_semibold,
+                            color: blackColor,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  )
+                ]),
+            SliverList(
+                delegate: SliverChildListDelegate([
+              HandleAddressListView(),
+            ]))
+          ],
+        )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           color: mainColor,

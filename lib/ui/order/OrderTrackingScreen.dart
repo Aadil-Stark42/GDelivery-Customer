@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/models/OrderDetailsDataModel.dart';
@@ -46,6 +47,7 @@ class MyOrderTrackingScreenState extends State<MyOrderTrackingScreen> {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
               automaticallyImplyLeading: false,
               pinned: false,
               backgroundColor: whiteColor,

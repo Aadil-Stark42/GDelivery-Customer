@@ -27,19 +27,21 @@ void ShowToast(String message, BuildContext context) {
   ));
 }
 
+void statusBarColorChange() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //Lets make the Status Bar Transparent
+    statusBarColor: mainColor,
+
+    //Lets make the status bar icon brightness to bright
+    statusBarIconBrightness: Brightness.light,
+  ));
+}
+
 void ShowLongToast(String message, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     duration: const Duration(seconds: 2),
     content: Text(message),
   ));
-}
-
-void statusBarColor() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: mainColor,
-      statusBarBrightness: Brightness.light,
-      systemNavigationBarColor: whiteColor,
-      statusBarIconBrightness: Brightness.light));
 }
 
 void HideKeyBoard() {

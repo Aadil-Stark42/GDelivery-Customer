@@ -76,7 +76,7 @@ class CartSubScreenState extends State<CartSubScreen> {
 
     Response response;
     response = await ApiCalling.post(CARTDATA, data: Params);
-
+    print("responseresponse${response.data.toString()}");
     setState(() {
       DataVisible = true;
       if (index != 000) {
@@ -120,6 +120,7 @@ class CartSubScreenState extends State<CartSubScreen> {
                     children: [
                       Flexible(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               cartDataModel.products![index].productName
@@ -150,13 +151,20 @@ class CartSubScreenState extends State<CartSubScreen> {
                                   color: greyColor,
                                 ),
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            tappingView(cartDataModel.products![index].toppings)
                           ],
                         ),
                       )
                     ],
                   )),
 
+                  SizedBox(
+                    width: 3,
+                  ),
                   Text(
                     "₹${cartDataModel.products![index].amount.toString()}",
                     style: TextStyle(
@@ -1358,5 +1366,29 @@ class CartSubScreenState extends State<CartSubScreen> {
             ),
           );
         });
+  }
+
+  tappingView(List<Topping>? toppings) {
+    if (toppings != null) {
+      return ListView.builder(
+          itemCount: toppings.length,
+          padding: EdgeInsets.only(top: 2),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return Text(
+              toppings[index].name.toString() +
+                  "  :-  " +
+                  RUPPEE +
+                  toppings[index].price.toString(),
+              style: TextStyle(
+                fontFamily: Segoe_ui_semibold,
+                fontSize: 11,
+                height: 1.3,
+                color: greyColor,
+              ),
+            );
+          });
+    }
   }
 }

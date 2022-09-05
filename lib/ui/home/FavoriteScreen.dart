@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:gdeliverycustomer/apiservice/EndPoints.dart';
 import 'package:gdeliverycustomer/res/ResColor.dart';
@@ -36,7 +37,6 @@ class FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    statusBarColor();
     Size size = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -45,6 +45,7 @@ class FavoriteScreenState extends State<FavoriteScreen> {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
+              systemOverlayStyle: SystemUiOverlayStyle.light,
               automaticallyImplyLeading: false,
               pinned: false,
               backgroundColor: whiteColor,

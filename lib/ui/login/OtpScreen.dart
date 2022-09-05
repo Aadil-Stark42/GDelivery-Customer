@@ -39,7 +39,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    statusBarColor();
     Firebase.initializeApp();
     return SafeArea(
         child: Scaffold(

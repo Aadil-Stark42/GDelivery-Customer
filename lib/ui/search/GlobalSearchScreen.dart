@@ -52,6 +52,7 @@ class GlobalSearchScreenState extends State<GlobalSearchScreen>
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
+                systemOverlayStyle: SystemUiOverlayStyle.light,
                 automaticallyImplyLeading: false,
                 pinned: false,
                 backgroundColor: whiteColor,

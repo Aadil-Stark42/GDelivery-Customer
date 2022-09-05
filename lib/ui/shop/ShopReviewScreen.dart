@@ -22,7 +22,7 @@ import '../../uicomponents/MyProgressBar.dart';
 
 class ShopReviewScreen extends StatefulWidget {
   final String shop_id;
-  late final bool? IsFavorite;
+  late bool? IsFavorite = false;
 
   ShopReviewScreen(this.shop_id, this.IsFavorite);
 
@@ -504,8 +504,9 @@ class ShopReviewScreenState extends State<ShopReviewScreen>
     response = await ApiCalling.post(MANAGE_WISHLIST, data: Params);
 
     setState(() {
-      widget.IsFavorite = response.data["is_wishlist"];
       print("responseresponseresponse${response.data.toString()}");
+      widget.IsFavorite = response.data["is_wishlist"];
+
       if (response.data[status] != true) {
         ShowToast(response.data[message].toString(), context);
       }

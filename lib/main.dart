@@ -20,11 +20,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: mainColor,
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      //Lets make the Status Bar Transparent
       statusBarColor: mainColor,
+
+      //Lets make the status bar icon brightness to bright
+      statusBarIconBrightness: Brightness.light,
     ));
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -51,7 +53,7 @@ class SplashScreenState extends State<MySplashScreenPage> {
   Future checkFirstSeen() async {
     print("checkFirstSeen");
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Future.delayed(const Duration(milliseconds: 2000), () {
+    Future.delayed(const Duration(milliseconds: 3000), () {
       // Do something
       print("delayed");
       bool _seen = (prefs.getBool(introscreen) ?? false);
@@ -106,11 +108,9 @@ class SplashScreenState extends State<MySplashScreenPage> {
     return Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        color: splashColor,
-        child: Center(
-          child: Lottie.asset(
-            imagePath + 'gdsplash.json',
-          ),
+        child: Image.asset(
+          imagePath + 'img_splash.png',
+          fit: BoxFit.cover,
         ));
   }
 } //Image(image: AssetImage('${IMAGE_PATH}gdelivery_splash.png'))
